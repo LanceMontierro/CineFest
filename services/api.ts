@@ -13,9 +13,7 @@ export const fetchMovies = async ({
     query?: string;
 }): Promise<Movie[]> => {
     const endpoint = query
-        ? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(
-            query
-        )}&region=PH&language=en-US`
+        ? `${TMDB_CONFIG.BASE_URL}/search/movie?query=${encodeURIComponent(query)}&language=en-US`
         : `${TMDB_CONFIG.BASE_URL}/discover/movie?with_origin_country=PH&primary_release_date.gte=2024-12-25&primary_release_date.lte=2024-12-25&language=en-US&sort_by=popularity.desc`
 
 
@@ -29,7 +27,18 @@ export const fetchMovies = async ({
     }
 
     const data = await response.json();
-    return data.results;
+
+    if (query) {
+        return (data.results || []).filter((movie: any) =>
+            (movie.origin_country?.includes('PH') || movie.original_language === 'tl') &&
+            new Date(movie.release_date).getMonth() === 11 &&
+            new Date(movie.release_date).getDate() === 25 &&
+            new Date(movie.release_date).getFullYear() >= 2010 &&
+            new Date(movie.release_date).getFullYear() <= 2024
+        );
+    }
+
+    return data.results || [];
 };
 
 export const fetchMovieDetails = async (
