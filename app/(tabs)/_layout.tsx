@@ -4,10 +4,6 @@ import { ImageBackground, Image, Text, View } from "react-native";
 import { icons } from "@/constansts/icons";
 import { images } from "@/constansts/images";
 
-import { ClerkProvider } from "@clerk/clerk-expo";
-
-const clerkKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
-
 function TabIcon({ focused, icon, title }: any) {
   if (focused) {
     return (
@@ -32,7 +28,6 @@ function TabIcon({ focused, icon, title }: any) {
 
 export default function TabsLayout() {
   return (
-    <ClerkProvider publishableKey={clerkKey}>
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
@@ -99,6 +94,5 @@ export default function TabsLayout() {
           }}
         />
       </Tabs>
-    </ClerkProvider>
   );
 }

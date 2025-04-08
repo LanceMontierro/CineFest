@@ -2,6 +2,7 @@ import {
     View,
     Text,
     ScrollView,
+    ActivityIndicator,
     Image,
     FlatList,
 } from "react-native";
@@ -32,11 +33,20 @@ const Index = () => {
                 resizeMode="cover"
             />
 
-            <ScrollView
+                <ScrollView
                 className="flex-1 px-5"
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
             >
+                    {moviesLoading? (
+                        <ActivityIndicator
+                            size="large"
+                            color="#0000ff"
+                            className="mt-10 self-center"
+                        />
+                    ) : moviesError? (
+                            <Text>Error: {moviesError?.message}</Text>
+                        ):
 
                     <View className="flex-1 mt-5 pt-28">
                         <SearchBar
@@ -67,7 +77,9 @@ const Index = () => {
                             />
                         </>
                     </View>
+                    }
             </ScrollView>
+
         </View>
     );
 };
