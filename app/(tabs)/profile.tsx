@@ -5,7 +5,7 @@ import { icons } from '@/constansts/icons'; // Ensure 'settings' and 'bell' are 
 
 const Profile = () => {
     const handlePress = (label: string) => {
-        Alert.alert(`${label} clicked`);
+
     };
 
     return (
@@ -65,10 +65,10 @@ const Profile = () => {
                 </TouchableOpacity>
             </View>
 
-                <View className="mt-2">
+                <View className="mt-4">
                 </View>
 
-                <View className="bg-[#787878] z-20 w-[345] h-[267] ml-2 mt-[100] rounded-[25] p-4">
+                <View className="bg-[#787878] z-20 w-[345] h-[267] ml-2 rounded-[25] p-4">
                     <Text className="text-[#D9D9D9] text-lg mb-4">General</Text>
 
 
