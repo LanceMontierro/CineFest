@@ -7,9 +7,19 @@ import save2 from "@/assets/icons/save2.png";
 import star from "@/assets/icons/star.png";
 import play from "@/assets/icons/play.png";
 import arrow from "@/assets/icons/arrow.png";
+import Settings from "@/assets/icons/Settings.png";
+import Bell from "@/assets/icons/Bell.png";
+import Info from "@/assets/icons/Info.png";
+import Logout from "@/assets/icons/Logout.png";
+import Lock from "@/assets/icons/Lock.png";
 
 export const icons = {
   home,
+  Info,
+  Logout,
+  Lock,
+  Settings,
+  Bell,
   search,
   person,
   logo,
