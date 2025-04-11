@@ -7,11 +7,13 @@ import Frame79 from "@/assets/images/Frame79.png";
 import Frame78 from "@/assets/images/Frame78.png";
 import Star1 from "@/assets/images/Star1.png";
 import Line from "@/assets/images/Line.png";
+import Frame89 from "@/assets/images/Frame89.png";
 
 export const images = {
   bg,
   upperhome,
   bahay,
+  Frame89,
   Line,
   Star1,
   Frame79,
