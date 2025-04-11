@@ -1,7 +1,8 @@
 import { useSignIn } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {Image, Text, TextInput, TouchableOpacity, View} from "react-native";
 import React from "react";
+import {images} from "@/constansts/images";
 
 export default function Page() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -39,29 +40,38 @@ export default function Page() {
   };
 
   return (
-    <View>
-      <Text>Sign in</Text>
+    <View className="flex-1 bg-[#DADADA]">
+        <View className="mt-64">
+        <View className="bg-[#C6C6C6] p-20">
+      <Text>Email</Text>
+
       <TextInput
         autoCapitalize="none"
         value={emailAddress}
         placeholder="Enter email"
         onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+        className=""
       />
+        <Text className="mb-2">Password</Text>
       <TextInput
         value={password}
         placeholder="Enter password"
         secureTextEntry={true}
         onChangeText={(password) => setPassword(password)}
       />
-      <TouchableOpacity onPress={onSignInPress}>
-        <Text>Continue</Text>
-      </TouchableOpacity>
-      <View style={{ display: "flex", flexDirection: "row", gap: 3 }}>
+
+      <View style={{ display: "flex", flexDirection: "row", gap: 3 , marginTop: 20,}}>
         <Text>Don't have an account?</Text>
         <Link href="/auth/sign-in">
           <Text>Sign up</Text>
         </Link>
       </View>
+        </View>
+        </View>
+        <TouchableOpacity onPress={onSignInPress} className="mt-36">
+            <Text>Continue</Text>
+        </TouchableOpacity>
+
     </View>
   );
 }

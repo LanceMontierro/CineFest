@@ -15,10 +15,6 @@ const Saved = () => {
                 Saved
             </Text>
 
-                    <View className="mt-6 w-[412] h-[121] bg-[#787878] rounded-[17]">
-                        <Text>hello</Text>
-                    </View>
-
         </View>
     )
 }
