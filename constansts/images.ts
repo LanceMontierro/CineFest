@@ -8,10 +8,28 @@ import Frame78 from "@/assets/images/Frame78.png";
 import Star1 from "@/assets/images/Star1.png";
 import Line from "@/assets/images/Line.png";
 import Frame89 from "@/assets/images/Frame89.png";
+import poster1 from "@/assets/images/poster1.png";
+import poster2 from "@/assets/images/poster2.png";
+import poster3 from "@/assets/images/poster3.png";
+import poster4 from "@/assets/images/poster4.png";
+import poster5 from "@/assets/images/poster5.png";
+import poster6 from "@/assets/images/poster6.png";
+import poster7 from "@/assets/images/poster7.png";
+import poster8 from "@/assets/images/poster8.png";
+import poster9 from "@/assets/images/poster9.png";
 
 export const images = {
   bg,
   upperhome,
+  poster1,
+  poster2,
+  poster3,
+  poster4,
+  poster5,
+  poster6,
+  poster7,
+  poster8,
+  poster9,
   bahay,
   Frame89,
   Line,
