@@ -9,11 +9,14 @@ const userSchema = mongoose.model(
 
     favoriteMovies: [
       {
-        movieId: { type: String, required: true },
         title: { type: String, required: true },
         description: { type: String, required: true },
         poster: { type: String, required: true },
+        genre: { type: String, required: true },
         releaseDate: { type: String, required: true },
+        rating: { type: String, required: true },
+        awards: { type: [String], required: true },
+        link: { type: String, required: true },
       },
     ],
   })
