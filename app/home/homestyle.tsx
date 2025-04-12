@@ -1,6 +1,7 @@
 import {View, Text, Image, Dimensions} from 'react-native'
 import React from 'react'
 import {Marquee} from '@animatereactnative/marquee'
+import {Link} from "expo-router";
 import {
     FadeIn,
     FadeInUp,
@@ -121,13 +122,18 @@ const Homestyle = () => {
                     ))}
                 </Animated.View>
             </Marquee>
-            <Stagger initialEnteringDelay={1000} duration={500} stagger={500} style={{flex: .4, justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{color: "white", fontSize: 30, fontWeight: "600"}}>
+            <Stagger initialEnteringDelay={1000} duration={500} stagger={500} style={{flex: .5, justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{color: "white", fontSize: 30, fontWeight: "600", marginTop: 8}}>
                     Welcome to CineFest!
                 </Text>
                 <Text style={{color: "white", fontSize: 15, marginTop: 8}}>
                     Your ultimate app for finding METRO MANILA FILMS!
                 </Text>
+                <Link href="/auth/sign-in" className="mt-20">
+                <Text style={{color: "white", fontSize: 30, marginTop: 16}}>
+                    CONTINUE
+                </Text>
+                </Link>
             </Stagger>
         </View>
     )
