@@ -129,7 +129,7 @@ const Homestyle = () => {
                 <Text style={{color: "white", fontSize: 15, marginTop: 8}}>
                     Your ultimate app for finding METRO MANILA FILMS!
                 </Text>
-                <Link href="/auth/sign-in" className="mt-20">
+                <Link href="/(auth)/sign-in" className="mt-20">
                 <Text style={{color: "white", fontSize: 30, marginTop: 16}}>
                     CONTINUE
                 </Text>

@@ -27,14 +27,21 @@ export default function RootLayout() {
           />
 
             <Stack.Screen
-                name="auth"
+                name="(auth)/sign-in"
                 options={{
                     headerShown: false,
                 }}
             />
 
             <Stack.Screen
-                name="home"
+                name="(auth)/sign-up"
+                options={{
+                    headerShown: false,
+                }}
+            />
+
+            <Stack.Screen
+                name="(home)"
                 options={{
                     headerShown: false,
                 }}
