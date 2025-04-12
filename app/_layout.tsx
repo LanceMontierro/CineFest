@@ -7,7 +7,7 @@ const publicKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export default function RootLayout() {
   return (
-      <ClerkProvider  publishableKey={publicKey} >
+      <ClerkProvider publishableKey={publicKey} >
           <ClerkLoaded>
       <>
         <StatusBar hidden={true} />
