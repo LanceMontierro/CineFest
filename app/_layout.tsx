@@ -4,9 +4,13 @@ import { StatusBar } from "react-native";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import { tokenCache } from '@clerk/clerk-expo/token-cache'
 
+const publicKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+
+
 export default function RootLayout() {
   return (
-      <ClerkProvider tokenCache={tokenCache}>
+      <ClerkProvider  publishableKey={publicKey} >
           <ClerkLoaded>
 
       <>

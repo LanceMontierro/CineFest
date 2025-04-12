@@ -33,7 +33,7 @@ export const fetchMovies = async ({
           new Date(movie.release_date).getMonth() === 11 &&
           new Date(movie.release_date).getDate() === 25 &&
           new Date(movie.release_date).getFullYear() >= 2010 &&
-          new Date(movie.release_date).getFullYear() <= 2024
+          new Date(movie.release_date).getFullYear() <= 2025
       );
     }
 
