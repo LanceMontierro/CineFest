@@ -91,6 +91,7 @@ const Homestyle = () => {
 
   const { startSSOFlow } = useSSO();
   const router = useRouter();
+
   const handleGoogleSigniN = async () => {
     try {
       const { createdSessionId, setActive } = await startSSOFlow({
