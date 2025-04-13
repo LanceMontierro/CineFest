@@ -18,9 +18,11 @@ import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 import { Stagger } from "@animatereactnative/stagger";
 import { Easing } from "react-native-reanimated";
+import {images} from "@/constansts/images";
 import { useSSO } from "@clerk/clerk-expo";
+import {inline} from "@floating-ui/dom";
 
-const images = [
+const IMAGES = [
   require("../../assets/images/poster1.png"),
   require("../../assets/images/poster2.png"),
   require("../../assets/images/poster3.png"),
@@ -49,7 +51,7 @@ function Item({
 }) {
   const _stylez = useAnimatedStyle(() => {
     const itemPosition = index * _itemSize - width - _itemSize / 2;
-    const totalSize = images.length * _itemSize;
+    const totalSize = IMAGES.length * _itemSize;
     const range =
       ((itemPosition - offset.value) % totalSize) + width + _itemSize / 2;
 
@@ -109,7 +111,7 @@ const Homestyle = () => {
 
   useAnimatedReaction(
     () => {
-      const floatIndex = ((offset.value + width / 2) / _itemSize) % images.length;
+      const floatIndex = ((offset.value + width / 2) / _itemSize) % IMAGES.length;
       return Math.abs(Math.floor(floatIndex));
     },
     (value) => {
@@ -123,7 +125,7 @@ const Homestyle = () => {
       <View style={[StyleSheet.absoluteFillObject, { opacity: 0.5 }]}>
         <Animated.Image
           key={`image-${activeIndex}`}
-          source={images[activeIndex]}
+          source={IMAGES[activeIndex]}
           style={{flex: 1}}
           className="flex-1 w-full"
           resizeMode="cover"
@@ -143,7 +145,7 @@ const Homestyle = () => {
               transform: [{ translateY: -_itemHeight / 2 }],
             })}
         >
-          {images.map((image, index) => (
+          {IMAGES.map((image, index) => (
             <Item
               key={`image-${index}`}
               image={image}
@@ -173,10 +175,13 @@ const Homestyle = () => {
         <Text style={{ color: "white", fontSize: 15, marginTop: 8 }}>
           Your ultimate app for finding METRO MANILA FILMS!
         </Text>
-        <TouchableOpacity className="mt-20" onPress={handleGoogleSignIn}>
-          <Text style={{ color: "white", fontSize: 30, marginTop: 16 }}>
-            Continue with Google
-          </Text>
+        <TouchableOpacity className="mt-20 inline-block" onPress={handleGoogleSignIn}>
+          <View className="flex-row items-center bg-white rounded-[16] py-5 px-5">
+            <Image source={images.google} className="w-7 h-7 mr-2" />
+            <Text style={{ color: 'block', fontSize: 20 }}>
+              Continue with Google
+            </Text>
+          </View>
         </TouchableOpacity>
       </Stagger>
     </View>

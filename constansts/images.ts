@@ -17,11 +17,13 @@ import poster6 from "@/assets/images/poster6.png";
 import poster7 from "@/assets/images/poster7.png";
 import poster8 from "@/assets/images/poster8.png";
 import poster9 from "@/assets/images/poster9.png";
+import google from "@/assets/images/google.png";
 
 export const images = {
   bg,
   upperhome,
   poster1,
+  google,
   poster2,
   poster3,
   poster4,
