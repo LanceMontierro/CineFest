@@ -160,7 +160,7 @@ const Homestyle = () => {
         initialEnteringDelay={1000}
         duration={500}
         stagger={500}
-        style={{ flex: 0.5, justifyContent: "center", alignItems: "center" }}
+        style={{ flex: 0.6, justifyContent: "center", alignItems: "center" }}
       >
         <Text
           style={{
@@ -172,8 +172,11 @@ const Homestyle = () => {
         >
           Welcome to CineFest!
         </Text>
-        <Text style={{ color: "white", fontSize: 15, marginTop: 8 }}>
-          Your ultimate app for finding METRO MANILA FILMS!
+        <Text style={{ color: "white", fontSize: 15, marginTop: 8, opacity: 0.6}}>
+          Your ultimate app for finding
+        </Text>
+        <Text style={{ color: "white", fontSize: 15, opacity: 0.6}}>
+          METRO MANILA FILMS!
         </Text>
         <TouchableOpacity className="mt-20 inline-block" onPress={handleGoogleSignIn}>
           <View className="flex-row items-center bg-white rounded-[16] py-5 px-5">
