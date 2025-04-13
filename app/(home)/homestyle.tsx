@@ -52,7 +52,7 @@ function Item({
     const range =
       ((itemPosition - offset.value) % totalSize) + width + _itemSize / 2;
 
-<<<<<<< HEAD:app/home/homestyle.tsx
+
     if (index == 0) {
       range;
     }
@@ -69,7 +69,7 @@ function Item({
       ],
     };
   });
-=======
+
     const _stylez = useAnimatedStyle(() => {
         const itemPosition = index * _itemSize - width - _itemSize / 2;
         const totalSize = images.length * _itemSize;
@@ -78,7 +78,7 @@ function Item({
         if (index == 0){
             range;
         }
->>>>>>> fd4e4f5483ffd8fcc424a56036293dbe03e5a441:app/(home)/homestyle.tsx
+
 
   return (
     <Animated.View
@@ -88,19 +88,19 @@ function Item({
           height: _itemHeight,
         },
 
-<<<<<<< HEAD:app/home/homestyle.tsx
+
         _stylez,
       ]}
     >
       <Image source={image} className="flex-1 rounded-[16]" />
-=======
+
             _stylez
         ]}>
 
         <Image source={image}
         className="flex-1 rounded-[16]"
         />
->>>>>>> fd4e4f5483ffd8fcc424a56036293dbe03e5a441:app/(home)/homestyle.tsx
+
     </Animated.View>
   );
 }
@@ -109,7 +109,7 @@ const Homestyle = () => {
   const offset = useSharedValue(0);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-<<<<<<< HEAD:app/home/homestyle.tsx
+
   const { startSSOFlow } = useSSO();
   const router = useRouter();
   const handleGoogleSigniN = async () => {
@@ -145,7 +145,6 @@ const Homestyle = () => {
     }
   );
 
-<<<<<<< HEAD:app/home/homestyle.tsx
   return (
     <View className="flex-1 justify-center items-center bg-black">
       <View style={[StyleSheet.absoluteFillObject, { opacity: 0.5 }]}>
@@ -208,7 +207,7 @@ const Homestyle = () => {
   );
 };
 export default Homestyle;
-=======
+
             <View style={[StyleSheet.absoluteFillObject, {opacity: 0.5}]} >
                 <Animated.Image
                     key={`image-${activeIndex}`}
@@ -261,4 +260,4 @@ export default Homestyle;
     )
 }
 export default Homestyle
->>>>>>> fd4e4f5483ffd8fcc424a56036293dbe03e5a441:app/(home)/homestyle.tsx
+
