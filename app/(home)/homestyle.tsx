@@ -95,7 +95,7 @@ const Homestyle = () => {
                     className="flex-1 w-full"
                     resizeMode="cover"
                     style={{flex: 1}}
-                    blurRadius={5}
+                    blurRadius={40}
                     entering={FadeIn.duration(1000)}
                     exiting={FadeOut.duration(1000)}
                 />
