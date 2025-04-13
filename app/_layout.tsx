@@ -8,6 +8,7 @@ export default function RootLayout() {
   const publicKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
   return (
     <ClerkProvider publishableKey={publicKey} tokenCache={tokenCache}>
+        <ClerkLoaded>
       <>
         <StatusBar hidden={true} />
 
@@ -26,13 +27,15 @@ export default function RootLayout() {
           />
 
           <Stack.Screen
-            name="(home)"
+            name="(home)/homestyle"
             options={{
               headerShown: false,
             }}
           />
+
         </Stack>
       </>
+        </ClerkLoaded>
     </ClerkProvider>
   );
 }

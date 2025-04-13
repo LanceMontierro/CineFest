@@ -1,6 +1,7 @@
 import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
 import React from "react";
 import { Marquee } from "@animatereactnative/marquee";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Link, useRouter } from "expo-router";
 import {
   FadeIn,
@@ -92,14 +93,13 @@ const Homestyle = () => {
   const { startSSOFlow } = useSSO();
   const router = useRouter();
 
-  const handleGoogleSigniN = async () => {
+  const handleGoogleSignIn = async () => {
     try {
       const { createdSessionId, setActive } = await startSSOFlow({
         strategy: "oauth_google",
       });
 
-      if (setActive && createdSessionId) {
-        await setActive({ session: createdSessionId });
+      if (setActive) {
         router.replace("/(tabs)");
       }
     } catch (error) {
@@ -118,6 +118,7 @@ const Homestyle = () => {
   );
 
   return (
+      <GestureHandlerRootView className="flex-1">
     <View className="flex-1 justify-center items-center bg-black">
       <View style={[StyleSheet.absoluteFillObject, { opacity: 0.5 }]}>
         <Animated.Image
@@ -130,6 +131,7 @@ const Homestyle = () => {
           exiting={FadeOut.duration(1000)}
         />
       </View>
+
       <Marquee spacing={_spacing} position={offset}>
         <Animated.View
           className="flex-row gap-16"
@@ -150,6 +152,7 @@ const Homestyle = () => {
           ))}
         </Animated.View>
       </Marquee>
+
       <Stagger
         initialEnteringDelay={1000}
         duration={500}
@@ -169,13 +172,14 @@ const Homestyle = () => {
         <Text style={{ color: "white", fontSize: 15, marginTop: 8 }}>
           Your ultimate app for finding METRO MANILA FILMS!
         </Text>
-        <TouchableOpacity className="mt-20" onPress={handleGoogleSigniN}>
+        <TouchableOpacity className="mt-20" onPress={handleGoogleSignIn}>
           <Text style={{ color: "white", fontSize: 30, marginTop: 16 }}>
             CONTINUE
           </Text>
         </TouchableOpacity>
       </Stagger>
     </View>
+      </GestureHandlerRootView>
   );
 };
 export default Homestyle;
