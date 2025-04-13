@@ -32,18 +32,18 @@ const images = [
 const {width} = Dimensions.get('window');
 const _itemWidth = width * 0.62;
 const _itemHeight = _itemWidth * 1.67;
-const _spacing = 16;
+const _spacing = 50;
 const _itemSize = _itemWidth + _spacing;
 
 function Item({image, index, offset }: {image: any, index: number; offset: SharedValue<number>;}) {
 
     const _stylez = useAnimatedStyle(() => {
-        const itemPosition = index * _itemSize;
+        const itemPosition = index * _itemSize - width - _itemSize / 2;
         const totalSize = images.length * _itemSize;
         const range = ((itemPosition - offset.value) % totalSize) + width + _itemSize / 2;
 
         if (index == 0){
-            (range);
+            range;
         }
 
         return {
@@ -62,7 +62,7 @@ function Item({image, index, offset }: {image: any, index: number; offset: Share
         height: _itemHeight,
         },
 
-        _stylez
+            _stylez
         ]}>
 
         <Image source={image}
@@ -77,7 +77,7 @@ const Homestyle = () => {
     const [activeIndex, setActiveIndex] = React.useState(0);
 
     useAnimatedReaction(() => {
-            const floatIndex = (offset.value  / _itemSize) % images.length;
+            const floatIndex = ((offset.value  + width / 2) / _itemSize) % images.length;
             return Math.abs(Math.floor(floatIndex));
         },
         (value) => {
@@ -94,7 +94,8 @@ const Homestyle = () => {
                     source={images[activeIndex]}
                     className="flex-1 w-full"
                     resizeMode="cover"
-                    blurRadius={50}
+                    style={{flex: 1}}
+                    blurRadius={5}
                     entering={FadeIn.duration(1000)}
                     exiting={FadeOut.duration(1000)}
                 />
@@ -104,7 +105,7 @@ const Homestyle = () => {
             position={offset}
             >
                 <Animated.View
-                    className="flex-row gap-16"
+                    style={{flexDirection: 'row', gap: _spacing}}
                     entering={FadeInUp
                         .delay(500)
                         .duration(1000)
