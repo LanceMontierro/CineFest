@@ -1,45 +1,48 @@
 import { useState, useEffect } from "react";
 import { View, Text, ActivityIndicator, FlatList, Image } from "react-native";
 
-import { images } from "@/constansts/images";
+// import { images } from "@/constansts/images";
 
-import useFetch from "@/services/useFetch";
-import { fetchMovies } from "@/services/api";
+// import useFetch from "@/services/useFetch";
+// import { fetchMovies } from "@/services/api";
 
-import SearchBar from "@/components/SearchBar";
-import MovieDisplayCard from "@/components/MovieCard";
+// import SearchBar from "@/components/SearchBar";
+// import MovieDisplayCard from "@/components/MovieCard";
 
 const Search = () => {
-    const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
 
-    const {
-        data: movies = [],
-        loading,
-        error,
-        refetch: loadMovies,
-        reset,
-    } = useFetch(() => fetchMovies({ query: searchQuery }), false);
+  // const {
+  //     data: movies = [],
+  //     loading,
+  //     error,
+  //     refetch: loadMovies,
+  //     reset,
+  // } = useFetch(() => fetchMovies({ query: searchQuery }), false);
 
-    const handleSearch = (text: string) => {
-        setSearchQuery(text);
-    };
+  // const handleSearch = (text: string) => {
+  //     setSearchQuery(text);
+  // };
 
-    useEffect(() => {
-        const timeoutId = setTimeout(async () => {
-            if (searchQuery.trim()) {
-                await loadMovies();
+  // useEffect(() => {
+  //     const timeoutId = setTimeout(async () => {
+  //         if (searchQuery.trim()) {
+  //             await loadMovies();
 
-            } else {
-                reset();
-            }
-        }, 500);
+  //         } else {
+  //             reset();
+  //         }
+  //     }, 500);
 
-        return () => clearTimeout(timeoutId);
-    }, [searchQuery]);
+  //     return () => clearTimeout(timeoutId);
+  // }, [searchQuery]);
 
-    return (
-        <View className="flex-1 bg-[#282828]">
-            <Image
+  return (
+    <View className="flex-1 bg-[#282828]">
+      <Text className="text-white text-2xl font-bold text-center mt-10">
+        Search
+      </Text>
+      {/* <Image
                 source={images.upperhome}
                 className="flex-1 absolute w-full z-0"
                 resizeMode="cover"
@@ -96,9 +99,9 @@ const Search = () => {
                             )}
                     </>
                 }
-            />
-        </View>
-    );
+            /> */}
+    </View>
+  );
 };
 
 export default Search;

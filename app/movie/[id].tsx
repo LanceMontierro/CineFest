@@ -1,50 +1,49 @@
 import {
-    View,
-    Text,
-    Image,
-    ActivityIndicator,
-    ScrollView,
-    TouchableOpacity,
+  View,
+  Text,
+  Image,
+  ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { icons } from "@/constansts/icons";
-import useFetch from "@/services/useFetch";
-import { fetchMovieDetails } from "@/services/api";
 
-interface MovieInfoProps {
-    label: string;
-    value?: string | number | null;
-}
+// interface MovieInfoProps {
+//     label: string;
+//     value?: string | number | null;
+// }
 
-const MovieInfo = ({ label, value }: MovieInfoProps) => (
-    <View className="text-[#fafafa] flex-col items-start justify-center mt-5">
-        <Text className="text-[#fafafa] text-light-200 font-normal text-sm">{label}</Text>
-        <Text className="text-[#fafafa] text-light-100 font-bold text-sm mt-2">
-            {value || "N/A"}
-        </Text>
-    </View>
-);
+// const MovieInfo = ({ label, value }: MovieInfoProps) => (
+//     <View className="text-[#fafafa] flex-col items-start justify-center mt-5">
+//         <Text className="text-[#fafafa] text-light-200 font-normal text-sm">{label}</Text>
+//         <Text className="text-[#fafafa] text-light-100 font-bold text-sm mt-2">
+//             {value || "N/A"}
+//         </Text>
+//     </View>
+// );
 
 const Details = () => {
-    const router = useRouter();
-    const { id } = useLocalSearchParams();
+  // const router = useRouter();
+  // const { id } = useLocalSearchParams();
 
-    const { data: movie, loading } = useFetch(() =>
-        fetchMovieDetails(id as string)
-    );
+  // const { data: movie, loading } = useFetch(() =>
+  //     fetchMovieDetails(id as string)
+  // );
 
-    if (loading)
-        return (
-            <SafeAreaView className="bg-primary flex-1">
-                <ActivityIndicator />
-            </SafeAreaView>
-        );
+  // if (loading)
+  //     return (
+  //         <SafeAreaView className="bg-primary flex-1">
+  //             <ActivityIndicator />
+  //         </SafeAreaView>
+  //     );
 
-    return (
-        <View className="bg-[#282828] flex-1">
-            <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+  return (
+    <View className="bg-[#282828] flex-1">
+      <Text>Movie Id</Text>
+      {/* <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
                 <View>
                     <Image
                         source={{
@@ -122,9 +121,9 @@ const Details = () => {
                     tintColor="#fff"
                 />
                 <Text className="text-white font-semibold text-base">Go Back</Text>
-            </TouchableOpacity>
-        </View>
-    );
+            </TouchableOpacity> */}
+    </View>
+  );
 };
 
 export default Details;

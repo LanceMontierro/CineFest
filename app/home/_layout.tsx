@@ -1,21 +1,19 @@
 import React from "react";
-import {Stack} from "expo-router";
-import {StatusBar} from "react-native";
+import { Stack } from "expo-router";
+import { StatusBar } from "react-native";
 
 export default function Layout() {
-return(
+  return (
     <>
-        <StatusBar hidden={true} />
-    <Stack>
-
+      <StatusBar hidden={true} />
+      <Stack>
         <Stack.Screen
-            name="HOME"
-            options={{
-                headerShown: false,
-            }}
+          name="HOME"
+          options={{
+            headerShown: false,
+          }}
         />
-
-    </Stack>
+      </Stack>
     </>
-);
+  );
 }
