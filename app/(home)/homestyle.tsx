@@ -35,7 +35,7 @@ const images = [
 const { width } = Dimensions.get("window");
 const _itemWidth = width * 0.62;
 const _itemHeight = _itemWidth * 1.67;
-const _spacing = 16;
+const _spacing = 50;
 const _itemSize = _itemWidth + _spacing;
 
 function Item({
@@ -48,7 +48,7 @@ function Item({
   offset: SharedValue<number>;
 }) {
   const _stylez = useAnimatedStyle(() => {
-    const itemPosition = index * _itemSize;
+    const itemPosition = index * _itemSize - width - _itemSize / 2;
     const totalSize = images.length * _itemSize;
     const range =
       ((itemPosition - offset.value) % totalSize) + width + _itemSize / 2;
@@ -109,7 +109,7 @@ const Homestyle = () => {
 
   useAnimatedReaction(
     () => {
-      const floatIndex = (offset.value / _itemSize) % images.length;
+      const floatIndex = ((offset.value + width / 2) / _itemSize) % images.length;
       return Math.abs(Math.floor(floatIndex));
     },
     (value) => {
@@ -124,9 +124,10 @@ const Homestyle = () => {
         <Animated.Image
           key={`image-${activeIndex}`}
           source={images[activeIndex]}
+          style={{flex: 1}}
           className="flex-1 w-full"
           resizeMode="cover"
-          blurRadius={50}
+          blurRadius={40}
           entering={FadeIn.duration(1000)}
           exiting={FadeOut.duration(1000)}
         />
@@ -134,7 +135,7 @@ const Homestyle = () => {
 
       <Marquee spacing={_spacing} position={offset}>
         <Animated.View
-          className="flex-row gap-16"
+         style={{flexDirection: "row", gap: _spacing}}
           entering={FadeInUp.delay(500)
             .duration(1000)
             .easing(Easing.elastic(0.9))
@@ -174,7 +175,7 @@ const Homestyle = () => {
         </Text>
         <TouchableOpacity className="mt-20" onPress={handleGoogleSignIn}>
           <Text style={{ color: "white", fontSize: 30, marginTop: 16 }}>
-            CONTINUE
+            Continue with Google
           </Text>
         </TouchableOpacity>
       </Stagger>
