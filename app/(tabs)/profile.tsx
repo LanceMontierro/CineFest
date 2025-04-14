@@ -1,12 +1,14 @@
 import {View, Text, Image, TouchableOpacity, Alert, ScrollView} from 'react-native';
 import React from 'react';
 import { images } from '@/constansts/images';
-import { icons } from '@/constansts/icons'; // Ensure 'settings' and 'bell' are exported
+import { icons } from '@/constansts/icons';
+import {useAppContext} from "@/app/context/appContext"; // Ensure 'settings' and 'bell' are exported
 
 const Profile = () => {
     const handlePress = (label: string) => {
 
     };
+    const { user } = useAppContext();
 
     return (
         <View className="flex-1 bg-[#282828]">
@@ -25,7 +27,7 @@ const Profile = () => {
 
             <View className="bg-[#2E2E2E] mt-24 z-10 ml-6 w-[317] h-[267] rounded-[25] justify-center items-center">
                 <Image source={images.Star1} className="mt-[-50]" />
-                <Text className="mt-10 text-white text-lg">PANGALAN NI USER</Text>
+                <Text className="mt-10 text-white text-lg">{user.emailAddresses[0].emailAddress}</Text>
             </View>
 
             <View className="bg-[#787878] z-20 w-[345] h-[267] ml-2 mt-[-55] rounded-[25] p-4">
@@ -60,7 +62,7 @@ const Profile = () => {
                     onPress={() => handlePress('di kolam')}
                 >
                     <View className="bg-white rounded-xl p-2 mr-4 w-10 h-10" />
-                    <Text className="text-[#D9D9D9] text-base flex-1">di kolam</Text>
+                    <Text className="text-[#D9D9D9] text-base flex-1">di ko lam</Text>
                     <Text className="text-[#D9D9D9]">{'>'}</Text>
                 </TouchableOpacity>
             </View>

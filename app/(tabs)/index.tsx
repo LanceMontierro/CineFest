@@ -46,9 +46,6 @@ const Index = () => {
           />
           <>
             <Text className="text-lg text-white font-bold mt-5 mb-3">
-              {user.emailAddresses[0].emailAddress}
-            </Text>
-            <Text className="text-lg text-white font-bold mt-5 mb-3">
               Recent Viewed
             </Text>
             <Text className="text-lg text-white font-bold mt-5 mb-3">

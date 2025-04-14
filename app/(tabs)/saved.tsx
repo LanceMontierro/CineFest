@@ -1,6 +1,9 @@
-import {View, Text, Image} from 'react-native'
+import {View, Text, Image,  ScrollView} from 'react-native'
 import React from 'react'
 import {images} from "@/constansts/images";
+import GenreF from "@/components/GenreF";
+import YearF from "@/components/YearF";
+import AwardsF from "@/components/AwardsF";
 
 const Saved = () => {
     return (
@@ -11,10 +14,19 @@ const Saved = () => {
                 resizeMode="cover"
             />
 
-            <Text className="text-2xl text-white font-bold mt-32 ml-10">
+            <ScrollView
+                className="flex-1 px-5"
+                showsVerticalScrollIndicator={false}
+            >
+
+            <Text className="text-2xl text-white font-bold mt-32 ml-2">
                 Saved
             </Text>
 
+            <GenreF/>
+            <YearF/>
+            <AwardsF/>
+            </ScrollView>
         </View>
     )
 }

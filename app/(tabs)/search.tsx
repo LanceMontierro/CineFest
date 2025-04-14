@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import {View, Text, ActivityIndicator, FlatList, Image, ScrollView} from "react-native";
 import {images} from "@/constansts/images";
 import SearchBar from "@/components/SearchBar";
+import GenreF from "@/components/GenreF";
+import YearF from "@/components/YearF";
+import AwardsF from "@/components/AwardsF";
 
 // import { images } from "@/constansts/images";
 
@@ -50,7 +53,6 @@ const Search = () => {
           <ScrollView
               className="flex-1 px-5"
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
           >
 
               <View className="flex-1 mt-5 pt-28">
@@ -58,6 +60,10 @@ const Search = () => {
                       placeholder="Search MMFF movie"
                   />
               </View>
+
+              <GenreF/>
+              <YearF/>
+              <AwardsF/>
           </ScrollView>
       {/* <Image
                 source={images.upperhome}
