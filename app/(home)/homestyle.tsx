@@ -1,8 +1,8 @@
 import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import { Marquee } from "@animatereactnative/marquee";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Link, useRouter } from "expo-router";
+import { Link, useRouter , Stack} from "expo-router";
 import {
   FadeIn,
   FadeInUp,
@@ -12,7 +12,7 @@ import {
   SharedValue,
   useAnimatedReaction,
   useAnimatedStyle,
-  useSharedValue,
+  useSharedValue, withTiming,
 } from "react-native-reanimated";
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
@@ -20,7 +20,10 @@ import { Stagger } from "@animatereactnative/stagger";
 import { Easing } from "react-native-reanimated";
 import {images} from "@/constansts/images";
 import { useSSO } from "@clerk/clerk-expo";
-import {inline} from "@floating-ui/dom";
+import LottieView from "lottie-react-native";
+
+
+
 
 const IMAGES = [
   require("../../assets/images/poster1.png"),
@@ -89,6 +92,16 @@ function Item({
 }
 
 const Homestyle = () => {
+
+  const animationRef = useRef<LottieView>(null);
+  const fadeAnim = useSharedValue(1);
+
+  const fadeStyle = useAnimatedStyle(() => {
+    return {
+      opacity: fadeAnim.value,
+    };
+  });
+
   const offset = useSharedValue(0);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
@@ -122,6 +135,7 @@ const Homestyle = () => {
   return (
       <GestureHandlerRootView className="flex-1">
     <View className="flex-1 justify-center items-center bg-black">
+
       <View style={[StyleSheet.absoluteFillObject, { opacity: 0.5 }]}>
         <Animated.Image
           key={`image-${activeIndex}`}

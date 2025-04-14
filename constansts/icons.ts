@@ -12,6 +12,7 @@ import Bell from "@/assets/icons/Bell.png";
 import Info from "@/assets/icons/Info.png";
 import Logout from "@/assets/icons/Logout.png";
 import Lock from "@/assets/icons/Lock.png";
+import splashicon from "@/assets/images/splashicon.png";
 
 export const icons = {
   home,
@@ -19,6 +20,7 @@ export const icons = {
   Logout,
   Lock,
   Settings,
+  splashicon,
   Bell,
   search,
   person,
