@@ -13,7 +13,13 @@ const ContextApi = ({ children }) => {
   const [movies, setMovies] = useState([]);
   const [favortiteMovies, setFavoriteMovies] = useState([]);
   const [recentOpenMovies, setRecentOpenMovies] = useState([]);
-  const [userName, setUserName] = useState("");
+  const [userAcc, setUserAcc] = useState("");
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      setUserAcc(user);
+    }
+  }, [isSignedIn, user]);
 
   return (
     <appContext.Provider
@@ -24,8 +30,8 @@ const ContextApi = ({ children }) => {
         setFavoriteMovies,
         recentOpenMovies,
         setRecentOpenMovies,
-        userName,
-        setUserName,
+        userAcc,
+        setUserAcc,
         isSignedIn,
         user,
       }}

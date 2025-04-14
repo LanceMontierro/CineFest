@@ -3,7 +3,7 @@ import "./globals.css";
 import { StatusBar } from "react-native";
 import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import { tokenCache } from "@clerk/clerk-expo/token-cache";
-
+import InitialLayout from "@/components/initialLayout";
 export default function RootLayout() {
   const publicKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -17,28 +17,7 @@ export default function RootLayout() {
       <ClerkLoaded>
         <>
           <StatusBar hidden={true} />
-
-          <Stack>
-            <Stack.Screen
-              name="(tabs)"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="movie/[id]"
-              options={{
-                headerShown: false,
-              }}
-            />
-
-            <Stack.Screen
-              name="(intro)/introstyle"
-              options={{
-                headerShown: false,
-              }}
-            />
-          </Stack>
+          <InitialLayout />
         </>
       </ClerkLoaded>
     </ClerkProvider>

@@ -11,10 +11,9 @@ import { useRouter } from "expo-router";
 import { images } from "@/constansts/images";
 
 import SearchBar from "@/components/SearchBar";
-import MovieCard from "@/components/MovieCard";
 
 const Index = () => {
-   const router = useRouter();
+  const router = useRouter();
 
   // const {
   //     data: movies,
@@ -25,36 +24,35 @@ const Index = () => {
   return (
     <View className="flex-1 bg-[#282828]">
       <Image
-              source={images.upperhome}
-              className="absolute w-full z-0"
-              resizeMode="cover"
-        />
+        source={images.upperhome}
+        className="absolute w-full z-0"
+        resizeMode="cover"
+      />
 
       <ScrollView
-                   className="flex-1 px-5"
-                   showsVerticalScrollIndicator={false}
-                   contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
-               >
-
-      <View className="flex-1 mt-5 pt-28">
-        <SearchBar
+        className="flex-1 px-5"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
+      >
+        <View className="flex-1 mt-5 pt-28">
+          <SearchBar
             onPress={() => {
               router.push("/search");
             }}
             placeholder="Search MMFF movie"
-        />
-        <>
-          <Text className="text-lg text-white font-bold mt-5 mb-3">
-            Recent Viewed
-          </Text>
-          <Text className="text-lg text-white font-bold mt-5 mb-3">
-            Top Rated
-          </Text>
-          <Text className="text-lg text-white font-bold mt-5 mb-3">
-            Latest MMFF Movies
-          </Text>
-        </>
-      </View>
+          />
+          <>
+            <Text className="text-lg text-white font-bold mt-5 mb-3">
+              Recent Viewed
+            </Text>
+            <Text className="text-lg text-white font-bold mt-5 mb-3">
+              Top Rated
+            </Text>
+            <Text className="text-lg text-white font-bold mt-5 mb-3">
+              Latest MMFF Movies
+            </Text>
+          </>
+        </View>
       </ScrollView>
     </View>
 
