@@ -35,6 +35,7 @@ const IMAGES = [
   require("../../assets/images/poster7.png"),
   require("../../assets/images/poster8.png"),
   require("../../assets/images/poster9.png"),
+  require("../../assets/images/poster10.png"),
 ];
 
 const { width } = Dimensions.get("window");
