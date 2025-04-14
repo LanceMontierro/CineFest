@@ -12,8 +12,11 @@ import { images } from "@/constansts/images";
 
 import SearchBar from "@/components/SearchBar";
 
+import { useAppContext } from "./../context/appContext";
+
 const Index = () => {
   const router = useRouter();
+  const { user } = useAppContext();
 
   // const {
   //     data: movies,
@@ -42,6 +45,9 @@ const Index = () => {
             placeholder="Search MMFF movie"
           />
           <>
+            <Text className="text-lg text-white font-bold mt-5 mb-3">
+              {user.emailAddresses[0].emailAddress}
+            </Text>
             <Text className="text-lg text-white font-bold mt-5 mb-3">
               Recent Viewed
             </Text>

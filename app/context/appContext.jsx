@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import axios from "axios";
-import { useUser } from "@clerk/clerk-react";
-
+import { useUser } from "@clerk/clerk-expo";
 const appContext = createContext();
 
 export const useAppContext = () => {
@@ -17,6 +16,9 @@ const ContextApi = ({ children }) => {
 
   useEffect(() => {
     if (isSignedIn && user) {
+      console.log("User object:", user);
+      const email = user?.primaryEmailAddress?.emailAddress;
+      console.log("User Email:", email);
       setUserAcc(user);
     }
   }, [isSignedIn, user]);
