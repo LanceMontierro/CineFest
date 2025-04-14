@@ -1,8 +1,8 @@
 import { View, Text, Image, Dimensions, TouchableOpacity } from "react-native";
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef } from "react";
 import { Marquee } from "@animatereactnative/marquee";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Link, useRouter , Stack} from "expo-router";
+import { Link, useRouter, Stack } from "expo-router";
 import {
   FadeIn,
   FadeInUp,
@@ -12,13 +12,14 @@ import {
   SharedValue,
   useAnimatedReaction,
   useAnimatedStyle,
-  useSharedValue, withTiming,
+  useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 import { StyleSheet } from "react-native";
 import Animated from "react-native-reanimated";
 import { Stagger } from "@animatereactnative/stagger";
 import { Easing } from "react-native-reanimated";
-import {images} from "@/constansts/images";
+import { images } from "@/constansts/images";
 import { useSSO } from "@clerk/clerk-expo";
 import LottieView from "lottie-react-native";
 
@@ -90,7 +91,6 @@ function Item({
 }
 
 const Introstyle = () => {
-
   const animationRef = useRef<LottieView>(null);
   const fadeAnim = useSharedValue(1);
 
@@ -112,9 +112,13 @@ const Introstyle = () => {
         strategy: "oauth_google",
       });
 
-      if (setActive) {
+      if (setActive && createdSessionId) {
+        setActive({ session: createdSessionId });
+
         router.replace("/(tabs)");
       }
+
+      console.log(createdSessionId);
     } catch (error) {
       console.error("Error during Google SSO:", error);
     }
@@ -122,7 +126,8 @@ const Introstyle = () => {
 
   useAnimatedReaction(
     () => {
-      const floatIndex = ((offset.value + width / 2) / _itemSize) % IMAGES.length;
+      const floatIndex =
+        ((offset.value + width / 2) / _itemSize) % IMAGES.length;
       return Math.abs(Math.floor(floatIndex));
     },
     (value) => {
@@ -131,76 +136,80 @@ const Introstyle = () => {
   );
 
   return (
-      <GestureHandlerRootView className="flex-1">
-    <View className="flex-1 justify-center items-center bg-black">
+    <GestureHandlerRootView className="flex-1">
+      <View className="flex-1 justify-center items-center bg-black">
+        <View style={[StyleSheet.absoluteFillObject, { opacity: 0.5 }]}>
+          <Animated.Image
+            key={`image-${activeIndex}`}
+            source={IMAGES[activeIndex]}
+            style={{ flex: 1 }}
+            className="flex-1 w-full"
+            resizeMode="cover"
+            blurRadius={40}
+            entering={FadeIn.duration(1000)}
+            exiting={FadeOut.duration(1000)}
+          />
+        </View>
 
-      <View style={[StyleSheet.absoluteFillObject, { opacity: 0.5 }]}>
-        <Animated.Image
-          key={`image-${activeIndex}`}
-          source={IMAGES[activeIndex]}
-          style={{flex: 1}}
-          className="flex-1 w-full"
-          resizeMode="cover"
-          blurRadius={40}
-          entering={FadeIn.duration(1000)}
-          exiting={FadeOut.duration(1000)}
-        />
+        <Marquee spacing={_spacing} position={offset}>
+          <Animated.View
+            style={{ flexDirection: "row", gap: _spacing }}
+            entering={FadeInUp.delay(500)
+              .duration(1000)
+              .easing(Easing.elastic(0.9))
+              .withInitialValues({
+                transform: [{ translateY: -_itemHeight / 2 }],
+              })}
+          >
+            {IMAGES.map((image, index) => (
+              <Item
+                key={`image-${index}`}
+                image={image}
+                index={index}
+                offset={offset}
+              />
+            ))}
+          </Animated.View>
+        </Marquee>
+
+        <Stagger
+          initialEnteringDelay={1000}
+          duration={500}
+          stagger={500}
+          style={{ flex: 0.6, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontWeight: "600",
+              marginTop: 8,
+            }}
+          >
+            Welcome to CineFest!
+          </Text>
+          <Text
+            style={{ color: "white", fontSize: 15, marginTop: 8, opacity: 0.6 }}
+          >
+            Your ultimate app for finding
+          </Text>
+          <Text style={{ color: "white", fontSize: 15, opacity: 0.6 }}>
+            METRO MANILA FILMS!
+          </Text>
+          <TouchableOpacity
+            className="mt-20 inline-block"
+            onPress={handleGoogleSignIn}
+          >
+            <View className="flex-row items-center bg-white rounded-[16] py-5 px-5">
+              <Image source={images.google} className="w-10 h-10 mr-2" />
+              <Text style={{ color: "block", fontSize: 20 }}>
+                Continue with Google
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </Stagger>
       </View>
-
-      <Marquee spacing={_spacing} position={offset}>
-        <Animated.View
-         style={{flexDirection: "row", gap: _spacing}}
-          entering={FadeInUp.delay(500)
-            .duration(1000)
-            .easing(Easing.elastic(0.9))
-            .withInitialValues({
-              transform: [{ translateY: -_itemHeight / 2 }],
-            })}
-        >
-          {IMAGES.map((image, index) => (
-            <Item
-              key={`image-${index}`}
-              image={image}
-              index={index}
-              offset={offset}
-            />
-          ))}
-        </Animated.View>
-      </Marquee>
-
-      <Stagger
-        initialEnteringDelay={1000}
-        duration={500}
-        stagger={500}
-        style={{ flex: 0.6, justifyContent: "center", alignItems: "center" }}
-      >
-        <Text
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontWeight: "600",
-            marginTop: 8,
-          }}
-        >
-          Welcome to CineFest!
-        </Text>
-        <Text style={{ color: "white", fontSize: 15, marginTop: 8, opacity: 0.6}}>
-          Your ultimate app for finding
-        </Text>
-        <Text style={{ color: "white", fontSize: 15, opacity: 0.6}}>
-          METRO MANILA FILMS!
-        </Text>
-        <TouchableOpacity className="mt-20 inline-block" onPress={handleGoogleSignIn}>
-          <View className="flex-row items-center bg-white rounded-[16] py-5 px-5">
-            <Image source={images.google} className="w-10 h-10 mr-2" />
-            <Text style={{ color: 'block', fontSize: 20 }}>
-              Continue with Google
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </Stagger>
-    </View>
-      </GestureHandlerRootView>
+    </GestureHandlerRootView>
   );
 };
 export default Introstyle;
