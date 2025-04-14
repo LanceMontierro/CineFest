@@ -20,7 +20,7 @@ export default function Animation() {
             easing: Easing.out(Easing.ease),
             useNativeDriver: true,
         }).start(() => {
-            router.replace('/(home)/homestyle');
+            router.replace('/(intro)/introstyle');
         });
     };
 

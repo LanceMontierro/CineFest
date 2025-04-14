@@ -22,9 +22,6 @@ import {images} from "@/constansts/images";
 import { useSSO } from "@clerk/clerk-expo";
 import LottieView from "lottie-react-native";
 
-
-
-
 const IMAGES = [
   require("../../assets/images/poster1.png"),
   require("../../assets/images/poster2.png"),
@@ -92,7 +89,7 @@ function Item({
   );
 }
 
-const Homestyle = () => {
+const Introstyle = () => {
 
   const animationRef = useRef<LottieView>(null);
   const fadeAnim = useSharedValue(1);
@@ -206,4 +203,4 @@ const Homestyle = () => {
       </GestureHandlerRootView>
   );
 };
-export default Homestyle;
+export default Introstyle;

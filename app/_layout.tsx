@@ -29,7 +29,7 @@ export default function RootLayout() {
           />
 
           <Stack.Screen
-            name="(home)/homestyle"
+            name="(intro)/introstyle"
             options={{
               headerShown: false,
             }}
