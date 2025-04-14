@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, FlatList, Image } from "react-native";
+import {View, Text, ActivityIndicator, FlatList, Image, ScrollView} from "react-native";
+import {images} from "@/constansts/images";
+import SearchBar from "@/components/SearchBar";
 
 // import { images } from "@/constansts/images";
 
@@ -38,10 +40,25 @@ const Search = () => {
   // }, [searchQuery]);
 
   return (
-    <View className="flex-1 bg-[#282828]">
-      <Text className="text-white text-2xl font-bold text-center mt-10">
-        Search
-      </Text>
+      <View className="flex-1 bg-[#282828]">
+          <Image
+              source={images.upperhome}
+              className="absolute w-full z-0"
+              resizeMode="cover"
+          />
+
+          <ScrollView
+              className="flex-1 px-5"
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
+          >
+
+              <View className="flex-1 mt-5 pt-28">
+                  <SearchBar
+                      placeholder="Search MMFF movie"
+                  />
+              </View>
+          </ScrollView>
       {/* <Image
                 source={images.upperhome}
                 className="flex-1 absolute w-full z-0"
