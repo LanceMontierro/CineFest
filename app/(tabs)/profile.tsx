@@ -10,24 +10,23 @@ import React from "react";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";
 import { useAppContext } from "@/app/context/appContext";
-import { useClerk } from "@clerk/clerk-expo";
 import * as Linking from "expo-linking";
 
 const Profile = () => {
   const handlePress = (label: string) => {};
-  const { user } = useAppContext();
+  const { user, handleSignOut } = useAppContext();
 
-  const { signOut } = useClerk();
+  // const { signOut } = useClerk();
 
-  const handleSignOut = async () => {
-    try {
-      await signOut();
+  // const handleSignOut = async () => {
+  //   try {
+  //     await signOut();
 
-      Linking.openURL(Linking.createURL("/"));
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
-    }
-  };
+  //     Linking.openURL(Linking.createURL("/"));
+  //   } catch (err) {
+  //     console.error(JSON.stringify(err, null, 2));
+  //   }
+  // };
 
   return (
     <View className="flex-1 bg-[#282828]">

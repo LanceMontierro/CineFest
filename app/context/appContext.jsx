@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import axios from "axios";
-import { useUser } from "@clerk/clerk-expo";
+import { useUser, useClerk } from "@clerk/clerk-expo";
+
 const appContext = createContext();
 
 export const useAppContext = () => {
@@ -13,6 +14,17 @@ const ContextApi = ({ children }) => {
   const [favortiteMovies, setFavoriteMovies] = useState([]);
   const [recentOpenMovies, setRecentOpenMovies] = useState([]);
   const [userAcc, setUserAcc] = useState("");
+  const { signOut } = useClerk();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+
+      Linking.openURL(Linking.createURL("/"));
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2));
+    }
+  };
 
   useEffect(() => {
     if (isSignedIn && user) {
@@ -36,6 +48,7 @@ const ContextApi = ({ children }) => {
         setUserAcc,
         isSignedIn,
         user,
+        handleSignOut,
       }}
     >
       {children}
