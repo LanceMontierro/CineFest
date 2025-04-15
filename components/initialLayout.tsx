@@ -14,7 +14,7 @@ export default function InitialLayout() {
     const isAuthScreen = segments[0] === "(intro)";
 
     if (!isSignedIn && !isAuthScreen) {
-      router.replace("/(intro)/introstyle");
+      router.replace("/animationscreen/animation");
     } else if (isSignedIn && isAuthScreen) {
       const role = user?.publicMetadata?.role;
 
