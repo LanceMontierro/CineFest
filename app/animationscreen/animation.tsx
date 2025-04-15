@@ -5,7 +5,7 @@ import { Stack, useRouter } from 'expo-router';
 
 export default function Animation() {
     const animationRef = useRef<LottieView>(null);
-    const fadeAnim = useRef(new Animated.Value(1)).current; // Start fully visible
+    const fadeAnim = useRef(new Animated.Value(1)).current;
     const router = useRouter();
 
     useEffect(() => {
