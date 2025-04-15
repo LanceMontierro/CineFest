@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import axios from "axios";
 import { useUser, useClerk } from "@clerk/clerk-expo";
-
+import * as Linking from "expo-linking";
 const appContext = createContext();
 
 export const useAppContext = () => {
