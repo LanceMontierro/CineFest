@@ -31,8 +31,8 @@ export default function Animation() {
                 <LottieView
                     ref={animationRef}
                     loop={false}
-                    style={{ width: 200, height: 200}}
-
+                    style={{ width: 200, height: 800}}
+                    resizeMode={'cover'}
                     source={require('@/assets/ani/animation2.json')}
                     onAnimationFinish={handleAnimationFinish}
                 />
