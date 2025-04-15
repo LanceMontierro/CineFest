@@ -1,11 +1,12 @@
 import { useAuth } from "@clerk/clerk-react";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { useEffect } from "react";
-
+import { useAppContext } from "@/app/context/appContext";
 export default function InitialLayout() {
   const { isLoaded, isSignedIn } = useAuth();
   const segments = useSegments();
   const router = useRouter();
+  const { user } = useAppContext();
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -15,7 +16,15 @@ export default function InitialLayout() {
     if (!isSignedIn && !isAuthScreen) {
       router.replace("/(intro)/introstyle");
     } else if (isSignedIn && isAuthScreen) {
-      router.replace("/(tabs)");
+      const role = user?.publicMetadata?.role;
+
+      if (role === "admin") {
+        router.replace("/SAdmin");
+      } else {
+        router.replace("/(tabs)");
+      }
+
+      console.log(role);
     }
   }, [isLoaded, isSignedIn, segments]);
   if (!isLoaded) return null;
