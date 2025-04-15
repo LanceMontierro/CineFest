@@ -18,11 +18,11 @@ const SAdmin = () => {
                 contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
             >
                 <View className="flex-row mt-5 pt-28">
-                    <Text className="text-lg text-white font-bold mt-5 mb-3 mr-14">
+                    <Text className="text-lg text-[#D9D9D9] font-bold mt-5 mb-3 mr-16">
                         MMFF movies
                     </Text>
                     <TouchableOpacity>
-                        <View className="flex-row w-[180] h-[48] bg-[#404040] rounded-[60]">
+                        <View className="flex-row mt-2 w-[180] h-[48] bg-[#404040] rounded-[60]">
                             <Image source={icons.Sync} className="ml-5"/>
                             <Text className="mt-4 ml-3 text-[#D9D9D9]">Upload Movie</Text>
                         </View>

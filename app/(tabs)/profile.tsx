@@ -2,13 +2,27 @@ import {View, Text, Image, TouchableOpacity, Alert, ScrollView} from 'react-nati
 import React from 'react';
 import { images } from '@/constansts/images';
 import { icons } from '@/constansts/icons';
-import {useAppContext} from "@/app/context/appContext"; // Ensure 'settings' and 'bell' are exported
+import {useAppContext} from "@/app/context/appContext";
+import {useClerk} from "@clerk/clerk-expo";
+import * as Linking from "expo-linking";
 
 const Profile = () => {
     const handlePress = (label: string) => {
 
     };
     const { user } = useAppContext();
+
+    const { signOut } = useClerk();
+
+    const handleSignOut = async () => {
+        try {
+            await signOut();
+
+            Linking.openURL(Linking.createURL("/"));
+        } catch (err) {
+            console.error(JSON.stringify(err, null, 2));
+        }
+    };
 
     return (
         <View className="flex-1 bg-[#282828]">
@@ -99,7 +113,7 @@ const Profile = () => {
 
                     <TouchableOpacity
                         className="flex-row items-center bg-[#888] rounded-xl p-4"
-                        onPress={() => handlePress('di kolam')}
+                        onPress={handleSignOut}
                     >
                         <View className="bg-white rounded-xl p-2 mr-4">
                             <Image source={icons.Logout} className="w-5 h-5" resizeMode="contain" />
