@@ -23,14 +23,14 @@ const Profile = () => {
                 resizeMode="cover"
             />
 
+        <View className="justify-center items-center">
 
-
-            <View className="bg-[#2E2E2E] mt-24 z-10 ml-6 w-[317] h-[267] rounded-[25] justify-center items-center">
+            <View className="bg-[#2E2E2E] mt-24 z-10 w-[317] h-[267] rounded-[25] justify-center items-center">
                 <Image source={images.Star1} className="mt-[-50]" />
                 <Text className="mt-10 text-white text-lg">{user.emailAddresses[0].emailAddress}</Text>
             </View>
 
-            <View className="bg-[#787878] z-20 w-[345] h-[267] ml-2 mt-[-55] rounded-[25] p-4">
+            <View className="bg-[#787878] z-20 w-[345] h-[267] mt-[-55] rounded-[25] p-4">
                 <Text className="text-[#D9D9D9] text-lg mb-4">Account</Text>
 
 
@@ -70,7 +70,7 @@ const Profile = () => {
                 <View className="mt-4">
                 </View>
 
-                <View className="bg-[#787878] z-20 w-[345] h-[267] ml-2 rounded-[25] p-4">
+                <View className="bg-[#787878] z-20 w-[345] h-[267] rounded-[25] p-4">
                     <Text className="text-[#D9D9D9] text-lg mb-4">General</Text>
 
 
@@ -108,7 +108,8 @@ const Profile = () => {
                         <Text className="text-[#D9D9D9]">{'>'}</Text>
                     </TouchableOpacity>
                 </View>
-        </ScrollView>
+            </View>
+         </ScrollView>
         </View>
     );
 };
