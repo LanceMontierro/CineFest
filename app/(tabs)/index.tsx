@@ -38,12 +38,7 @@ const Index = () => {
         contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
       >
         <View className="flex-1 mt-5 pt-28">
-          <SearchBar
-            onPress={() => {
-              router.push("/search");
-            }}
-            placeholder="Search MMFF movie"
-          />
+          <SearchBar/>
           <>
             <Text className="text-lg text-white font-bold mt-5 mb-3">
               Recent Viewed

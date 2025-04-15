@@ -12,10 +12,12 @@ import Bell from "@/assets/icons/Bell.png";
 import Info from "@/assets/icons/Info.png";
 import Logout from "@/assets/icons/Logout.png";
 import Lock from "@/assets/icons/Lock.png";
+import Sync from "@/assets/icons/Sync.png";
 import splashicon from "@/assets/images/splashicon.png";
 
 export const icons = {
   home,
+  Sync,
   Info,
   Logout,
   Lock,

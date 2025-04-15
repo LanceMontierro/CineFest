@@ -19,12 +19,17 @@ import poster8 from "@/assets/images/poster8.png";
 import poster9 from "@/assets/images/poster9.png";
 import google from "@/assets/images/google.png";
 import poster10 from "@/assets/images/google.png";
+import dev from "@/assets/images/dev.png";
+import upload from "@/assets/images/upload.png";
+
 
 export const images = {
   bg,
   upperhome,
+  upload,
   poster1,
   poster10,
+  dev,
   google,
   poster2,
   poster3,
