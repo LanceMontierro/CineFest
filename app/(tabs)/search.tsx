@@ -57,7 +57,7 @@ const Search = () => {
 
               <View className="flex-1 mt-5 pt-28">
                   <SearchBar
-                      placeholder="Search MMFF movie"
+
                   />
               </View>
 
