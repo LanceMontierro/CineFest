@@ -9,7 +9,6 @@ import ContextApi from "./context/appContext";
 export default function RootLayout() {
   const publicKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
-  console.log(publicKey);
   if (!publicKey) {
     throw new Error("Missing EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY");
   }
