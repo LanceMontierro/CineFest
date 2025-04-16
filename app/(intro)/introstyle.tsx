@@ -20,8 +20,9 @@ import Animated from "react-native-reanimated";
 import { Stagger } from "@animatereactnative/stagger";
 import { Easing } from "react-native-reanimated";
 import { images } from "@/constansts/images";
-import { useSSO } from "@clerk/clerk-expo";
+import { useClerk, useSSO } from "@clerk/clerk-expo";
 import LottieView from "lottie-react-native";
+import { useAppContext } from "../context/appContext";
 
 const IMAGES = [
   require("../../assets/images/poster1.png"),
@@ -105,6 +106,14 @@ const Introstyle = () => {
 
   const { startSSOFlow } = useSSO();
   const router = useRouter();
+  const { saveUser, user, isSignedIn } = useAppContext();
+
+  useEffect(() => {
+    if (user && isSignedIn) {
+      saveUser(user);
+      console.log(user);
+    }
+  }, [user, isSignedIn]);
 
   const handleGoogleSignIn = async () => {
     try {

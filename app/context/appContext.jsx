@@ -3,6 +3,7 @@ import axios from "axios";
 import { useUser, useClerk } from "@clerk/clerk-expo";
 import * as Linking from "expo-linking";
 const appContext = createContext();
+import Constants from "expo-constants";
 
 export const useAppContext = () => {
   return useContext(appContext);
@@ -15,6 +16,10 @@ const ContextApi = ({ children }) => {
   const [recentOpenMovies, setRecentOpenMovies] = useState([]);
   const [userAcc, setUserAcc] = useState("");
   const { signOut } = useClerk();
+
+  const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
+
+  console.log(API_URL);
 
   const handleSignOut = async () => {
     try {
@@ -35,6 +40,21 @@ const ContextApi = ({ children }) => {
     }
   }, [isSignedIn, user]);
 
+  const saveUser = async (user) => {
+    if (!userAcc) return;
+
+    try {
+      const res = await axios.post(`${API_URL}/users/saveUser`, {
+        email: user.emailAddresses[0].emailAddress,
+        userName: user?.fullName,
+        userId: user?.id,
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error saving user:", error);
+    }
+  };
+
   return (
     <appContext.Provider
       value={{
@@ -49,6 +69,7 @@ const ContextApi = ({ children }) => {
         isSignedIn,
         user,
         handleSignOut,
+        saveUser,
       }}
     >
       {children}
