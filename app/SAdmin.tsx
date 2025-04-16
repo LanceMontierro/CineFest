@@ -2,8 +2,12 @@ import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native'
 import React from 'react'
 import {images} from "@/constansts/images";
 import {icons} from "@/constansts/icons";
+import {useAppContext} from "@/app/context/appContext";
 
 const SAdmin = () => {
+
+    const { handleSignOut } = useAppContext();
+
     return (
         <View className="flex-1 bg-[#282828]">
             <Image
@@ -12,12 +16,18 @@ const SAdmin = () => {
                 resizeMode="cover"
             />
 
+            <TouchableOpacity onPress={handleSignOut}>
+                <View className="ml-80 mt-5">
+                    <Text className="font-bold text-red-900">Log Out</Text>
+                </View>
+            </TouchableOpacity>
+
             <ScrollView
                 className="flex-1 px-5"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
+                contentContainerStyle={{ minHeight: "100%"}}
             >
-                <View className="flex-row mt-5 pt-28">
+                <View className="flex-row pt-28 justify-between">
                     <Text className="text-lg text-[#D9D9D9] font-bold mt-5 mb-3 mr-16">
                         MMFF movies
                     </Text>
