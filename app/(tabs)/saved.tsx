@@ -3,7 +3,7 @@ import React from 'react'
 import {images} from "@/constansts/images";
 import GenreF from "@/components/GenreF";
 import YearF from "@/components/YearF";
-import AwardsF from "@/components/AwardsF";
+import RatingsF from "@/components/RatingsF";
 
 const Saved = () => {
     return (
@@ -25,7 +25,7 @@ const Saved = () => {
 
             <GenreF/>
             <YearF/>
-            <AwardsF/>
+            <RatingsF/>
             </ScrollView>
         </View>
     )
