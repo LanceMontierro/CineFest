@@ -4,7 +4,7 @@ import {images} from "@/constansts/images";
 import SearchBar from "@/components/SearchBar";
 import GenreF from "@/components/GenreF";
 import YearF from "@/components/YearF";
-import AwardsF from "@/components/AwardsF";
+import RatingsF from "@/components/RatingsF";
 
 // import { images } from "@/constansts/images";
 
@@ -63,7 +63,7 @@ const Search = () => {
 
               <GenreF/>
               <YearF/>
-              <AwardsF/>
+              <RatingsF/>
           </ScrollView>
       {/* <Image
                 source={images.upperhome}
