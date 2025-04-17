@@ -25,3 +25,11 @@ export const saveUser = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const addToRecentlyViewedMovies = async (req, res) => {};
+
+export const getRecentlyViewedMovies = async (req, res) => {};
+
+export const addToFavoriteMovies = async (req, res) => {};
+
+export const getFavoriteMovies = async (req, res) => {};

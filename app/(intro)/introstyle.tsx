@@ -108,13 +108,6 @@ const Introstyle = () => {
   const router = useRouter();
   const { saveUser, user, isSignedIn } = useAppContext();
 
-  useEffect(() => {
-    if (user && isSignedIn) {
-      saveUser(user);
-      console.log(user);
-    }
-  }, [user, isSignedIn]);
-
   const handleGoogleSignIn = async () => {
     try {
       const { createdSessionId, setActive } = await startSSOFlow({
@@ -132,6 +125,13 @@ const Introstyle = () => {
       console.error("Error during Google SSO:", error);
     }
   };
+
+  useEffect(() => {
+    if (user && isSignedIn) {
+      saveUser(user);
+      console.log(user);
+    }
+  }, [user, isSignedIn]);
 
   useAnimatedReaction(
     () => {

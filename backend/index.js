@@ -6,7 +6,7 @@ import userRoutes from "./routes/userRoutes.js";
 const app = express();
 
 app.use(express.json());
-app.use(cors({ origin: "http://192.168.1.5:8081" }));
+app.use(cors());
 connectDB();
 
 app.use("/users", userRoutes);
