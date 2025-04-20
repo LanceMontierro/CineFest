@@ -18,7 +18,7 @@ const Saved = () => {
 
             <View className="px-5">
             <TouchableOpacity
-                className="bg-[#D9D9D9] rounded-[20] place-self-start w-[100] h-[37] justify-center items-center mt-16 ml-7"
+                className="bg-[#D9D9D9] rounded-[20] place-self-start w-[100] h-[37] justify-center items-center mt-16"
                 onPress={() => setShowFilters(!showFilters)}
             >
                 <Text className="text-[16] text-black">Filter</Text>
