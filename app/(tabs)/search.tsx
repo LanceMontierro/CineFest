@@ -42,7 +42,7 @@ const Search = () => {
 
   //     return () => clearTimeout(timeoutId);
   // }, [searchQuery]);
-    const [showFilters, setShowFilters] = useState(false);
+
   return (
       <View className="flex-1 bg-[#282828]">
           <Image
@@ -58,18 +58,6 @@ const Search = () => {
 
               <View className="flex-1 mt-5 pt-28">
                   <SearchBar/>
-                  <TouchableOpacity onPress={() => setShowFilters(!showFilters)}>
-                      <Image
-                          source={icons.Filter}
-                          style={{marginLeft: 300, marginTop: -46}}
-                          resizeMode="contain"
-                          tintColor="#787878"
-                      />
-                  </TouchableOpacity>
-
-                  {showFilters && <GenreF />}
-                  {showFilters && <YearF />}
-                  {showFilters && <RatingsF />}
 
               </View>
 
