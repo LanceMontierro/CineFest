@@ -1,11 +1,13 @@
-import {View, Text, Image,  ScrollView} from 'react-native'
-import React from 'react'
-import {images} from "@/constansts/images";
-import GenreF from "@/components/GenreF";
-import YearF from "@/components/YearF";
+import React, { useState } from 'react';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import RatingsF from "@/components/RatingsF";
+import YearF from "@/components/YearF";
+import GenreF from "@/components/GenreF";
+import {images} from "@/constansts/images";
 
 const Saved = () => {
+    const [showFilters, setShowFilters] = useState(false);
+
     return (
         <View className="flex-1 bg-[#282828]">
             <Image
@@ -14,20 +16,26 @@ const Saved = () => {
                 resizeMode="cover"
             />
 
-            <ScrollView
-                className="flex-1 px-5"
-                showsVerticalScrollIndicator={false}
+            <View className="px-5">
+            <TouchableOpacity
+                className="bg-[#D9D9D9] rounded-[20] place-self-start w-[100] h-[37] justify-center items-center mt-16 ml-7"
+                onPress={() => setShowFilters(!showFilters)}
             >
+                <Text className="text-[16] text-black">Filter</Text>
+            </TouchableOpacity>
 
-            <Text className="text-2xl text-white font-bold mt-32 ml-2">
-                Saved
-            </Text>
+                {showFilters && <GenreF />}
+                {showFilters && <YearF />}
+                {showFilters && <RatingsF />}
 
-            <GenreF/>
-            <YearF/>
-            <RatingsF/>
-            </ScrollView>
+            </View>
+
+            <View>
+
+            </View>
+
         </View>
-    )
-}
-export default Saved
+    );
+};
+
+export default Saved;

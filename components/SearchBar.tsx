@@ -1,7 +1,11 @@
-import { View, TextInput, Image } from "react-native";
+import { View, TextInput, Image, TouchableOpacity } from "react-native";
 import { icons } from "@/constansts/icons";
 import React, { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
+import {images} from "@/constansts/images";
+import GenreF from "@/components/GenreF";
+import YearF from "@/components/YearF";
+import RatingsF from "@/components/RatingsF";
 
 interface Props {
   placeholder: string;
@@ -9,6 +13,7 @@ interface Props {
   onChangeText?: (text: string) => void;
   onPress?: () => void;
 }
+
 
 const DevCommandInput = () => {
   const [input, setInput] = useState('');
@@ -32,7 +37,9 @@ const DevCommandInput = () => {
 };
 
 const SearchBar = ({ placeholder, value, onChangeText ,onPress }: Props) => {
-  return (
+
+
+    return (
       <View className="flex-row items-center px-5 py-4 bg-black rounded-full">
         <Image
             source={icons.search}
@@ -40,6 +47,7 @@ const SearchBar = ({ placeholder, value, onChangeText ,onPress }: Props) => {
             resizeMode="contain"
             tintColor="#787878"
         />
+
         <TextInput
             onPress={onPress}
             value={value}
@@ -48,6 +56,7 @@ const SearchBar = ({ placeholder, value, onChangeText ,onPress }: Props) => {
             className="flex-1 ml-2 text-[#787878]"
             placeholderTextColor="#787878"
         />
+
       </View>
   );
 };

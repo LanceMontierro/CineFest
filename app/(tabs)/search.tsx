@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import {View, Text, ActivityIndicator, FlatList, Image, ScrollView} from "react-native";
+import React, { useState, useEffect } from "react";
+import {View, Text, ActivityIndicator, FlatList, Image, ScrollView, TouchableOpacity} from "react-native";
 import {images} from "@/constansts/images";
 import SearchBar from "@/components/SearchBar";
+import {icons} from "@/constansts/icons";
 import GenreF from "@/components/GenreF";
 import YearF from "@/components/YearF";
 import RatingsF from "@/components/RatingsF";
@@ -41,7 +42,7 @@ const Search = () => {
 
   //     return () => clearTimeout(timeoutId);
   // }, [searchQuery]);
-
+    const [showFilters, setShowFilters] = useState(false);
   return (
       <View className="flex-1 bg-[#282828]">
           <Image
@@ -56,14 +57,22 @@ const Search = () => {
           >
 
               <View className="flex-1 mt-5 pt-28">
-                  <SearchBar
+                  <SearchBar/>
+                  <TouchableOpacity onPress={() => setShowFilters(!showFilters)}>
+                      <Image
+                          source={icons.Filter}
+                          style={{marginLeft: 300, marginTop: -46}}
+                          resizeMode="contain"
+                          tintColor="#787878"
+                      />
+                  </TouchableOpacity>
 
-                  />
+                  {showFilters && <GenreF />}
+                  {showFilters && <YearF />}
+                  {showFilters && <RatingsF />}
+
               </View>
 
-              <GenreF/>
-              <YearF/>
-              <RatingsF/>
           </ScrollView>
       {/* <Image
                 source={images.upperhome}
@@ -123,6 +132,7 @@ const Search = () => {
                     </>
                 }
             /> */}
+
     </View>
   );
 };
