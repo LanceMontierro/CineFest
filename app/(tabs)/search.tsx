@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import {View, Text, ActivityIndicator, FlatList, Image, ScrollView} from "react-native";
+import React, { useState, useEffect } from "react";
+import {View, Text, ActivityIndicator, FlatList, Image, ScrollView, TouchableOpacity} from "react-native";
 import {images} from "@/constansts/images";
 import SearchBar from "@/components/SearchBar";
+import {icons} from "@/constansts/icons";
 import GenreF from "@/components/GenreF";
 import YearF from "@/components/YearF";
 import RatingsF from "@/components/RatingsF";
@@ -56,14 +57,10 @@ const Search = () => {
           >
 
               <View className="flex-1 mt-5 pt-28">
-                  <SearchBar
+                  <SearchBar/>
 
-                  />
               </View>
 
-              <GenreF/>
-              <YearF/>
-              <RatingsF/>
           </ScrollView>
       {/* <Image
                 source={images.upperhome}
@@ -123,6 +120,7 @@ const Search = () => {
                     </>
                 }
             /> */}
+
     </View>
   );
 };

@@ -13,11 +13,15 @@ import Info from "@/assets/icons/Info.png";
 import Logout from "@/assets/icons/Logout.png";
 import Lock from "@/assets/icons/Lock.png";
 import Sync from "@/assets/icons/Sync.png";
+import Alisnako from "@/assets/icons/Alisnako.png";
+import Filter from "@/assets/icons/Filter.png";
 import splashicon from "@/assets/images/splashicon.png";
 
 export const icons = {
   home,
+  Filter,
   Sync,
+  Alisnako,
   Info,
   Logout,
   Lock,
