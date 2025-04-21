@@ -6,6 +6,13 @@ const MONGODB_URL = process.env.MONGODB_URL;
 
 console.log("MONGODB_URL", MONGODB_URL);
 
+if (!MONGODB_URL) {
+  console.error(
+    "Error: MONGODB_URL is not defined in the environment variables."
+  );
+  process.exit(1);
+}
+
 const connectDB = async () => {
   try {
     await mongoose.connect(

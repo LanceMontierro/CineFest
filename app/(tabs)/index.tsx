@@ -38,7 +38,7 @@ const Index = () => {
         contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
       >
         <View className="flex-1 mt-5 pt-28">
-          <SearchBar/>
+          <SearchBar />
           <>
             <Text className="text-lg text-white font-bold mt-5 mb-3">
               Recent Viewed

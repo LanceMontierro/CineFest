@@ -6,9 +6,12 @@ export const getMovies = async (req, res) => {
     if (movies.length === 0) {
       return res.status(404).json({ message: "No movies found" });
     }
-    res.status(200).json({ dishes });
+
     return res.status(200).json(movies);
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 export const createMovie = async (req, res) => {

@@ -19,8 +19,6 @@ const ContextApi = ({ children }) => {
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
-  console.log(API_URL);
-
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -36,9 +34,23 @@ const ContextApi = ({ children }) => {
       console.log("User object:", user);
       const email = user?.primaryEmailAddress?.emailAddress;
       console.log("User Email:", email);
+      console.log("Fetched movies:", movies);
       setUserAcc(user);
     }
   }, [isSignedIn, user]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/movies/get-movie`);
+        setMovies(res.data || []);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchUserData();
+  }, [userAcc]);
 
   const saveUser = async (user) => {
     if (!userAcc) return;
@@ -52,6 +64,20 @@ const ContextApi = ({ children }) => {
       console.log(res.data);
     } catch (error) {
       console.error("Error saving user:", error);
+    }
+  };
+
+  console.log(movies);
+
+  const createMovie = async () => {
+    if (!userAcc) {
+      console.log("User account not found. Cannot create movies.");
+      return;
+    }
+    try {
+      const res = await axios.post(`${API_URL}/movies/create-movie`, {});
+    } catch (error) {
+      console.error("Error creating movies:", error);
     }
   };
 
@@ -70,6 +96,7 @@ const ContextApi = ({ children }) => {
         user,
         handleSignOut,
         saveUser,
+        createMovie,
       }}
     >
       {children}
