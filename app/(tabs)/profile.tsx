@@ -200,7 +200,7 @@ const Profile = () => {
         </ScrollView>
 
         <Modal visible={showDrawer} transparent animationType="none">
-          <Pressable className="flex-1 bg-[#404040] bg-opacity-50" onPress={closeDrawer}>
+          <Pressable className="flex-1" onPress={closeDrawer}>
             <Animated.View
                 style={{
                   position: "absolute",
@@ -215,7 +215,7 @@ const Profile = () => {
                 }}
             >
               <Text className="text-xl font-bold mb-4">{alertText}</Text>
-              <Text className="text-gray-600 mb-6">nutil</Text>
+              <Text className="text-gray-600 mb-6"></Text>
               <TouchableOpacity
                   className="bg-[#404040] px-4 py-3 rounded-full items-center"
                   onPress={closeDrawer}
@@ -229,7 +229,7 @@ const Profile = () => {
 
         <Modal visible={showDrawer2} transparent animationType="none">
 
-          <Pressable className="flex-1 bg-[#404040] bg-opacity-50" onPress={closeDrawer2}>
+          <Pressable className="flex-1" onPress={closeDrawer2}>
 
             <Animated.View
                 style={{
