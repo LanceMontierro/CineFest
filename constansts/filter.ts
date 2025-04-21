@@ -14,6 +14,31 @@ export const genre = [
     { title: "Drama", category: "Drama" },
 ];
 
+export const awards = [
+    { title: "All", category: "All" },
+    { title: "Best Picture", category: "Best Picture" },
+    { title: "2nd Best Picture", category: "2nd Best Picture" },
+    { title: "3rd Best Picture", category: "3rd Best Picture" },
+    { title: "4th Best Picture", category: "4th Best Picture" },
+    { title: "Best Director", category: "Best Director" },
+    { title: "Best Screenplay", category: "Best Screenplay" },
+    { title: "Best Cinematography", category: "Best Cinematography" },
+    { title: "Best Editing", category: "Best Editing" },
+    { title: "Best Production Design", category: "Best Production Design" },
+    { title: "Best Visual Effects", category: "Best Visual Effects" },
+    { title: "Best Sound", category: "Best Sound" },
+    { title: "Best Musical Score", category: "Best Musical Score" },
+    { title: "Best Original Theme Song", category: "Best Original Theme Song" },
+    { title: "Best Float Award", category: "Best Float Award" },
+    { title: "Gat Puno Antonio Villegas Cultural Award", category: "Cultural Award" },
+    { title: "FPJ Memorial Award", category: "FPJ Memorial Award" },
+    { title: "Gender Sensitivity Award", category: "Gender Sensitivity Award" },
+    { title: "Lifetime Achievement Award", category: "Lifetime Achievement Award" },
+    { title: "Special Jury Prize", category: "Special Jury Prize" },
+    { title: "Special Jury Citation", category: "Special Jury Citation" },
+    { title: "Manay Ichu Vera Perez Memorial Award", category: "Memorial Award" }
+];
+
 export const year = [
     { title: "All", category: "All" },
     { title: "1975", category: "1975" },

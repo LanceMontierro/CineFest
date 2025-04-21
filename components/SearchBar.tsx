@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import GenreF from "@/components/GenreF";
 import YearF from "@/components/YearF";
 import RatingsF from "@/components/RatingsF";
+import Awards from "@/components/Awards";
 
 interface Props {
     placeholder: string;
@@ -41,6 +42,7 @@ const DevCommandInput = () => {
                     <GenreF />
                     <YearF />
                     <RatingsF />
+                    <Awards/>
                 </View>
             )}
         </View>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Dimensions, Image } from 'react-native';
+import {View, Text, Dimensions, Image, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { images } from '@/constansts/images';
+import {useRouter} from "expo-router";
 
 interface Movie {
     id: string;
@@ -15,7 +16,15 @@ interface TrendingMoviesProps {
 const { width } = Dimensions.get('window');
 
 const MovieCard = ({ item }: { item: Movie }) => {
+
+    const router = useRouter();
+
+    const handlePress = () => {
+        router.push("/MovieDetails/[d]");
+    };
+
     return (
+        <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
         <View className="rounded-2xl justify-center items-center">
             <Image
                 source={images.blank}
@@ -26,6 +35,7 @@ const MovieCard = ({ item }: { item: Movie }) => {
                 {item.title}
             </Text>
         </View>
+        </TouchableOpacity>
     );
 };
 
@@ -45,7 +55,6 @@ export default function SampleRecent({ data }: TrendingMoviesProps) {
 
                 }}
             />
-
 
         </View>
 

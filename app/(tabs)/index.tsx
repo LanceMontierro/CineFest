@@ -78,16 +78,15 @@ const Index = () => {
               <SearchBar />
               <>
 
-                {/*<SampleRecent data={sampleMovies} />*/}
-                {/*<SampleTop data={sampleMovies} />*/}
-                {/*<SampleLatest data={sampleMovies} />*/}
+                <SampleRecent data={sampleMovies} />
+                <SampleTop data={sampleMovies} />
+                <SampleLatest data={sampleMovies} />
 
               </>
             </View>
           </ScrollView>
         </View>
 
-        {/*
           <View className="flex flex-row flex-wrap gap-4">
             {
               movies.length === 0 ? (
@@ -106,7 +105,6 @@ const Index = () => {
               )
             }
           </View>
-          */}
       </>
 
       // <View className="flex-1 bg-[#282828]">
