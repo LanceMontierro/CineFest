@@ -51,15 +51,17 @@ const Search = () => {
               resizeMode="cover"
           />
 
+          <View className="mt-24 px-5">
+              <SearchBar/>
+
+          </View>
+
+
           <ScrollView
               className="flex-1 px-5"
               showsVerticalScrollIndicator={false}
           >
 
-              <View className="flex-1 mt-5 pt-28">
-                  <SearchBar/>
-
-              </View>
 
           </ScrollView>
       {/* <Image

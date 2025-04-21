@@ -21,6 +21,7 @@ import google from "@/assets/images/google.png";
 import poster10 from "@/assets/images/google.png";
 import dev from "@/assets/images/dev.png";
 import upload from "@/assets/images/upload.png";
+import blank from "@/assets/images/blank.png";
 
 
 export const images = {
@@ -40,6 +41,7 @@ export const images = {
   poster8,
   poster9,
   bahay,
+  blank,
   Frame89,
   Line,
   Star1,

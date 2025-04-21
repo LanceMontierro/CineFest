@@ -8,11 +8,12 @@ import {
   Modal,
   Animated,
   Dimensions,
-  Pressable,
+  Pressable, SafeAreaView,
 } from "react-native";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";
 import { useAppContext } from "@/app/context/appContext";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 const { height } = Dimensions.get("window");
 
@@ -61,6 +62,7 @@ const Profile = () => {
   };
 
   return (
+
       <View className="flex-1 bg-[#282828]">
         <Image
             source={images.bahay}
@@ -198,7 +200,7 @@ const Profile = () => {
         </ScrollView>
 
         <Modal visible={showDrawer} transparent animationType="none">
-          <Pressable className="flex-1 bg-black bg-opacity-50" onPress={closeDrawer}>
+          <Pressable className="flex-1 bg-[#404040] bg-opacity-50" onPress={closeDrawer}>
             <Animated.View
                 style={{
                   position: "absolute",
@@ -224,8 +226,11 @@ const Profile = () => {
           </Pressable>
         </Modal>
 
+
         <Modal visible={showDrawer2} transparent animationType="none">
-          <Pressable className="flex-1 bg-black bg-opacity-50" onPress={closeDrawer2}>
+
+          <Pressable className="flex-1 bg-[#404040] bg-opacity-50" onPress={closeDrawer2}>
+
             <Animated.View
                 style={{
                   position: "absolute",
@@ -249,6 +254,7 @@ const Profile = () => {
               </TouchableOpacity>
             </Animated.View>
           </Pressable>
+
         </Modal>
       </View>
   );
