@@ -22,6 +22,7 @@ const Profile = () => {
 
   const [showDrawer, setShowDrawer] = useState(false);
   const [showDrawer2, setShowDrawer2] = useState(false);
+  const [showDrawer3, setShowDrawer3] = useState(false);
   const [alertText, setAlertText] = useState("");
   const slideAnim = useRef(new Animated.Value(height)).current;
 
@@ -36,6 +37,16 @@ const Profile = () => {
   };
 
   const openDrawer2 = (text: string) => {
+    setAlertText(text);
+    setShowDrawer2(true);
+    Animated.timing(slideAnim, {
+      toValue: height * 0.5,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const openDrawer3 = (text: string) => {
     setAlertText(text);
     setShowDrawer2(true);
     Animated.timing(slideAnim, {
@@ -61,7 +72,17 @@ const Profile = () => {
     }).start(() => setShowDrawer2(false));
   };
 
+  const closeDrawer3 = () => {
+    Animated.timing(slideAnim, {
+      toValue: height,
+      duration: 300,
+      useNativeDriver: false,
+    }).start(() => setShowDrawer2(false));
+  };
+
   return (
+
+
 
       <View className="flex-1 bg-[#282828]">
         <Image
@@ -98,35 +119,18 @@ const Profile = () => {
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
                   <Image
-                      source={icons.Settings}
-                      className="w-5 h-5"
-                      resizeMode="contain"
-                  />
-                </View>
-                <Text className="text-[#D9D9D9] text-base flex-1">Settings</Text>
-                <Text className="text-[#D9D9D9]">{">"}</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
-                  onPress={() => openDrawer("Notification")}
-              >
-                <View className="bg-white rounded-xl p-2 mr-4">
-                  <Image
                       source={icons.Bell}
                       className="w-5 h-5"
                       resizeMode="contain"
                   />
                 </View>
-                <Text className="text-[#D9D9D9] text-base flex-1">
-                  Notification
-                </Text>
+                <Text className="text-[#D9D9D9] text-base flex-1">Notification</Text>
                 <Text className="text-[#D9D9D9]">{">"}</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                   className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
-                  onPress={() => openDrawer2("Delete Account")}
+                  onPress={() => openDrawer3("Delete Recent Viewed")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
                   <Image
@@ -136,7 +140,24 @@ const Profile = () => {
                   />
                 </View>
                 <Text className="text-[#D9D9D9] text-base flex-1">
-                  Delete Account
+                  Clear Recent Viewed
+                </Text>
+                <Text className="text-[#D9D9D9]">{">"}</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  onPress={() => openDrawer2("Delete Saved Movies")}
+              >
+                <View className="bg-white rounded-xl p-2 mr-4">
+                  <Image
+                      source={icons.Alisnako}
+                      className="w-5 h-5"
+                      resizeMode="contain"
+                  />
+                </View>
+                <Text className="text-[#D9D9D9] text-base flex-1">
+                  Clear Saved Movies
                 </Text>
                 <Text className="text-[#D9D9D9]">{">"}</Text>
               </TouchableOpacity>
@@ -254,7 +275,34 @@ const Profile = () => {
               </TouchableOpacity>
             </Animated.View>
           </Pressable>
+        </Modal>
+        <Modal visible={showDrawer3} transparent animationType="none">
 
+          <Pressable className="flex-1" onPress={closeDrawer3}>
+
+            <Animated.View
+                style={{
+                  position: "absolute",
+                  top: slideAnim,
+                  left: 0,
+                  right: 0,
+                  backgroundColor: "#D9D9D9",
+                  borderTopLeftRadius: 25,
+                  borderTopRightRadius: 25,
+                  padding: 20,
+                  height: height * 0.5,
+                }}
+            >
+              <Text className="text-xl font-bold mb-4">{alertText}</Text>
+              <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
+              <TouchableOpacity
+                  className="bg-red-800 px-4 py-3 rounded-full items-center"
+                  onPress={closeDrawer3}
+              >
+                <Text className="text-[#D9DFF2]">DELETE</Text>
+              </TouchableOpacity>
+            </Animated.View>
+          </Pressable>
         </Modal>
       </View>
   );

@@ -18,10 +18,13 @@ import {useState} from "react";
 import MovieCard from "@/components/MovieCard";
 import SampleTop from "@/components/SampleTop";
 import SampleLatest from "@/components/SampleLatest";
+import SearchBar2 from "@/components/SearchBar2";
+import {useNavigation} from "@react-navigation/native";
+import {icons} from "@/constansts/icons";
 
 const Index = () => {
-  const router = useRouter();
 
+  const navigation = useNavigation();
   const sampleMovies = [
     {
       id: '1',
@@ -59,6 +62,7 @@ const Index = () => {
   //     loading: moviesLoading,
   //     error: moviesError,
   // } = useFetch(() => fetchMovies({ query: "" }));
+const router2 = useRouter();
 
   return (
       <>
@@ -70,41 +74,29 @@ const Index = () => {
           />
 
           <ScrollView
-              className="flex-1 px-5"
+              className="flex-1"
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ minHeight: "170%", paddingBottom: 10 }}
+              contentContainerStyle={{ minHeight: "135%", paddingBottom: 10 }}
           >
-            <View className="flex-1 mt-5 pt-28">
-              <SearchBar />
-              <>
-
-                <SampleRecent data={sampleMovies} />
-                <SampleTop data={sampleMovies} />
-                <SampleLatest data={sampleMovies} />
-
-              </>
+            <View className="justify-center items-center">
+              <Image source={icons.splashicon} className="w-12 h-10 mt-16 mb-5 mx-auto" />
             </View>
+
+
+            <View className="mt-10 px-5">
+              <SearchBar2 onPress={() => router2.replace("/search")} placeholder={"Search MMFF movies"}              />
+            </View>
+
+            <View className="mt-5">
+
+              <SampleRecent data={sampleMovies} />
+              <SampleTop data={sampleMovies} />
+              <SampleLatest data={sampleMovies} />
+            </View>
+
           </ScrollView>
         </View>
 
-          <View className="flex flex-row flex-wrap gap-4">
-            {
-              movies.length === 0 ? (
-                <Text className="text-white">No movies found.</Text>
-              ) : (
-                movies.map((movie, index) => (
-                  <View key={index} className="w-[30%] mb-4 mr-3">
-                    <Image
-                      source={{ uri: movie.poster }}
-                      style={{ width: "100%", height: 150, borderRadius: 10 }}
-                      resizeMode="cover"
-                    />
-                    <Text className="text-white text-sm mt-2">{movie.title}</Text>
-                  </View>
-                ))
-              )
-            }
-          </View>
       </>
 
       // <View className="flex-1 bg-[#282828]">

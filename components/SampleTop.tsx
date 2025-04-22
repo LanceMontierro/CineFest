@@ -25,37 +25,40 @@ const MovieCard = ({ item }: { item: Movie }) => {
 
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
-        <View className="rounded-2xl justify-center items-center">
-            <Image
-                source={images.blank}
-                style={{ width: 150, height: 250, borderRadius: 10 }}
-                resizeMode="cover"
-            />
-            <Text className="text-white text-base font-semibold mt-2">
-                {item.title}
-            </Text>
-        </View>
+            <View className="items-center justify-center">
+                <Image
+                    source={images.blank}
+                    style={{ width: 180, height: 250, borderRadius: 10 }}
+                />
+            </View>
         </TouchableOpacity>
     );
 };
 
 export default function SampleTop({ data }: TrendingMoviesProps) {
+
     return (
         <View>
-            <Text className="text-white text-xl mt-4 mb-6 ml-4">Top Rating</Text>
+
+            <Text className="text-white text-xl mt-4 mb-6 ml-4">Top Rated</Text>
 
             <Carousel
+                loop
                 width={width}
-                height={300}
+                height={200}
+                autoPlay={false}
                 data={data}
-                scrollAnimationDuration={600}
-                renderItem={({ item }) => <MovieCard item={item} />}
-                mode="horizontal-stack"
+                scrollAnimationDuration={800}
+                mode="parallax"
                 modeConfig={{
-
+                    parallaxScrollingScale: 0.9,
+                    parallaxScrollingOffset: 220,
                 }}
-            />
+                renderItem={({ item }) => (
+                    <MovieCard item={item} />
+                )}
 
+            />
 
         </View>
 

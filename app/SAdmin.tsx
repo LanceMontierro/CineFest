@@ -6,6 +6,22 @@ import {useAppContext} from "@/app/context/appContext";
 
 const SAdmin = () => {
 
+    const { user, movies } = useAppContext() as {
+        user: any;
+        movies: Movie[];
+    };
+
+    type Movie = {
+        title: string;
+        description: string;
+        poster: string;
+        genre: string;
+        releaseDate: string;
+        rating: string;
+        awards: string;
+        link: string;
+    };
+
     const { handleSignOut } = useAppContext();
 
     return (
@@ -39,6 +55,26 @@ const SAdmin = () => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+
+            <View className="flex flex-row flex-wrap gap-4">
+                {
+                    movies.length === 0 ? (
+                        <Text className="text-white">No movies found.</Text>
+                    ) : (
+                        movies.map((movie, index) => (
+                            <View key={index} className="w-[30%] mb-4 mr-3">
+                                <Image
+                                    source={{ uri: movie.poster }}
+                                    style={{ width: "100%", height: 150, borderRadius: 10 }}
+                                    resizeMode="cover"
+                                />
+                                <Text className="text-white text-sm mt-2">{movie.title}</Text>
+                            </View>
+                        ))
+                    )
+                }
+            </View>
+
         </View>
     )
 }
