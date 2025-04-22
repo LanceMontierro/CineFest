@@ -73,21 +73,22 @@ const router2 = useRouter();
               resizeMode="cover"
           />
 
-          <ScrollView
-              className="flex-1"
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ minHeight: "135%", paddingBottom: 10 }}
-          >
             <View className="justify-center items-center">
-              <Image source={icons.splashicon} className="w-12 h-10 mt-16 mb-5 mx-auto" />
+              <Image source={icons.splashicon} className="w-12 h-10 mt-16 mb-3 mx-auto" />
             </View>
 
 
-            <View className="mt-10 px-5">
+            <View className="mt-7 px-5">
               <SearchBar2 onPress={() => router2.replace("/search")} placeholder={"Search MMFF movies"}              />
             </View>
 
-            <View className="mt-5">
+          <ScrollView
+              className="flex-1 mt-4"
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ minHeight: "113%", paddingBottom: 10 }}
+          >
+
+            <View className="mt-1">
 
               <SampleRecent data={sampleMovies} />
               <SampleTop data={sampleMovies} />

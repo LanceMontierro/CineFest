@@ -3,8 +3,12 @@ import React from 'react'
 import {images} from "@/constansts/images";
 import {icons} from "@/constansts/icons";
 import {useAppContext} from "@/app/context/appContext";
+import { useState } from 'react';
+import {router} from "expo-router";
 
 const SAdmin = () => {
+
+    const [showForm, setShowForm] = useState(false);
 
     const { user, movies } = useAppContext() as {
         user: any;
@@ -43,9 +47,9 @@ const SAdmin = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ minHeight: "100%"}}
             >
-                <View className="flex-row pt-28 justify-between">
+                <View className="flex-row mt-16 justify-between items-center ">
                     <Text className="text-lg text-[#D9D9D9] font-bold mt-5 mb-3 mr-16">
-                        MMFF movies
+                        MMFF Movies
                     </Text>
                     <TouchableOpacity>
                         <View className="flex-row mt-2 w-[180] h-[48] bg-[#404040] rounded-[60]">
@@ -56,25 +60,13 @@ const SAdmin = () => {
                 </View>
             </ScrollView>
 
-            <View className="flex flex-row flex-wrap gap-4">
-                {
-                    movies.length === 0 ? (
-                        <Text className="text-white">No movies found.</Text>
-                    ) : (
-                        movies.map((movie, index) => (
-                            <View key={index} className="w-[30%] mb-4 mr-3">
-                                <Image
-                                    source={{ uri: movie.poster }}
-                                    style={{ width: "100%", height: 150, borderRadius: 10 }}
-                                    resizeMode="cover"
-                                />
-                                <Text className="text-white text-sm mt-2">{movie.title}</Text>
-                            </View>
-                        ))
-                    )
-                }
-            </View>
-
+            <TouchableOpacity
+                className="bg-[#404040] rounded-2xl absolute mt-[700] left-0 right-0 mx-5 py-3.5 flex flex-row items-center justify-center z-50"
+                onPress={router.back}
+            >
+                <Image source={icons.arrow} className="size-5 mr-1 mt-0.5 rotate-180" tintColor="#fff" />
+                <Text className="text-[#D9DFF2] font-semibold text-base">Go Back</Text>
+            </TouchableOpacity>
         </View>
     )
 }

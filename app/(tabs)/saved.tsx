@@ -11,7 +11,6 @@ import {icons} from "@/constansts/icons";
 const Saved = () => {
     const [showFilters, setShowFilters] = useState(false);
     const [result, setResult] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-    const {width, height} = Dimensions.get('window');
 
     const router = useRouter();
 
@@ -54,13 +53,12 @@ const Saved = () => {
             <ScrollView
                 className="space-y-3 px-5 mt-4"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{minHeight: "224%", paddingBottom: 15}}
-
+                contentContainerStyle={{minHeight: "165%", paddingBottom: 15}}
             >
 
                 <View className=" justify-between ">
                     {
-                        result.map((item, index) => {
+                        result.map((index) => {
                             return (
                                 <TouchableWithoutFeedback
                                     key={index}
@@ -71,7 +69,7 @@ const Saved = () => {
                                         <View className="flex-row justify-between items-center p-4 px-5 rounded-b-3xl">
                                             <Image
                                                 source={images.blank}
-                                                className="rounded-[16]"
+                                                className="w-[123] h-[82] rounded-[16]"
                                                 />
                                                 <Text className="text-white font-bold text-sm text-left">
                                                     Movie Title
