@@ -52,7 +52,7 @@ const MovieCard = ({ item, cardWidth }: { item: Movie, cardWidth: number }) => {
                     mode="parallax"
                     modeConfig={{
                         parallaxScrollingScale: 0.9,
-                        parallaxScrollingOffset: cardWidth * 1.1,
+                        parallaxScrollingOffset: cardWidth * 1.2,
                     }}
                     renderItem={({item}) => (
                         <MovieCard item={item} cardWidth={cardWidth}/>
