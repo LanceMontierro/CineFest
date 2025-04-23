@@ -53,10 +53,10 @@ const Saved = () => {
             <ScrollView
                 className="space-y-3 px-5 mt-4"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{minHeight: "165%", paddingBottom: 15}}
+                contentContainerStyle={{minHeight: "170%", paddingBottom: 15}}
             >
 
-                <View className=" justify-between ">
+                <View className=" justify-between items-center">
                     {
                         result.map((index) => {
                             return (
@@ -65,7 +65,7 @@ const Saved = () => {
                                     onPress={handlePress}
 
                                 >
-                                    <View className="bg-[#787878] w-[358] h-[109] rounded-[20] mb-4">
+                                    <View className="bg-[#787878] w-[320] px h-[109] rounded-[20] mb-4">
                                         <View className="flex-row justify-between items-center p-4 px-5 rounded-b-3xl">
                                             <Image
                                                 source={images.blank}

@@ -85,7 +85,7 @@ const router2 = useRouter();
           <ScrollView
               className="flex-1 mt-4"
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ minHeight: "113%", paddingBottom: 10 }}
+              contentContainerStyle={{ minHeight: "125%", paddingBottom: 10 }}
           >
 
             <View className="mt-1">
