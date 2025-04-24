@@ -19,6 +19,25 @@ const ContextApi = ({ children }) => {
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
+  const latestMovies = movies
+    .filter((movie) => movie.releaseDate)
+    .sort(
+      (a, b) =>
+        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+    )
+    .slice(0, 6);
+
+  const topRatedMovies = movies
+    .filter(
+      (movie) =>
+        Array.isArray(movie.rating) &&
+        movie.rating.length > 0 &&
+        movie.rating[0] !== "N/A" &&
+        !isNaN(parseFloat(movie.rating[0]))
+    )
+    .sort((a, b) => parseFloat(b.rating[0]) - parseFloat(a.rating[0]))
+    .slice(0, 6);
+
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -99,6 +118,8 @@ const ContextApi = ({ children }) => {
         handleSignOut,
         saveUser,
         createMovie,
+        latestMovies,
+        topRatedMovies,
       }}
     >
       {children}

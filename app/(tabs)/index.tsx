@@ -27,9 +27,11 @@ const Index = () => {
 
   const navigation = useNavigation();
 
-  const { user, movies } = useAppContext() as {
+  const { user, movies, latestMovies, topRatedMovies } = useAppContext() as {
     user: any;
     movies: Movie[];
+    latestMovies: Movie[];
+    topRatedMovies: Movie[];
   };
 
   type Movie = {
@@ -55,45 +57,82 @@ const Index = () => {
         />
 
         <ScrollView
-          className="flex-1 px-5"
+          className="flex-1"
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
+          contentContainerStyle={{
+            paddingTop: 110,
+            paddingBottom: 40,
+            paddingHorizontal: 20,
+          }}
         >
-          <View className="flex-1 mt-5 pt-28">
-            <SearchBar />
-            <>
-              <Text className="text-lg text-white font-bold mt-5 mb-3">
-                Recent Viewed
-              </Text>
-              <Text className="text-lg text-white font-bold mt-5 mb-3">
-                Top Rated
-              </Text>
-              <Text className="text-lg text-white font-bold mt-5 mb-3">
-                Latest MMFF Movies
-              </Text>
-            </>
+          <SearchBar />
+
+          {/* Recent Viewed */}
+          <View className="mt-6">
+            <Text className="text-lg text-white font-bold mb-3">
+              Recently Viewed
+            </Text>
+            {/* Placeholder or component goes here */}
+            <Text className="text-white">No recent movies yet.</Text>
+          </View>
+
+          {/* Top Rated */}
+          <View className="mt-6">
+            <Text className="text-lg text-white font-bold mb-3">Top Rated</Text>
+
+            <View className="flex flex-row flex-wrap gap-x-4 gap-y-6 justify-between">
+              {topRatedMovies.length === 0 ? (
+                <Text className="text-white">No top rated movies found.</Text>
+              ) : (
+                topRatedMovies.map((movie, index) => (
+                  <View key={index} className="w-[48%]">
+                    <Image
+                      source={{ uri: movie.poster }}
+                      style={{ width: "100%", height: 180, borderRadius: 10 }}
+                      resizeMode="cover"
+                    />
+                    <Text className="text-white text-sm mt-2">
+                      {movie.title}
+                    </Text>
+                    <Text className="text-white text-xs">
+                      ⭐ {movie.rating}
+                    </Text>
+                  </View>
+                ))
+              )}
+            </View>
+          </View>
+
+          {/* Latest MMFF Movies */}
+          <View className="mt-6">
+            <Text className="text-lg text-white font-bold mb-3">
+              Latest MMFF Movies
+            </Text>
+
+            <View className="flex flex-row flex-wrap gap-x-4 gap-y-6 justify-between">
+              {latestMovies.length === 0 ? (
+                <Text className="text-white">No latest movies found.</Text>
+              ) : (
+                latestMovies.map((movie, index) => (
+                  <View key={index} className="w-[48%]">
+                    <Image
+                      source={{ uri: movie.poster }}
+                      style={{ width: "100%", height: 180, borderRadius: 10 }}
+                      resizeMode="cover"
+                    />
+                    <Text className="text-white text-sm mt-2">
+                      {movie.title}
+                    </Text>
+                  </View>
+                ))
+              )}
+            </View>
           </View>
         </ScrollView>
       </View>
+    </>
 
-      <View className="flex flex-row flex-wrap gap-4">
-        {movies.length === 0 ? (
-          <Text className="text-white">No movies found.</Text>
-        ) : (
-          movies.map((movie, index) => (
-            <View key={index} className="w-[30%] mb-4 mr-3">
-              <Image
-                source={{ uri: movie.poster }}
-                style={{ width: "100%", height: 150, borderRadius: 10 }}
-                resizeMode="cover"
-              />
-              <Text className="text-white text-sm mt-2">{movie.title}</Text>
-            </View>
-          ))
-        )}
-      </View>
-
-      <View className="flex-1 bg-[#282828]">
+    /* <View className="flex-1 bg-[#282828]">
         <Image
           source={images.upperhome}
           className="absolute w-full z-0"
@@ -113,8 +152,7 @@ const Index = () => {
             placeholder={"Search MMFF movies"}
           />
         </View>
-      </View>
-    </>
+      </View> */
   );
 };
 
