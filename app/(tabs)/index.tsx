@@ -16,7 +16,21 @@ import { useAppContext } from "./../context/appContext";
 
 const Index = () => {
   const router = useRouter();
-  const { user } = useAppContext();
+  const { user, movies } = useAppContext() as {
+    user: any;
+    movies: Movie[];
+  };
+
+  type Movie = {
+    title: string;
+    description: string;
+    poster: string;
+    genre: string;
+    releaseDate: string;
+    rating: string;
+    awards: string;
+    link: string;
+  };
 
   // const {
   //     data: movies,
@@ -25,34 +39,53 @@ const Index = () => {
   // } = useFetch(() => fetchMovies({ query: "" }));
 
   return (
-    <View className="flex-1 bg-[#282828]">
-      <Image
-        source={images.upperhome}
-        className="absolute w-full z-0"
-        resizeMode="cover"
-      />
+    <>
+      <View className="flex-1 bg-[#282828]">
+        <Image
+          source={images.upperhome}
+          className="absolute w-full z-0"
+          resizeMode="cover"
+        />
 
-      <ScrollView
-        className="flex-1 px-5"
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
-      >
-        <View className="flex-1 mt-5 pt-28">
-          <SearchBar />
-          <>
-            <Text className="text-lg text-white font-bold mt-5 mb-3">
-              Recent Viewed
-            </Text>
-            <Text className="text-lg text-white font-bold mt-5 mb-3">
-              Top Rated
-            </Text>
-            <Text className="text-lg text-white font-bold mt-5 mb-3">
-              Latest MMFF Movies
-            </Text>
-          </>
-        </View>
-      </ScrollView>
-    </View>
+        <ScrollView
+          className="flex-1 px-5"
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
+        >
+          <View className="flex-1 mt-5 pt-28">
+            <SearchBar />
+            <>
+              <Text className="text-lg text-white font-bold mt-5 mb-3">
+                Recent Viewed
+              </Text>
+              <Text className="text-lg text-white font-bold mt-5 mb-3">
+                Top Rated
+              </Text>
+              <Text className="text-lg text-white font-bold mt-5 mb-3">
+                Latest MMFF Movies
+              </Text>
+            </>
+          </View>
+        </ScrollView>
+      </View>
+
+      <View className="flex flex-row flex-wrap gap-4">
+        {movies.length === 0 ? (
+          <Text className="text-white">No movies found.</Text>
+        ) : (
+          movies.map((movie, index) => (
+            <View key={index} className="w-[30%] mb-4 mr-3">
+              <Image
+                source={{ uri: movie.poster }}
+                style={{ width: "100%", height: 150, borderRadius: 10 }}
+                resizeMode="cover"
+              />
+              <Text className="text-white text-sm mt-2">{movie.title}</Text>
+            </View>
+          ))
+        )}
+      </View>
+    </>
 
     // <View className="flex-1 bg-[#282828]">
     //     <Image

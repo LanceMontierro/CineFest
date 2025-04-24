@@ -49,7 +49,9 @@ const ContextApi = ({ children }) => {
       }
     };
 
-    fetchUserData();
+    if (userAcc) {
+      fetchUserData();
+    }
   }, [userAcc]);
 
   const saveUser = async (user) => {

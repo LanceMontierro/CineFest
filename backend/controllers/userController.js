@@ -26,6 +26,28 @@ export const saveUser = async (req, res) => {
   }
 };
 
+export const getAllUserDetails = async (req, res) => {
+  const username = req.query.username;
+
+  try {
+    const user = await userSchema.findOne({ username });
+    if (user) {
+      res.status(200).json({
+        username: user.userName,
+        cartItems: user.favoriteMovies,
+        favorites: user.recentlyViewed,
+      });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
+  }
+};
+
 export const addToRecentlyViewedMovies = async (req, res) => {};
 
 export const getRecentlyViewedMovies = async (req, res) => {};
