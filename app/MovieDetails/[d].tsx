@@ -16,7 +16,7 @@ export default function MovieDetails() {
 
     return (
         <View className="bg-[#282828] flex-1">
-            <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+            <ScrollView contentContainerStyle={{ paddingBottom: 80, minHeight: description.length * 2.2 }}>
                 <View>
                     <Image
                         source={{ uri: poster as string }}
@@ -24,7 +24,7 @@ export default function MovieDetails() {
                         resizeMode="stretch"
                     />
 
-                    <TouchableOpacity className="absolute bottom-5 right-5 rounded-full size-14 bg-white flex items-center justify-center">
+                    <TouchableOpacity className="absolute bottom-5 right-5 rounded-full size-14 bg-[#404040] flex items-center justify-center">
                         <Image
                             source={icons.save2}
                             className="w-6 h-7"
@@ -47,15 +47,18 @@ export default function MovieDetails() {
                         </Text>
                     </View>
 
-                    <View className="flex-row items-center bg-dark-100 px-2 py-1 rounded-md gap-x-1 mt-2">
-                        <Text className="bg-[#404040] w-[59] h-[24] text-white font-bold text-sm justify-center items-center rounded-md">
+                    <View className="bg-[#404040] w-[awards.length] h-[awards.length] justify-center items-center mt-2 rounded-md px-5 py-3">
+                        <Text className="text-white font-bold text-sm">
                             {awards}
                         </Text>
                     </View>
 
-                    <View className="flex-row items-center bg-dark-100 px-2 py-1 rounded-md gap-x-1 mt-2">
+                    <View className=" mt-2">
+                        <Text className="text-white mb-3 font-bold">
+                            Description:
+                            </Text>
                         <Text className="text-white font-bold text-sm">
-                            {description}
+                          {description}
                         </Text>
                     </View>
                 </View>

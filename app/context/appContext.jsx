@@ -24,7 +24,6 @@ const ContextApi = ({ children }) => {
             const res = await axios.get(`${API_URL}/movies/get-movie`);
             const data = res.data;
 
-
             return Array.isArray(data)
                 ? data.map(({ title, poster ,description, awards ,links}) => ({ title, poster , description, awards, links}))
                 : [];
@@ -33,9 +32,6 @@ const ContextApi = ({ children }) => {
             return [];
         }
     };
-
-
-
 
     const latestMovies = movies
       .filter((movie) => {
