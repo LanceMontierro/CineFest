@@ -26,17 +26,8 @@ export const createMovie = async (req, res) => {
     link,
   } = req.body;
 
-  if (
-    !title ||
-    !description ||
-    !poster ||
-    !genre ||
-    !releaseDate ||
-    !rating ||
-    !awards ||
-    !link
-  ) {
-    return res.status(400).json({ message: "All fields are required" });
+  if (!title || !description || !genre || !releaseDate) {
+    return res.status(400).json({ message: "this fields are required" });
   }
 
   try {
