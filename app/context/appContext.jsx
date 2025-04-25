@@ -165,6 +165,8 @@ const ContextApi = ({ children }) => {
     }
   };
 
+  console.log("favortiteMovies", favortiteMovies);
+
   return (
     <appContext.Provider
       value={{
