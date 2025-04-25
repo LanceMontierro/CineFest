@@ -30,6 +30,37 @@ const ContextApi = ({ children }) => {
     )
     .slice(0, 10);
 
+  const fetchMoviePosters = async () => {
+    try {
+      const res = await axios.get(`${API_URL}/movies/get-movie`);
+      const data = res.data;
+
+      return Array.isArray(data)
+        ? data.map(({ title, poster, description, awards, links }) => ({
+            title,
+            poster,
+            description,
+            awards,
+            links,
+          }))
+        : [];
+    } catch (error) {
+      console.error("Error fetching movies:", error.message);
+      return [];
+    }
+  };
+
+  const latestMovies = movies
+    .filter((movie) => {
+      const date = new Date(movie.releaseDate);
+      return movie.releaseDate && date.getFullYear() === 2024;
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+    )
+    .slice(0, 10);
+
   const topRatedMovies = movies
     .filter(
       (movie) =>
@@ -151,6 +182,7 @@ const ContextApi = ({ children }) => {
         movies,
         setMovies,
         favortiteMovies,
+        fetchMoviePosters,
         setFavoriteMovies,
         recentOpenMovies,
         setRecentOpenMovies,

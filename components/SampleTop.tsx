@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, Dimensions, Image, TouchableOpacity } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { useRouter } from "expo-router";
-import {useAppContext} from "@/app/context/appContext";
 
 type Movie = {
     title: string;
@@ -25,7 +24,20 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
     const router = useRouter();
 
     const handlePress = () => {
-        router.push("/MovieDetails/[d]");
+        router.push({
+            pathname: "/MovieDetails/[d]",
+            params: {
+                d: item.title,
+                title: item.title,
+                description: item.description,
+                poster: item.poster,
+                genre: item.genre,
+                releaseDate: item.releaseDate,
+                rating: item.rating,
+                awards: item.awards,
+                link: item.link,
+            },
+        });
     };
 
     return (
@@ -36,7 +48,7 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
                     style={{ width: cardWidth, height: cardWidth * 1.4, borderRadius: 10 }}
                     resizeMode="cover"
                 />
-                <Text className="text-white text-sm mt-2">{item.title}</Text>
+                <Text className="text-white text-sm mt-2 text-center">{item.title}</Text>
                 <Text className="text-white text-xs">⭐ {item.rating}</Text>
             </View>
         </TouchableOpacity>
