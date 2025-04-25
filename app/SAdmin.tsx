@@ -46,7 +46,6 @@ const SAdmin = () => {
         router.push("/MovieDetails/[d]");
     };
 
-    // 🆕 Pick Image Function
     const pickImage = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (!permissionResult.granted) {

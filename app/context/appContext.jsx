@@ -19,13 +19,18 @@ const ContextApi = ({ children }) => {
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
+
+
   const latestMovies = movies
-    .filter((movie) => movie.releaseDate)
-    .sort(
-      (a, b) =>
-        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
-    )
-    .slice(0, 6);
+      .filter((movie) => {
+        const date = new Date(movie.releaseDate);
+        return movie.releaseDate && date.getFullYear() === 2024;
+      })
+      .sort(
+          (a, b) =>
+              new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+      )
+      .slice(0, 10);
 
   const topRatedMovies = movies
     .filter(
