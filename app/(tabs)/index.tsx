@@ -45,8 +45,6 @@ const Index = () => {
     link: string;
   };
 
-  const { height } = Dimensions.get('window');
-
   const router2 = useRouter();
 
   return (

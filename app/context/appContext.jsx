@@ -19,9 +19,25 @@ const ContextApi = ({ children }) => {
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
+  const fetchMoviePosters = async () => {
+        try {
+            const res = await axios.get(`${API_URL}/movies/get-movie`);
+            const data = res.data;
 
 
-  const latestMovies = movies
+            return Array.isArray(data)
+                ? data.map(({ title, poster ,description, awards ,links}) => ({ title, poster , description, awards, links}))
+                : [];
+        } catch (error) {
+            console.error("Error fetching movies:", error.message);
+            return [];
+        }
+    };
+
+
+
+
+    const latestMovies = movies
       .filter((movie) => {
         const date = new Date(movie.releaseDate);
         return movie.releaseDate && date.getFullYear() === 2024;
@@ -113,6 +129,7 @@ const ContextApi = ({ children }) => {
         movies,
         setMovies,
         favortiteMovies,
+          fetchMoviePosters,
         setFavoriteMovies,
         recentOpenMovies,
         setRecentOpenMovies,
@@ -133,3 +150,6 @@ const ContextApi = ({ children }) => {
 };
 
 export default ContextApi;
+
+export class fetchMoviesDetails {
+}
