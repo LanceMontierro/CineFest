@@ -4,7 +4,8 @@ import {
   ScrollView,
   ActivityIndicator,
   Image,
-  FlatList, Dimensions,
+  FlatList,
+  Dimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -45,7 +46,7 @@ const Index = () => {
     link: string;
   };
 
-  const { height } = Dimensions.get('window');
+  const { height } = Dimensions.get("window");
 
   const router2 = useRouter();
 
@@ -78,12 +79,11 @@ const Index = () => {
             <Text className="text-white">No recent movies yet.</Text>
           </View>
 
-            <SampleTop data={topRatedMovies}/>
-            <SampleLatest data={latestMovies}/>
+          <SampleTop data={topRatedMovies} />
+          <SampleLatest data={latestMovies} />
         </ScrollView>
       </View>
     </>
-
   );
 };
 

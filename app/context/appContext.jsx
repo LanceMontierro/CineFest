@@ -19,18 +19,16 @@ const ContextApi = ({ children }) => {
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
-
-
   const latestMovies = movies
-      .filter((movie) => {
-        const date = new Date(movie.releaseDate);
-        return movie.releaseDate && date.getFullYear() === 2024;
-      })
-      .sort(
-          (a, b) =>
-              new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
-      )
-      .slice(0, 10);
+    .filter((movie) => {
+      const date = new Date(movie.releaseDate);
+      return movie.releaseDate && date.getFullYear() === 2024;
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+    )
+    .slice(0, 10);
 
   const topRatedMovies = movies
     .filter(
@@ -58,7 +56,7 @@ const ContextApi = ({ children }) => {
       console.log("User object:", user);
       const email = user?.primaryEmailAddress?.emailAddress;
       console.log("User Email:", email);
-      console.log("Fetched movies:", movies);
+
       setUserAcc(user);
     }
   }, [isSignedIn, user]);
@@ -68,6 +66,14 @@ const ContextApi = ({ children }) => {
       try {
         const res = await axios.get(`${API_URL}/movies/get-movie`);
         setMovies(res.data || []);
+
+        if (!userAcc) return;
+
+        const userRes = await axios.get(
+          `${API_URL}/users/get-user-details?username=${userAcc}`
+        );
+        setFavoriteMovies(userRes.data.favorites || []);
+        setRecentOpenMovies(userRes.data.recentlyViewed || []);
       } catch (error) {
         console.error("Error fetching data:", error.message);
       }
@@ -107,6 +113,38 @@ const ContextApi = ({ children }) => {
     }
   };
 
+  const addToFavoriteMovies = async (movie) => {
+    if (!userAcc) {
+      console.log("User account not found. Cannot add to favorite movies.");
+      return;
+    }
+    try {
+      const isAlreadyFavorite = favortiteMovies.some(
+        (m) => m.title === movie.title
+      );
+
+      const res = await axios.post(`${API_URL}/users/add-to-favorite-movies`, {
+        userId: userAcc.id,
+        title: movie.title,
+        description: movie.description,
+        poster: movie.poster,
+        genre: movie.genre,
+        releaseDate: movie.releaseDate,
+        rating: movie.rating,
+        awards: movie.awards,
+        link: movie.link,
+      });
+
+      setFavoriteMovies((prev) =>
+        isAlreadyFavorite
+          ? prev.filter((prevMovie) => prevMovie.title !== movie.title)
+          : [...prev, movie]
+      );
+    } catch (error) {
+      console.error("Error adding to favorite movies:", error);
+    }
+  };
+
   return (
     <appContext.Provider
       value={{
@@ -125,6 +163,7 @@ const ContextApi = ({ children }) => {
         createMovie,
         latestMovies,
         topRatedMovies,
+        addToFavoriteMovies,
       }}
     >
       {children}
