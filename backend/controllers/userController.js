@@ -34,8 +34,8 @@ export const getAllUserDetails = async (req, res) => {
     if (user) {
       res.status(200).json({
         username: user.userName,
-        cartItems: user.favoriteMovies,
-        favorites: user.recentlyViewed,
+        favorites: user.favoriteMovies,
+        recentlyViewed: user.recentlyViewed,
       });
     } else {
       res.status(404).json({ message: "User not found" });
@@ -48,10 +48,63 @@ export const getAllUserDetails = async (req, res) => {
   }
 };
 
-export const addToRecentlyViewedMovies = async (req, res) => {};
+export const addToRecentlyViewedMovies = async (req, res) => {
+  const {
+    userId,
+    title,
+    description,
+    poster,
+    genre,
+    releaseDate,
+    rating,
+    award,
+    link,
+  } = req.body;
+};
 
-export const getRecentlyViewedMovies = async (req, res) => {};
+export const addToFavoriteMovies = async (req, res) => {
+  const {
+    userId,
+    title,
+    description,
+    poster,
+    genre,
+    releaseDate,
+    rating,
+    award,
+    link,
+  } = req.body;
 
-export const addToFavoriteMovies = async (req, res) => {};
+  if (!userId || !title) {
+    return res.status(400).json({ message: "userId and title are required" });
+  }
 
-export const getFavoriteMovies = async (req, res) => {};
+  try {
+    const user = await userSchema.findOne({ userId });
+
+    const isAlreadyFavorite = user.favoriteMovies.some(
+      (movie) => movie.title === title
+    );
+
+    if (isAlreadyFavorite) {
+      return res.status(400).json({ message: "Movie already in favorites" });
+    }
+
+    user.favoriteMovies.push({
+      title,
+      description,
+      poster,
+      genre,
+      releaseDate,
+      rating,
+      award,
+      link,
+    });
+    await user.save();
+
+    return res.status(200).json({ message: "Movie added to favorites" });
+  } catch (error) {
+    console.error("Error fetching recently viewed movies:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
