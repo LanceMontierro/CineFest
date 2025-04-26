@@ -82,27 +82,29 @@ export const addToFavoriteMovies = async (req, res) => {
   try {
     const user = await userSchema.findOne({ userId });
 
-    const isAlreadyFavorite = user.favoriteMovies.some(
+    const existingItemIndex = user.favoriteMovies.findIndex(
       (movie) => movie.title === title
     );
 
-    if (isAlreadyFavorite) {
-      return res.status(400).json({ message: "Movie already in favorites" });
+    if (existingItemIndex !== -1) {
+      user.favoriteMovies.splice(existingItemIndex, 1);
+      await user.save();
+      return res.status(200).json({ message: "Movie removed from favorites" });
+    } else {
+      user.favoriteMovies.push({
+        title,
+        description,
+        poster,
+        genre,
+        releaseDate,
+        rating,
+        award,
+        link,
+      });
+      await user.save();
+
+      return res.status(200).json({ message: "Movie added to favorites" });
     }
-
-    user.favoriteMovies.push({
-      title,
-      description,
-      poster,
-      genre,
-      releaseDate,
-      rating,
-      award,
-      link,
-    });
-    await user.save();
-
-    return res.status(200).json({ message: "Movie added to favorites" });
   } catch (error) {
     console.error("Error fetching recently viewed movies:", error);
     return res.status(500).json({ message: "Internal server error" });
