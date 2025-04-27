@@ -15,7 +15,7 @@ import SearchBar from "@/components/SearchBar";
 
 import { useAppContext } from "./../context/appContext";
 import SampleRecent from "@/components/SampleRecent";
-import { useState } from "react";
+import React, { useState } from "react";
 import MovieCard from "@/components/MovieCard";
 import SampleTop from "@/components/SampleTop";
 import SampleLatest from "@/components/SampleLatest";
@@ -25,8 +25,6 @@ import { icons } from "@/constansts/icons";
 
 const Index = () => {
   const router = useRouter();
-
-  const navigation = useNavigation();
 
   const { user, movies, latestMovies, topRatedMovies } = useAppContext() as {
     user: any;
@@ -59,17 +57,30 @@ const Index = () => {
           resizeMode="cover"
         />
 
+        <View className="justify-center items-center">
+          <Image source={icons.splashicon} className="w-12 h-10 mt-16 mb-5 mx-auto" />
+        </View>
+
         <ScrollView
           className="flex-1"
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            paddingTop: 110,
             paddingBottom: 40,
             minHeight: "125%",
             paddingHorizontal: 20,
           }}
         >
-          <SearchBar />
+
+          <View className="mt-10">
+
+          <SearchBar2 placeholder={"Search MMFF Movies"} onPress={() => {
+            router.push("/search");
+          }}/>
+
+          </View>
+
+          <SampleLatest data={latestMovies} />
+          <SampleTop data={topRatedMovies} />
 
           <View className="mt-6">
             <Text className="text-lg text-white font-bold mb-3">
@@ -79,8 +90,6 @@ const Index = () => {
             <Text className="text-white">No recent movies yet.</Text>
           </View>
 
-          <SampleTop data={topRatedMovies} />
-          <SampleLatest data={latestMovies} />
         </ScrollView>
       </View>
     </>
