@@ -23,7 +23,7 @@ export default function MovieDetails() {
 
     return (
         <View className="bg-[#282828] flex-1">
-
+            <ScrollView  showsVerticalScrollIndicator={false} contentContainerStyle={{  minHeight:"110%"} }>
                 <View>
                     <Image
                         source={{ uri: poster as string }}
@@ -96,15 +96,15 @@ export default function MovieDetails() {
                         )}
                     </View>
 
-                    <ScrollView contentContainerStyle={{ paddingBottom: 80 ,  minHeight:"82%", alignItems: 'center'}}>
-                        <Text className="text-[#FAFAFA] font-bold text-sm mb-2">
+
+                        <Text className="text-[#FAFAFA] font-bold text-sm mb-2 text-center">
                             Description
                         </Text>
 
                         <Text className="text-neutral-400 text-center px-5">
                             {description}
                         </Text>
-                    </ScrollView>
+
 
                     <View className=" flex-row flex-wrap justify-center items-center mt-2 rounded-md px-5 py-3 self-center">
                         <Text className="text-[#FAFAFA] font-semibold text-center text-base">
@@ -112,9 +112,17 @@ export default function MovieDetails() {
                         </Text>
                     </View>
 
+                    <View className=" flex-row flex-wrap justify-center items-center mt-2 rounded-md px-5 py-3 self-center">
+                        <TouchableOpacity>
+                        <Text className="text-[#FAFAFA] font-semibold text-center text-base">
+                            {link?.length > 0 ? "Watch Trailer" : "No Trailer Available"}
+                        </Text>
+                        </TouchableOpacity>
+                    </View>
+
 
                 </View>
-
+        </ScrollView>
             <TouchableOpacity
                 className="bg-[#404040] absolute bottom-5 mb-14 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50"
                 onPress={router.back}

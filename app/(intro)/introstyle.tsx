@@ -206,10 +206,10 @@ const Introstyle = () => {
             METRO MANILA FILMS!
           </Text>
           <TouchableOpacity
-            className="mt-20 inline-block"
+            className="mt-20 inline-block bg-white shadow-xl shadow-zinc-950 rounded-[16] py-4 px-4"
             onPress={handleGoogleSignIn}
           >
-            <View className="flex-row items-center bg-white rounded-[16] py-5 px-5">
+            <View className="flex-row items-center">
               <Image source={images.google} className="w-10 h-10 mr-2" />
               <Text style={{ color: "block", fontSize: 20 }}>
                 Continue with Google
