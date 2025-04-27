@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { ImageBackground, Image, Text, View } from "react-native";
+import {ImageBackground, Image, Text, View, useWindowDimensions} from "react-native";
 
 import { icons } from "@/constansts/icons";
 import { images } from "@/constansts/images";
@@ -27,13 +27,17 @@ function TabIcon({ focused, icon, title }: any) {
 }
 
 export default function TabsLayout() {
+
+    const { width, height } = useWindowDimensions();
+    const isLandscape = width > height;
+
   return (
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
         tabBarItemStyle: {
-          width: "100%",
-          height: "100%",
+          width: isLandscape ? "50%" : "100%",
+          height:  isLandscape ? "80%" : "100%",
           justifyContent: "center",
           alignItems: "center",
         },
@@ -41,8 +45,10 @@ export default function TabsLayout() {
           backgroundColor: "#000000",
           borderRadius: 50,
           marginHorizontal: 20,
-          marginBottom: 70,
-          height: 52,
+            marginLeft: isLandscape ? 150 : 20,
+            marginRight: isLandscape ? 150 : 20,
+          marginBottom: isLandscape ? 10 : 70,
+          height: isLandscape ? 60 : 52,
           position: "absolute",
           overflow: "hidden",
           borderWidth: 1,

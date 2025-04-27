@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Dimensions, Image, TouchableOpacity } from 'react-native';
+import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { useRouter } from "expo-router";
 
@@ -21,9 +21,14 @@ interface TrendingMoviesProps {
 const { width } = Dimensions.get('window');
 
 const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
+
+
     const router = useRouter();
 
+
+
     const handlePress = () => {
+
         router.push({
             pathname: "/MovieDetails/[d]",
             params: {
@@ -40,12 +45,16 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
         });
     };
 
+    const {width, height } = useWindowDimensions();
+    const isLandscape = width > height;
+
     return (
+
         <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
             <View className="items-center justify-center">
                 <Image
                     source={{ uri: item.poster }}
-                    style={{ width: cardWidth, height: cardWidth * 1.4, borderRadius: 10 }}
+                    style={{ width: isLandscape ? cardWidth * 1.1 :cardWidth, height: cardWidth * 1.4, borderRadius: 10 }}
                     resizeMode="cover"
                 />
                 <Text className="text-white text-sm mt-2 text-center">{item.title}</Text>
@@ -61,7 +70,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
     return (
         <View>
             <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">Latest MMFF</Text>
-
+            <View className="justify-center items-center">
             {data.length === 0 ? (
                 <Text className="text-white ml-4">No Top Rating available.</Text>
             ) : (
@@ -82,6 +91,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
                     )}
                 />
             )}
+            </View>
         </View>
     );
 }

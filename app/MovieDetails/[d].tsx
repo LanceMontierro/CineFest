@@ -1,9 +1,10 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity, Dimensions, useWindowDimensions} from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { icons } from "@/constansts/icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useState, useEffect } from "react";
 import { useAppContext } from "./../context/appContext";
+
 
 export default function MovieDetails() {
     const {
@@ -17,7 +18,8 @@ export default function MovieDetails() {
         link,
     } = useLocalSearchParams();
 
-    const { width, height } = Dimensions.get('window');
+    const { width, height } = useWindowDimensions();
+    const isLandscape = width > height;
 
     const { addToFavoriteMovies, favortiteMovies } = useAppContext();
 
@@ -46,15 +48,15 @@ export default function MovieDetails() {
 
     return (
         <View className="bg-[#282828] flex-1">
-            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ minHeight: "110%" }}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ minHeight: isLandscape ? height + 250 : "110%" }}>
                 <View>
                     <Image
                         source={{ uri: poster as string }}
-                        style={{ width, height: height * 0.55 }}
+                        style={{ width: isLandscape ? width + 50 : width, height: isLandscape ? height * 0.7 :height * 0.55 }}
                     />
 
-                    <View className="bg-[#404040] rounded-b-3xl px-4 py-4 absolute right-5 items-center justify-center z-50">
-                        <TouchableOpacity onPress={handleLikePress} activeOpacity={0.8}>
+                    <View className={`bg-[#404040] rounded-b-3xl px-4 py-4 absolute right-5 items-center justify-center z-50 ${isLandscape ? 'w-16 h-16 left-5' : 'right-5'}`}>
+                        <TouchableOpacity onPress={handleLikePress} activeOpacity={0.8} className={`${isLandscape ? 'w-10 h-10' : ''}`}>
                             <Image
                                 source={liked
                                     ? require('@/assets/icons/Bookmark2.png')
@@ -143,7 +145,23 @@ export default function MovieDetails() {
             </ScrollView>
 
             <TouchableOpacity
-                className="bg-[#404040] absolute bottom-5 mb-14 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50"
+                style={{
+                    backgroundColor: '#404040',
+                    position: 'absolute',
+                    bottom: 5,
+                    left: 0,
+                    right: 0,
+                    paddingHorizontal: 20,
+                    paddingVertical: 14,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginLeft:  isLandscape ? 150 :30,
+                    marginRight: isLandscape ? 150 :30,
+                    justifyContent: 'center',
+                    zIndex: 50,
+                    borderRadius: 10,
+                    marginBottom: isLandscape ? 20:60,
+                }}
                 onPress={router.back}
             >
                 <Image
