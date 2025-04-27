@@ -25,7 +25,6 @@ const Search = () => {
     const { width, height } = Dimensions.get('window');
     const router = useRouter();
 
-
     useEffect(() => {
 
         if (searchQuery.trim() === "") {
@@ -124,11 +123,11 @@ const Search = () => {
                                     source={{ uri: movie.poster || images.blank }}
                                     style={{width:  width * 0.43, height: height * 0.3, borderRadius: 10}}
                                 />
-                                <Text className="text-white font-bold text-sm mt-2" numberOfLines={1}>
+                                <Text className="text-white font-bold text-sm mt-2 ">
                                     {movie.title || "No Title"}
                                 </Text>
-                                <Text className="text-white font-bold text-sm" numberOfLines={1}>
-                                    {(movie.genre || "Genre Unknown") +
+                                <Text className="text-white font-bold text-sm  mt-2">
+                                    {(movie.rating || "Genre Unknown") +
                                         " • " +
                                         (movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : "Unknown")}
                                 </Text>

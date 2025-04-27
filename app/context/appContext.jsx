@@ -25,9 +25,12 @@ const ContextApi = ({ children }) => {
       const data = res.data;
 
       return Array.isArray(data)
-        ? data.map(({ title, poster, description, awards, links }) => ({
+        ? data.map(({ title, poster, description, awards, links, releaseDate, genre, rating }) => ({
             title,
             poster,
+            releaseDate,
+            rating,
+            genre,
             description,
             awards,
             links,

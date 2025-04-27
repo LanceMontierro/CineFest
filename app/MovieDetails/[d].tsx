@@ -24,7 +24,7 @@ export default function MovieDetails() {
     const [liked, setLiked] = useState(false);
 
     useEffect(() => {
-        // Check if this movie is already in favorites
+
         const isFavorite = favortiteMovies.some((movie:any) => movie.title === title);
         setLiked(isFavorite);
     }, [favortiteMovies, title]);
