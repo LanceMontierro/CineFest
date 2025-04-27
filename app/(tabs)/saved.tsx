@@ -20,7 +20,6 @@ type Movie = {
     link: string;
 };
 
-
 const Saved = ({item}: {item: Movie}) => {
     const [showFilters, setShowFilters] = useState(false);
     const [showFilters2, setShowFilters2] = useState(false);

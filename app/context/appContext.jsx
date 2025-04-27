@@ -19,7 +19,7 @@ const ContextApi = ({ children }) => {
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
-  const fetchMoviePosters = async () => {
+  const fetchMovieDetails = async () => {
     try {
       const res = await axios.get(`${API_URL}/movies/get-movie`);
       const data = res.data;
@@ -182,7 +182,7 @@ const ContextApi = ({ children }) => {
         movies,
         setMovies,
         favortiteMovies,
-        fetchMoviePosters,
+        fetchMovieDetails,
         setFavoriteMovies,
         recentOpenMovies,
         setRecentOpenMovies,
