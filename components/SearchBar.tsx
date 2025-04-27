@@ -15,9 +15,7 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ placeholder, searchQuery, setSearchQuery, onFilterPress, onFilter2Press }: SearchBarProps) => {
-    const [input, setInput] = useState('');
-    const [showFilters, setShowFilters] = useState(false);
-    const [showFilters2, setShowFilters2] = useState(false);
+
     return (
 
         <View className="flex-row items-center px-5 py-4 bg-black rounded-full">
