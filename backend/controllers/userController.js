@@ -10,7 +10,7 @@ export const saveUser = async (req, res) => {
   try {
     const user = await userSchema.findOne({ userId });
     if (user) {
-      return res.status(200).json({ message: "User already exists" });
+      return res.status(200).json({ message: "Welcome back ", user });
     } else {
       const newUser = new userSchema({
         email,
@@ -33,7 +33,6 @@ export const getAllUserDetails = async (req, res) => {
     const user = await userSchema.findOne({ username });
     if (user) {
       res.status(200).json({
-        username: user.userName,
         favorites: user.favoriteMovies,
         recentlyViewed: user.recentlyViewed,
       });

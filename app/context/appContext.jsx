@@ -167,6 +167,15 @@ const ContextApi = ({ children }) => {
 
   console.log("favortiteMovies", favortiteMovies);
 
+  const addToRecentlyViewedMovies = async (movie) => {
+    if (!userAcc) {
+      console.log(
+        "User account not found. Cannot add to recently viewed movies."
+      );
+      return;
+    }
+  };
+
   return (
     <appContext.Provider
       value={{
