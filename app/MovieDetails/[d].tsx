@@ -24,7 +24,6 @@ export default function MovieDetails() {
     const [liked, setLiked] = useState(false);
 
     useEffect(() => {
-
         const isFavorite = favortiteMovies.some((movie:any) => movie.title === title);
         setLiked(isFavorite);
     }, [favortiteMovies, title]);
@@ -42,7 +41,7 @@ export default function MovieDetails() {
         };
 
         addToFavoriteMovies(movieData);
-        setLiked((prev) => !prev); // Toggle liked state
+        setLiked((prev) => !prev);
     };
 
     return (
