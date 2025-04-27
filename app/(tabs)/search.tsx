@@ -12,6 +12,10 @@ import { icons } from "@/constansts/icons";
 import SearchBar from "@/components/SearchBar";
 import { useRouter } from "expo-router";
 import { useAppContext } from "./../context/appContext";
+import GenreF from "@/components/GenreF";
+import Awards from "@/components/Awards";
+import YearF from "@/components/YearF";
+import RatingsF from "@/components/RatingsF";
 
 const Search = () => {
     const { movies } = useAppContext();
@@ -51,6 +55,9 @@ const Search = () => {
         });
     };
 
+    const [showFilters, setShowFilters] = useState(false);
+    const [showFilters2, setShowFilters2] = useState(false);
+
     return (
         <View className="flex-1 bg-[#282828]">
             <Image
@@ -68,8 +75,28 @@ const Search = () => {
                     placeholder="Search MMFF movies"
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
+                    onFilterPress={() => setShowFilters(!showFilters)}
+                    onFilter2Press={() => setShowFilters2(!showFilters2)}
                 />
+                {(showFilters || showFilters2) && (
+                    <View className="px-5 mt-2 space-y-2">
+                        {showFilters && (
+                            <>
+                                <GenreF/>
+                                <Awards/>
+                            </>
+                        )}
+                        {showFilters2 && (
+                            <>
+                                <YearF/>
+                                <RatingsF/>
+                            </>
+                        )}
+                    </View>
+                )}
             </View>
+
+
 
             <ScrollView
                 className="flex-1 px-5 mt-4"

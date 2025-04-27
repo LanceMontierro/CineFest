@@ -5,7 +5,6 @@ import GenreF from "@/components/GenreF";
 import Awards from "@/components/Awards";
 import YearF from "@/components/YearF";
 import RatingsF from "@/components/RatingsF";
-import {useNavigation} from "@react-navigation/native";
 
 interface SearchBarProps {
     placeholder: string;
@@ -16,8 +15,11 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ placeholder, searchQuery, setSearchQuery, onFilterPress, onFilter2Press }: SearchBarProps) => {
-
+    const [input, setInput] = useState('');
+    const [showFilters, setShowFilters] = useState(false);
+    const [showFilters2, setShowFilters2] = useState(false);
     return (
+
         <View className="flex-row items-center px-5 py-4 bg-black rounded-full">
 
             <Image
@@ -55,50 +57,6 @@ const SearchBar = ({ placeholder, searchQuery, setSearchQuery, onFilterPress, on
                         tintColor="#787878"
                     />
                 </TouchableOpacity>
-            )}
-        </View>
-    );
-};
-
-const DevCommandInput = () => {
-    const [input, setInput] = useState('');
-    const [showFilters, setShowFilters] = useState(false);
-    const [showFilters2, setShowFilters2] = useState(false);
-    const navigation = useNavigation<any>();
-
-    const handleCommand = (text: string) => {
-        setInput(text);
-
-        if (text === '/devmode') {
-            navigation.navigate('SAdmin');
-        }
-    };
-
-    return (
-        <View>
-            <SearchBar
-                placeholder="Search MMFF movies"
-                searchQuery={input}
-                setSearchQuery={handleCommand}
-                onFilterPress={() => setShowFilters(!showFilters)}
-                onFilter2Press={() => setShowFilters2(!showFilters2)}
-            />
-
-            {(showFilters || showFilters2) && (
-                <View className="px-5 mt-2 space-y-2">
-                    {showFilters && (
-                        <>
-                            <GenreF/>
-                            <Awards/>
-                        </>
-                    )}
-                    {showFilters2 && (
-                        <>
-                            <YearF/>
-                            <RatingsF/>
-                        </>
-                    )}
-                </View>
             )}
         </View>
     );
