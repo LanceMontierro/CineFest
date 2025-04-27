@@ -19,7 +19,7 @@ export default function MovieDetails() {
 
     const { width, height } = Dimensions.get('window');
 
-    const { addToFavoriteMovies, favortiteMovies } = useAppContext(); // 👈 get context values
+    const { addToFavoriteMovies, favortiteMovies } = useAppContext();
 
     const [liked, setLiked] = useState(false);
 
