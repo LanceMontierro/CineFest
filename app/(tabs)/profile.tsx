@@ -8,17 +8,17 @@ import {
   Modal,
   Animated,
   Dimensions,
-  Pressable, SafeAreaView,
+  Pressable, SafeAreaView, useWindowDimensions,
 } from "react-native";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";
 import { useAppContext } from "@/app/context/appContext";
-import {SafeAreaProvider} from "react-native-safe-area-context";
-
-const { height } = Dimensions.get("window");
 
 const Profile = () => {
   const { user, handleSignOut } = useAppContext();
+
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
 
   const [showDrawer, setShowDrawer] = useState(false);
   const [showDrawer2, setShowDrawer2] = useState(false);
@@ -82,18 +82,16 @@ const Profile = () => {
 
   return (
 
-
-
       <View className="flex-1 bg-[#282828]">
         <Image
             source={images.bahay}
-            className="absolute w-full z-0"
+            className={`${isLandscape ? 'absolute w-full z-0' : 'absolute w-full z-0'}`}
             resizeMode="cover"
         />
 
         <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ minHeight: "124%" }}
+            contentContainerStyle={{ minHeight:  isLandscape ? height * 2.6 :"124%" }}
         >
           <View className="justify-center items-center">
             <View className="bg-[#2E2E2E] mt-24 z-10 w-[317] h-[267] rounded-[25] justify-center items-center">

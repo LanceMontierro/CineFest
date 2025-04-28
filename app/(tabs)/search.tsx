@@ -5,7 +5,7 @@ import {
     Image,
     ScrollView,
     TouchableWithoutFeedback,
-    Dimensions,
+    Dimensions, useWindowDimensions,
 } from "react-native";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";
@@ -22,7 +22,6 @@ const Search = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [filteredMovies, setFilteredMovies] = useState<any[]>([]);
 
-    const { width, height } = Dimensions.get('window');
     const router = useRouter();
 
     useEffect(() => {
@@ -57,6 +56,9 @@ const Search = () => {
     const [showFilters, setShowFilters] = useState(false);
     const [showFilters2, setShowFilters2] = useState(false);
 
+    const { width, height } = useWindowDimensions();
+    const isLandscape = width > height;
+
     return (
         <View className="flex-1 bg-[#282828]">
             <Image
@@ -66,10 +68,10 @@ const Search = () => {
             />
 
             <View className="justify-center items-center">
-                <Image source={icons.splashicon} className="w-12 h-10 mt-16 mb-5 mx-auto" />
+                <Image source={icons.splashicon} className={`${isLandscape ? 'w-12 h-10 mt-6 mx-auto' : 'w-12 h-10 mt-16 mb-5 mx-auto'}`} />
             </View>
 
-            <View className="mt-10 px-5">
+            <View className={`${isLandscape ? 'mt-4' : 'mt-10'}`}>
                 <SearchBar
                     placeholder="Search MMFF movies"
                     searchQuery={searchQuery}
@@ -100,7 +102,7 @@ const Search = () => {
             <ScrollView
                 className="flex-1 px-5 mt-4"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ minHeight: "195%", paddingBottom: 15 }}
+                contentContainerStyle={{ minHeight: isLandscape ? height + 610 :height + 250, paddingBottom: 15 }}
             >
                 <Text className="text-white font-semibold ml-7 mb-4">
                     Result ({filteredMovies.length})
@@ -112,7 +114,7 @@ const Search = () => {
                     </Text>
                 )}
 
-                <View className="flex-row flex-wrap justify-between ">
+                <View className={`${isLandscape ? 'flex-row flex-wrap justify-between px-8' : 'flex-row flex-wrap justify-between'}`}>
                     {filteredMovies.map((movie, index) => (
                         <TouchableWithoutFeedback
                             key={index}

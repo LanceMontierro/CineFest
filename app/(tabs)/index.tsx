@@ -60,7 +60,7 @@ const Index = () => {
           />
 
           <View className="justify-center items-center">
-            <Image source={icons.splashicon} className={`${isLandscape ? 'w-12 h-10 mt-10 mx-auto' : 'w-12 h-10 mt-16 mb-5 mx-auto'}`} />
+            <Image source={icons.splashicon} className={`${isLandscape ? 'w-12 h-10 mt-6 mx-auto' : 'w-12 h-10 mt-16 mb-5 mx-auto'}`} />
           </View>
 
           <ScrollView
@@ -68,7 +68,7 @@ const Index = () => {
               showsVerticalScrollIndicator={false}
               contentContainerStyle={{
                 paddingBottom: 40,
-                minHeight: isLandscape ? height + 300 :height + 250,
+                minHeight: isLandscape ? height + 550 :height + 250,
                 paddingHorizontal: 20,
               }}
           >

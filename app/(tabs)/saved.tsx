@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, TouchableWithoutFeedback, ScrollView, Dimensions } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Image,
+    TouchableWithoutFeedback,
+    ScrollView,
+    Dimensions,
+    useWindowDimensions
+} from 'react-native';
 import RatingsF from "@/components/RatingsF";
 import YearF from "@/components/YearF";
 import GenreF from "@/components/GenreF";
@@ -26,7 +35,6 @@ const Saved = ({item}: {item: Movie}) => {
 
     const { favortiteMovies } = useAppContext();
     const router = useRouter();
-    const { height } = Dimensions.get('window');
 
     const handlePress = (item: any) => {
         router.push({
@@ -45,6 +53,9 @@ const Saved = ({item}: {item: Movie}) => {
         });
     };
 
+    const { width, height } = useWindowDimensions();
+    const isLandscape = width > height;
+
     return (
         <View className="flex-1 bg-[#282828]">
             <Image
@@ -54,10 +65,10 @@ const Saved = ({item}: {item: Movie}) => {
             />
 
             <View className="justify-center items-center">
-                <Image source={icons.splashicon} className="w-12 h-10 mt-16 mb-5 mx-auto" />
+                <Image source={icons.splashicon} className={`${isLandscape ? 'w-12 h-10 mt-6 mx-auto' : 'w-12 h-10 mt-16 mb-5 mx-auto'}`} />
             </View>
 
-            <View className="px-5 flex-row justify-between items-center mt-5">
+            <View className={`${isLandscape ? 'px-36 flex-row justify-between items-center mt-2' : 'px-5 flex-row justify-between items-center mt-5'}`}>
                 <Text className="text-white font-semibold ml-7 mb-4">Saved ({favortiteMovies.length})</Text>
 
                 <TouchableOpacity
@@ -88,7 +99,10 @@ const Saved = ({item}: {item: Movie}) => {
             <ScrollView
                 className="space-y-3 px-5 mt-4"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ minHeight: height + 20, paddingBottom: 15 }}
+                contentContainerStyle={{ minHeight:  Math.max(
+                        height,
+                        isLandscape ? favortiteMovies.length * 135 : favortiteMovies.length * 140
+                    ), paddingBottom: 15 }}
             >
                 <View className="justify-between items-center">
                     {favortiteMovies.length === 0 ? (
