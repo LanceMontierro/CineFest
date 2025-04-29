@@ -19,7 +19,7 @@ import SearchBar from "@/components/SearchBar";
 const SAdmin = () => {
 
     const [showForm, setShowForm] = useState(false);
-    const [poster, setPoster] = useState<string | null>(null); // 🆕 poster state
+    const [poster, setPoster] = useState<string | null>(null);
     const [result, setResult] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     const { user, movies, handleSignOut } = useAppContext() as {
         user: any;
