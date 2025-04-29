@@ -88,7 +88,9 @@ const SAdmin = () => {
             </View>
 
             <View className="mt-10 px-5">
-                <SearchBar />
+                <SearchBar placeholder={''} searchQuery={''} setSearchQuery={function(text: string): void {
+                    throw new Error('Function not implemented.');
+                } } />
             </View>
 
             <View className="flex-row justify-between items-center px-6">
