@@ -113,7 +113,21 @@ const Saved = ({item}: {item: Movie}) => {
                                 key={index}
                                 onPress={() => handlePress(item)}
                             >
-                                <View className="bg-[#787878] w-[320] h-[109] rounded-[20] mb-4">
+                                <View
+                                style={{
+                                    backgroundColor: "#787878",
+                                    width: 320,
+                                    height: 109,
+                                    borderRadius: 20,
+                                    marginBottom:4,
+                                    shadowColor: '#9e9e9e',
+                                    shadowOffset: { width: 0, height: 8 },
+                                    shadowOpacity: 0.4,
+                                    shadowRadius: 10,
+                                    elevation: 12,
+                                }}
+
+                                >
                                     <View className="flex-row justify-between items-center p-4 px-5 rounded-b-3xl">
                                         <Image
                                             source={{ uri: item.poster }}

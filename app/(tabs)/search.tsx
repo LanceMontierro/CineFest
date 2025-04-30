@@ -102,7 +102,10 @@ const Search = () => {
             <ScrollView
                 className="flex-1 px-5 mt-4"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ minHeight: isLandscape ? height + 610 :height + 250, paddingBottom: 15 }}
+                contentContainerStyle={{ minHeight:  Math.max(
+                        height,
+                        isLandscape ? filteredMovies.length * 135 : filteredMovies.length * 155
+                    ), paddingBottom: 15 }}
             >
                 <Text className="text-white font-semibold ml-7 mb-4">
                     Result ({filteredMovies.length})
@@ -123,12 +126,18 @@ const Search = () => {
                             <View className="space-y-2 mb-4 justify-center items-center">
                                 <Image
                                     source={{ uri: movie.poster || images.blank }}
-                                    style={{width:  width * 0.43, height: height * 0.3, borderRadius: 10}}
+                                    style={{ width: width * 0.43, height: height * 0.3, borderRadius: 10 }}
                                 />
-                                <Text className="text-white font-bold text-sm mt-2 ">
-                                    {movie.title || "No Title"}
+                                <Text
+                                    className="text-white font-bold text-sm mt-2 text-center"
+                                    numberOfLines={1}
+                                    ellipsizeMode="tail"
+                                >
+                                    {(movie.title && movie.title.length > 30)
+                                        ? movie.title.slice(0, 20) + '...'
+                                        : movie.title || "No Title"}
                                 </Text>
-                                <Text className="text-white font-bold text-sm  mt-2">
+                                <Text className="text-white font-bold text-sm mt-2">
                                     {(movie.rating || "Genre Unknown") +
                                         " • " +
                                         (movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : "Unknown")}

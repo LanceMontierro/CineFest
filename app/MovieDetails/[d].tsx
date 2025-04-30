@@ -5,7 +5,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useState, useEffect } from "react";
 import { useAppContext } from "./../context/appContext";
 
-
 export default function MovieDetails() {
     const {
         title,

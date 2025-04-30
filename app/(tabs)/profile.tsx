@@ -52,7 +52,7 @@ const Profile = () => {
     setAlertText(text);
     setShowDrawer4(true);
     Animated.timing(slideAnim, {
-      toValue: height * 0.5,
+      toValue: height * -0.1 + 110,
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -62,7 +62,7 @@ const Profile = () => {
     setAlertText(text);
     setShowDrawer5(true);
     Animated.timing(slideAnim, {
-      toValue: height * 0.5,
+      toValue: height * -0.1 + 110,
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -305,7 +305,7 @@ const Profile = () => {
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
-                  height: height * 0.5,
+                  height: height * 0.9 + 42,
                 }}
             >
               <Text className="text-xl font-bold mb-4">{alertText}</Text>
@@ -388,7 +388,7 @@ const Profile = () => {
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
-                  height: height * 0.5,
+                  height:height * 0.9 + 42,
                 }}
             >
               <Text className="text-xl font-bold mb-4">{alertText}</Text>
