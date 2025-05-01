@@ -5,7 +5,6 @@ export default {
     name: "CineFest",
     slug: "CineFest",
     version: "1.0.0",
-    orientation: "portrait",
     icon: "./assets/images/splashicon.png",
     backgroundColor: "#000000",
     scheme: "myapp",

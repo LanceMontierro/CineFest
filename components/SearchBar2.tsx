@@ -1,4 +1,4 @@
-import { View, TextInput, Image, TouchableOpacity } from "react-native";
+import {View, TextInput, Image, TouchableOpacity, useWindowDimensions} from "react-native";
 import { icons } from "@/constansts/icons";
 import React, { useState } from 'react';
 
@@ -11,8 +11,21 @@ interface Props {
 }
 
 const SearchBar = ({ placeholder, value, onChangeText, onPress,  }: Props) => {
+
+    const { width, height } = useWindowDimensions();
+    const isLandscape = width > height;
+
     return (
-        <View className="flex-row items-center px-5 py-4 bg-black rounded-full">
+        <View style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            marginRight:  isLandscape ? 120 :0,
+            marginLeft:  isLandscape ? 120 : 0,
+            backgroundColor: 'black',
+            borderRadius: 50,
+        }}>
             <Image
                 source={icons.search}
                 className="w-5 h-5"

@@ -1,5 +1,13 @@
-import { View, Text, Dimensions, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 import Carousel from "react-native-reanimated-carousel";
+
 import { useRouter } from "expo-router";
 import { useAppContext } from "@/app/context/appContext";
 
@@ -61,37 +69,37 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
       </View>
     </TouchableOpacity>
   );
+
+  export default function TrendingMovies({ data }: TrendingMoviesProps) {
+    const cardWidth = width * 0.45;
+
+    return (
+      <View>
+        <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">
+          Latest MMFF
+        </Text>
+
+        {data.length === 0 ? (
+          <Text className="text-white ml-4">No Top Rating available.</Text>
+        ) : (
+          <Carousel
+            loop
+            width={width}
+            height={cardWidth * 1.53}
+            autoPlay={false}
+            data={data}
+            scrollAnimationDuration={800}
+            mode="parallax"
+            modeConfig={{
+              parallaxScrollingScale: 0.9,
+              parallaxScrollingOffset: cardWidth * 1.2,
+            }}
+            renderItem={({ item }) => (
+              <MovieCard item={item} cardWidth={cardWidth} />
+            )}
+          />
+        )}
+      </View>
+    );
+  }
 };
-
-export default function TrendingMovies({ data }: TrendingMoviesProps) {
-  const cardWidth = width * 0.45;
-
-  return (
-    <View>
-      <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">
-        Latest MMFF
-      </Text>
-
-      {data.length === 0 ? (
-        <Text className="text-white ml-4">No Top Rating available.</Text>
-      ) : (
-        <Carousel
-          loop
-          width={width}
-          height={cardWidth * 1.53}
-          autoPlay={false}
-          data={data}
-          scrollAnimationDuration={800}
-          mode="parallax"
-          modeConfig={{
-            parallaxScrollingScale: 0.9,
-            parallaxScrollingOffset: cardWidth * 1.2,
-          }}
-          renderItem={({ item }) => (
-            <MovieCard item={item} cardWidth={cardWidth} />
-          )}
-        />
-      )}
-    </View>
-  );
-}
