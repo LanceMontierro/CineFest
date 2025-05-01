@@ -7,7 +7,6 @@ import {
   useWindowDimensions,
 } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-
 import { useRouter } from "expo-router";
 import { useAppContext } from "@/app/context/appContext";
 

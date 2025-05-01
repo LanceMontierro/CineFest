@@ -31,11 +31,12 @@ const Index = () => {
 
   const router = useRouter();
 
-  const { user, movies, latestMovies, topRatedMovies } = useAppContext() as {
+  const { user, movies, latestMovies, topRatedMovies, recentOpenMovies} = useAppContext() as {
     user: any;
     movies: Movie[];
     latestMovies: Movie[];
     topRatedMovies: Movie[];
+    recentOpenMovies: Movie[];
   };
 
   type Movie = {
@@ -92,13 +93,7 @@ const Index = () => {
           <SampleLatest data={latestMovies} />
           <SampleTop data={topRatedMovies} />
 
-          <View className="mt-6">
-            <Text className="text-lg text-white font-bold mb-3">
-              Recently Viewed
-            </Text>
-
-            <Text className="text-white">No recent movies yet.</Text>
-          </View>
+          <SampleRecent data={recentOpenMovies}/>
         </ScrollView>
       </View>
     </>

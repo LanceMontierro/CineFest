@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { useRouter } from "expo-router";
+import {useAppContext} from "@/app/context/appContext";
 
 type Movie = {
     title: string;
@@ -20,8 +21,10 @@ interface TrendingMoviesProps {
 
 const { width } = Dimensions.get('window');
 
+
 const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
     const router = useRouter();
+    const { addToRecentlyViewedMovies } = useAppContext();
 
     const handlePress = () => {
         router.push({
@@ -38,6 +41,7 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
                 link: item.link,
             },
         });
+        addToRecentlyViewedMovies(item);
     };
 
     const {width, height } = useWindowDimensions();
