@@ -10,7 +10,7 @@ export const saveUser = async (req, res) => {
   try {
     const user = await userSchema.findOne({ userId });
     if (user) {
-      return res.status(200).json({ message: "Welcome back ", user });
+      return res.status(200).json({ message: "Welcome back ", userName });
     } else {
       const newUser = new userSchema({
         email,
@@ -48,17 +48,32 @@ export const getAllUserDetails = async (req, res) => {
 };
 
 export const addToRecentlyViewedMovies = async (req, res) => {
-  const {
-    userId,
-    title,
-    description,
-    poster,
-    genre,
-    releaseDate,
-    rating,
-    award,
-    link,
-  } = req.body;
+  const { userId, movie } = req.body;
+
+  if (!userId || !movie) {
+    return res.status(400).json({ message: "userId and movie are required" });
+  }
+
+  try {
+    const user = await userSchema.findOne({ userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.recentlyViewed = user.recentlyViewed.filter(
+      (m) => m.title !== movie.title
+    );
+
+    user.recentlyViewed.unshift(movie);
+
+    await user.save();
+
+    return res.status(200).json({ message: "Movie added to recently viewed" });
+  } catch (error) {
+    console.error("Error fetching recently viewed movies:", error);
+    return res.status(404).json({ message: "Internal server error" });
+  }
 };
 
 export const addToFavoriteMovies = async (req, res) => {

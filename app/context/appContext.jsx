@@ -169,12 +169,38 @@ const ContextApi = ({ children }) => {
 
   const addToRecentlyViewedMovies = async (movie) => {
     if (!userAcc) {
-      console.log(
-        "User account not found. Cannot add to recently viewed movies."
-      );
+      console.log(" Cannot add to recently viewed movies.");
       return;
     }
+
+    try {
+      const res = await axios.post(
+        `${API_URL}/users/add-to-recently-viewed-movies`,
+        {
+          userId: userAcc.id,
+          movie: {
+            title: movie.title,
+            description: movie.description,
+            poster: movie.poster,
+            genre: movie.genre,
+            releaseDate: movie.releaseDate,
+            rating: movie.rating,
+            awards: movie.awards,
+            link: movie.link,
+          },
+        }
+      );
+      setRecentOpenMovies((prev) =>
+        prev.some((m) => m.title === movie.title)
+          ? prev.filter((prevMovie) => prevMovie.title !== movie.title)
+          : [...prev, movie]
+      );
+    } catch (error) {
+      console.error("Error adding to recently viewed movies:", error);
+    }
   };
+
+  console.log("recentOpenMovies", recentOpenMovies);
 
   return (
     <appContext.Provider
@@ -196,6 +222,7 @@ const ContextApi = ({ children }) => {
         latestMovies,
         topRatedMovies,
         addToFavoriteMovies,
+        addToRecentlyViewedMovies,
       }}
     >
       {children}

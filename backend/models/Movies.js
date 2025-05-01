@@ -11,7 +11,7 @@ const movieSchema = mongoose.model(
     rating: { type: [String], default: [] },
     awards: { type: [String], default: [] },
     link: { type: String },
-      cast: { type: [String], required: true },
+    cast: { type: [String], required: true },
   })
 );
 
