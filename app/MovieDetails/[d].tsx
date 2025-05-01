@@ -43,7 +43,6 @@ export default function MovieDetails() {
             awards,
             link,
         };
-
         addToFavoriteMovies(movieData);
         setLiked((prev) => !prev);
     };
