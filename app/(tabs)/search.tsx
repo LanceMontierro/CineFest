@@ -36,6 +36,8 @@ const Search = () => {
         }
     }, [searchQuery, movies]);
 
+    const { addToRecentlyViewedMovies } = useAppContext();
+
     const handlePress = (movie: any) => {
         router.push({
             pathname: "/MovieDetails/[d]",
@@ -51,6 +53,7 @@ const Search = () => {
                 link: movie.link || "",
             },
         });
+        addToRecentlyViewedMovies(movie);
     };
 
     const [showFilters, setShowFilters] = useState(false);

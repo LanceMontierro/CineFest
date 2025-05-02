@@ -6,6 +6,9 @@ import { useState, useEffect } from "react";
 import { useAppContext } from "./../context/appContext";
 
 export default function MovieDetails() {
+
+    const { addToRecentlyViewedMovies } = useAppContext();
+
     const {
         title,
         poster,
@@ -40,7 +43,6 @@ export default function MovieDetails() {
             awards,
             link,
         };
-
         addToFavoriteMovies(movieData);
         setLiked((prev) => !prev);
     };
