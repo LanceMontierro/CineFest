@@ -61,11 +61,9 @@ export const addToRecentlyViewedMovies = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.recentlyViewed = user.recentlyViewed.filter(
-      (m) => m.title !== movie.title
-    );
-
     user.recentlyViewed.unshift(movie);
+
+    user.recentlyViewed = user.recentlyViewed.slice(0, 20);
 
     await user.save();
 

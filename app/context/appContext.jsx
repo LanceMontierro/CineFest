@@ -25,16 +25,27 @@ const ContextApi = ({ children }) => {
       const data = res.data;
 
       return Array.isArray(data)
-        ? data.map(({ title, poster, description, awards, links, releaseDate, genre, rating }) => ({
-            title,
-            poster,
-            releaseDate,
-            rating,
-            genre,
-            description,
-            awards,
-            links,
-          }))
+        ? data.map(
+            ({
+              title,
+              poster,
+              description,
+              awards,
+              links,
+              releaseDate,
+              genre,
+              rating,
+            }) => ({
+              title,
+              poster,
+              releaseDate,
+              rating,
+              genre,
+              description,
+              awards,
+              links,
+            })
+          )
         : [];
     } catch (error) {
       console.error("Error fetching movies:", error.message);
@@ -193,11 +204,7 @@ const ContextApi = ({ children }) => {
           },
         }
       );
-      setRecentOpenMovies((prev) =>
-        prev.some((m) => m.title === movie.title)
-          ? prev.filter((prevMovie) => prevMovie.title !== movie.title)
-          : [...prev, movie]
-      );
+      setRecentOpenMovies((prev) => [...prev, movie]);
     } catch (error) {
       console.error("Error adding to recently viewed movies:", error);
     }
