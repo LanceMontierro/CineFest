@@ -107,7 +107,7 @@ const Search = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ minHeight:  Math.max(
                         height,
-                        isLandscape ? filteredMovies.length * 135 : filteredMovies.length * 155
+                        isLandscape ? filteredMovies.length * 100 : filteredMovies.length * 170
                     ), paddingBottom: 15 }}
             >
                 <Text className="text-white font-semibold ml-7 mb-4">

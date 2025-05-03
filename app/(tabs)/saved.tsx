@@ -69,20 +69,20 @@ const Saved = ({item}: {item: Movie}) => {
             </View>
 
             <View className={`${isLandscape ? 'px-36 flex-row justify-between items-center mt-2' : 'px-5 flex-row justify-between items-center mt-5'}`}>
-                <Text className="text-white font-semibold ml-7 mb-4">Saved ({favortiteMovies.length})</Text>
+                <Text className="text-white font-semibold ml-7 mb-4 mr-10">Saved({favortiteMovies.length})</Text>
 
                 <TouchableOpacity
                     className="bg-[#D9D9D9] rounded-[20] w-[100] h-[37] mb-2 justify-center items-center"
                     onPress={() => setShowFilters(!showFilters)}
                 >
-                    <Text className="text-[16] text-black">Filter-1</Text>
+                    <Text className="text-sm text-black">Genre/Awards</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     className="bg-[#D9D9D9] rounded-[20] w-[100] h-[37] mb-2 justify-center items-center"
                     onPress={() => setShowFilters2(!showFilters2)}
                 >
-                    <Text className="text-[16] text-black">Filter-2</Text>
+                    <Text className="text-sm text-black">Year/Rating</Text>
                 </TouchableOpacity>
             </View>
 
