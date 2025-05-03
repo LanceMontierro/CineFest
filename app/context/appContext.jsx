@@ -206,7 +206,18 @@ const ContextApi = ({ children }) => {
           },
         }
       );
-      setRecentOpenMovies((prev) => [...prev, movie]);
+      setRecentOpenMovies((prev) => {
+        const existingMovieIndex = prev.findIndex(
+          (m) => m.title === movie.title
+        );
+
+        if (existingMovieIndex !== -1) {
+          const updatedMovies = [...prev];
+          updatedMovies.splice(existingMovieIndex, 1);
+          return [movie, ...updatedMovies];
+        }
+        return [movie, ...prev];
+      });
     } catch (error) {
       console.error("Error adding to recently viewed movies:", error);
     }
