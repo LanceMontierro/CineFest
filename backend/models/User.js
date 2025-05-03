@@ -17,6 +17,7 @@ const userSchema = mongoose.model(
         rating: { type: [String], default: [] },
         awards: { type: [String], default: [] },
         link: { type: String },
+        cast: { type: [String], required: true },
       },
     ],
     recentlyViewed: [
@@ -29,6 +30,7 @@ const userSchema = mongoose.model(
         rating: { type: [String], default: [] },
         awards: { type: [String], default: [] },
         link: { type: String },
+        cast: { type: [String], required: true },
         viewedAt: { type: Date, default: Date.now },
       },
     ],

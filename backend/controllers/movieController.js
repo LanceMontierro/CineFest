@@ -24,6 +24,7 @@ export const createMovie = async (req, res) => {
     rating,
     awards,
     link,
+    cast,
   } = req.body;
 
   if (!title || !description || !genre || !releaseDate) {
@@ -40,6 +41,7 @@ export const createMovie = async (req, res) => {
       rating,
       awards,
       link,
+      cast,
     });
     await newMovie.save();
     return res.status(200).json({ message: "Movie created successfully" });

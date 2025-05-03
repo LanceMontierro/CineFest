@@ -31,13 +31,14 @@ const Index = () => {
 
   const router = useRouter();
 
-  const { user, movies, latestMovies, topRatedMovies, recentOpenMovies} = useAppContext() as {
-    user: any;
-    movies: Movie[];
-    latestMovies: Movie[];
-    topRatedMovies: Movie[];
-    recentOpenMovies: Movie[];
-  };
+  const { user, movies, latestMovies, topRatedMovies, recentOpenMovies } =
+    useAppContext() as {
+      user: any;
+      movies: Movie[];
+      latestMovies: Movie[];
+      topRatedMovies: Movie[];
+      recentOpenMovies: Movie[];
+    };
 
   type Movie = {
     title: string;
@@ -48,6 +49,7 @@ const Index = () => {
     rating: string;
     awards: string;
     link: string;
+    cast: string;
   };
 
   const router2 = useRouter();
@@ -93,7 +95,7 @@ const Index = () => {
           <SampleLatest data={latestMovies} />
           <SampleTop data={topRatedMovies} />
 
-          <SampleRecent data={recentOpenMovies}/>
+          <SampleRecent data={recentOpenMovies} />
         </ScrollView>
       </View>
     </>

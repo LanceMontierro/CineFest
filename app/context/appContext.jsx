@@ -167,6 +167,7 @@ const ContextApi = ({ children }) => {
         rating: movie.rating,
         awards: movie.awards,
         link: movie.link,
+        cast: movie.cast,
       });
 
       setFavoriteMovies((prev) =>
@@ -201,6 +202,7 @@ const ContextApi = ({ children }) => {
             rating: movie.rating,
             awards: movie.awards,
             link: movie.link,
+            cast: movie.cast,
           },
         }
       );

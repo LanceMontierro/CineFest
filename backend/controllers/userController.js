@@ -85,6 +85,7 @@ export const addToFavoriteMovies = async (req, res) => {
     rating,
     award,
     link,
+    cast,
   } = req.body;
 
   if (!userId || !title) {
@@ -112,6 +113,7 @@ export const addToFavoriteMovies = async (req, res) => {
         rating,
         award,
         link,
+        cast,
       });
       await user.save();
 
