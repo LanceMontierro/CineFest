@@ -66,7 +66,7 @@ export const addToRecentlyViewedMovies = async (req, res) => {
     );
 
     if (exisitingMovieIndex !== -1) {
-      user.recentlyViewed.splice(existingItemIndex, 1);
+      user.recentlyViewed.splice(exisitingMovieIndex, 1);
     }
 
     user.recentlyViewed.unshift(movie);
