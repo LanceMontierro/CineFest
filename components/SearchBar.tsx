@@ -26,8 +26,8 @@ const SearchBar = ({ placeholder, searchQuery, setSearchQuery, onFilterPress, on
             alignItems: 'center',
             paddingHorizontal: 20,
             paddingVertical: 10,
-            marginRight:  isLandscape ? 120 :0,
-            marginLeft:  isLandscape ? 120 : 0,
+            marginRight:  isLandscape ? 120 : 20,
+            marginLeft:  isLandscape ? 120 : 20,
             backgroundColor: 'black',
             borderRadius: 50,
         }}>
