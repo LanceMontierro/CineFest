@@ -1,16 +1,16 @@
 import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions,
-  useWindowDimensions,
+    View,
+    Text,
+    Image,
+    ScrollView,
+    TouchableOpacity,
+    Dimensions,
+    useWindowDimensions, Animated, Pressable, Switch, Modal,
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { icons } from "@/constansts/icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { useAppContext } from "./../context/appContext";
 
 export default function MovieDetails() {
@@ -57,6 +57,47 @@ export default function MovieDetails() {
     addToFavoriteMovies(movieData);
     setLiked((prev) => !prev);
   };
+
+    const [showDrawer, setShowDrawer] = useState(false);
+    const [showDrawer2, setShowDrawer2] = useState(false);
+    const [alertText, setAlertText] = useState("");
+    const slideAnim = useRef(new Animated.Value(height)).current;
+
+    const openDrawer = (text: string) => {
+        setAlertText(text);
+        setShowDrawer(true);
+        Animated.timing(slideAnim, {
+            toValue: height * 0.5,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
+    };
+
+    const openDrawer2 = (text: string) => {
+        setAlertText(text);
+        setShowDrawer2(true);
+        Animated.timing(slideAnim, {
+            toValue: height * 0.5,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
+    };
+
+    const closeDrawer = () => {
+        Animated.timing(slideAnim, {
+            toValue: height,
+            duration: 300,
+            useNativeDriver: false,
+        }).start(() => setShowDrawer(false));
+    };
+
+    const closeDrawer2 = () => {
+        Animated.timing(slideAnim, {
+            toValue: height,
+            duration: 300,
+            useNativeDriver: false,
+        }).start(() => setShowDrawer2(false));
+    };
 
   return (
     <View className="bg-[#282828] flex-1">
@@ -175,13 +216,15 @@ export default function MovieDetails() {
           </Text>
 
           <View className="flex-row flex-wrap justify-center items-center mt-2 rounded-md px-5 py-3 self-center">
-            <Text className="text-[#FAFAFA] font-semibold text-center text-base">
-              Cast
-            </Text>
+              <TouchableOpacity onPress={() => openDrawer("Cast List")}>
+                <Text className="text-[#FAFAFA] font-semibold text-center text-base">
+                    {cast?.length > 0 ? "Cast" : "No Cast Available"}
+                </Text>
+              </TouchableOpacity>
           </View>
 
           <View className="flex-row flex-wrap justify-center items-center mt-2 rounded-md px-5 py-3 self-center">
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => openDrawer2("Trailer Link")}>
               <Text className="text-[#FAFAFA] font-semibold text-center text-base">
                 {link?.length > 0 ? "Watch Trailer" : "No Trailer Available"}
               </Text>
@@ -217,6 +260,81 @@ export default function MovieDetails() {
         />
         <Text className="text-white font-semibold text-base">Go Back</Text>
       </TouchableOpacity>
+
+        <Modal visible={showDrawer} transparent animationType="none">
+            <Pressable className="flex-1">
+                <Animated.View
+                    style={{
+                        position: "absolute",
+                        top: slideAnim,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: "#e3e3e3",
+                        borderTopLeftRadius: 25,
+                        borderTopRightRadius: 25,
+                        padding: 20,
+                        height: height * 0.5,
+                    }}
+                >
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{
+                            minHeight: isLandscape ? height :height + 150,
+                        }}
+                    >
+                        <Text className="text-xl font-bold mb-4">{alertText}</Text>
+                        <View className="flex-row flex-wrap justify-center items-center rounded-md px-5 self-center">
+                        {(Array.isArray(cast) ? cast : cast?.split(",") || []).map(
+                            (item: string, index: number) => (
+                                <View key={index} className="flex-row items-center">
+                                    <Text className="text-black">{item}</Text>
+                                    {index !==
+                                        (Array.isArray(cast)
+                                            ? cast.length - 1
+                                            : cast.split(",").length - 1) && (
+                                            <Text className="text-neutral-800 mx-1">|</Text>
+                                        )}
+                                </View>
+                            )
+                        )}
+                        </View>
+                    </ScrollView>
+                    <TouchableOpacity
+                        className="bg-[#404040] px-4 py-3 rounded-full items-center"
+                        onPress={closeDrawer}
+                    >
+                        <Text className="text-white">Close</Text>
+                    </TouchableOpacity>
+                </Animated.View>
+            </Pressable>
+        </Modal>
+
+        <Modal visible={showDrawer2} transparent animationType="none">
+            <Pressable className="flex-1">
+                <Animated.View
+                    style={{
+                        position: "absolute",
+                        top: slideAnim,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: "#e3e3e3",
+                        borderTopLeftRadius: 25,
+                        borderTopRightRadius: 25,
+                        padding: 20,
+                        height: height * 0.5,
+                    }}
+                >
+                        <Text className="text-xl font-bold mb-4">{alertText}</Text>
+                        <Text className="text-gray-600 text-xl font-bold mb-4">{link}</Text>
+                    <TouchableOpacity
+                        className="bg-[#404040] px-4 py-3 rounded-full items-center"
+                        onPress={closeDrawer2}
+                    >
+                        <Text className="text-white">Close</Text>
+                    </TouchableOpacity>
+                </Animated.View>
+            </Pressable>
+        </Modal>
     </View>
   );
 }

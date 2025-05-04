@@ -54,6 +54,7 @@ const ContextApi = ({ children }) => {
               poster,
               description,
               awards,
+               cast,
               links,
               releaseDate,
               genre,
@@ -61,6 +62,7 @@ const ContextApi = ({ children }) => {
             }) => ({
               title,
               poster,
+              cast,
               releaseDate,
               rating,
               genre,
