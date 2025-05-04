@@ -15,9 +15,32 @@ const ContextApi = ({ children }) => {
   const [favortiteMovies, setFavoriteMovies] = useState([]);
   const [recentOpenMovies, setRecentOpenMovies] = useState([]);
   const [userAcc, setUserAcc] = useState("");
+  const [filteredMovies, setFilteredMovies] = useState([]);
   const { signOut } = useClerk();
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
+
+  const latestMovies = movies
+    .filter((movie) => {
+      const date = new Date(movie.releaseDate);
+      return movie.releaseDate && date.getFullYear() === 2024;
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+    )
+    .slice(0, 10);
+
+  const topRatedMovies = movies
+    .filter(
+      (movie) =>
+        Array.isArray(movie.rating) &&
+        movie.rating.length > 0 &&
+        movie.rating[0] !== "N/A" &&
+        !isNaN(parseFloat(movie.rating[0]))
+    )
+    .sort((a, b) => parseFloat(b.rating[0]) - parseFloat(a.rating[0]))
+    .slice(0, 6);
 
   const fetchMovieDetails = async () => {
     try {
@@ -52,28 +75,6 @@ const ContextApi = ({ children }) => {
       return [];
     }
   };
-
-  const latestMovies = movies
-    .filter((movie) => {
-      const date = new Date(movie.releaseDate);
-      return movie.releaseDate && date.getFullYear() === 2024;
-    })
-    .sort(
-      (a, b) =>
-        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
-    )
-    .slice(0, 10);
-
-  const topRatedMovies = movies
-    .filter(
-      (movie) =>
-        Array.isArray(movie.rating) &&
-        movie.rating.length > 0 &&
-        movie.rating[0] !== "N/A" &&
-        !isNaN(parseFloat(movie.rating[0]))
-    )
-    .sort((a, b) => parseFloat(b.rating[0]) - parseFloat(a.rating[0]))
-    .slice(0, 6);
 
   const handleSignOut = async () => {
     try {
