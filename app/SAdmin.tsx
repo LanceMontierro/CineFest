@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";

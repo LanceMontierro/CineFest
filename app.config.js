@@ -12,9 +12,9 @@ export default {
     newArchEnabled: true,
     extra: {
       EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
-      eas:{
+      eas: {
         projectId: "4ddbe88f-b803-4d95-953c-cdda7eca82af",
-      }
+      },
     },
     ios: {
       supportsTablet: true,
@@ -24,7 +24,7 @@ export default {
         foregroundImage: "./assets/images/splashicon.png",
         backgroundColor: "#000000",
       },
-      package: "com.waitlangparr.CineFest"
+      package: "com.waitlangparr.CineFest",
     },
     web: {
       bundler: "metro",
@@ -33,6 +33,8 @@ export default {
     },
     plugins: [
       "expo-router",
+      "expo-font",
+      "expo-secure-store",
       [
         "expo-splash-screen",
         {
@@ -47,6 +49,4 @@ export default {
       typedRoutes: true,
     },
   },
-
-
 };

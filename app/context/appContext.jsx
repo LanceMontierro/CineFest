@@ -16,6 +16,7 @@ const ContextApi = ({ children }) => {
   const [recentOpenMovies, setRecentOpenMovies] = useState([]);
   const [userAcc, setUserAcc] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [activeFilter, setActiveFilter] = useState();
   const { signOut } = useClerk();
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
@@ -42,6 +43,12 @@ const ContextApi = ({ children }) => {
     .sort((a, b) => parseFloat(b.rating[0]) - parseFloat(a.rating[0]))
     .slice(0, 6);
 
+  useEffect(() => {
+    const filterMovies = movies.filter((movie) => {
+      const matchFilter = activeFilter;
+    });
+  });
+
   const fetchMovieDetails = async () => {
     try {
       const res = await axios.get(`${API_URL}/movies/get-movie`);
@@ -54,7 +61,7 @@ const ContextApi = ({ children }) => {
               poster,
               description,
               awards,
-               cast,
+              cast,
               links,
               releaseDate,
               genre,
@@ -138,13 +145,29 @@ const ContextApi = ({ children }) => {
 
   console.log(movies);
 
-  const createMovie = async () => {
+  const createMovie = async (movie) => {
     if (!userAcc) {
       console.log("User account not found. Cannot create movies.");
       return;
     }
     try {
-      const res = await axios.post(`${API_URL}/movies/create-movie`, {});
+      const res = await axios.post(`${API_URL}/movies/create-movie`, {
+        title: movie.title,
+        description: movie.description,
+        poster: movie.poster,
+        genre: movie.genre,
+        releaseDate: movie.releaseDate,
+        rating: movie.rating,
+        awards: movie.awards,
+        link: movie.link,
+        cast: movie.cast,
+      });
+
+      if (res.status === 200) {
+        const updatedMovies = await fetchMovieDetails();
+        setMovies(updatedMovies);
+      }
+      console.log(res.data);
     } catch (error) {
       console.error("Error creating movies:", error);
     }
@@ -182,8 +205,6 @@ const ContextApi = ({ children }) => {
       console.error("Error adding to favorite movies:", error);
     }
   };
-
-  console.log("favortiteMovies", favortiteMovies);
 
   const addToRecentlyViewedMovies = async (movie) => {
     if (!userAcc) {
@@ -225,8 +246,6 @@ const ContextApi = ({ children }) => {
       console.error("Error adding to recently viewed movies:", error);
     }
   };
-
-  console.log("recentOpenMovies", recentOpenMovies);
 
   return (
     <appContext.Provider
