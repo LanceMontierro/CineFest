@@ -52,8 +52,6 @@ const Index = () => {
     cast: string;
   };
 
-  const router2 = useRouter();
-
   return (
     <>
       <View className="flex-1 bg-[#282828]">
