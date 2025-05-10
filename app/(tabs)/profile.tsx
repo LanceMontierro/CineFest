@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, {useState, useRef, useContext} from "react";
 import {
   View,
   Text,
@@ -12,10 +12,11 @@ import {
 } from "react-native";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";
-import { useAppContext } from "@/app/context/appContext";
+import AppContext, { useAppContext } from "@/app/context/appContext";
 
 const Profile = () => {
-  const { user, handleSignOut } = useAppContext();
+
+  const { user, handleSignOut, deleteAllFavoriteMovies, deleteAllRecentlyViewedMovies } = useAppContext();
 
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
@@ -464,7 +465,7 @@ const Profile = () => {
               <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
               <TouchableOpacity
                   className="bg-red-800 px-4 py-3 rounded-full items-center"
-                  onPress={closeDrawer2}
+                  onPress={deleteAllRecentlyViewedMovies}
               >
                 <Text className="text-[#D9DFF2]">DELETE</Text>
               </TouchableOpacity>
@@ -492,7 +493,7 @@ const Profile = () => {
               <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
               <TouchableOpacity
                   className="bg-red-800 px-4 py-3 rounded-full items-center"
-                  onPress={closeDrawer3}
+                  onPress={() => deleteAllFavoriteMovies()}
               >
                 <Text className="text-[#D9DFF2]">DELETE</Text>
               </TouchableOpacity>

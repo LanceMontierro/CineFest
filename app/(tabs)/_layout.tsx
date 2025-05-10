@@ -9,7 +9,7 @@ function TabIcon({ focused, icon, title }: any) {
     return (
       <ImageBackground
         source={images.highlight}
-        className="flex flex-row w-full flex-1 min-w-[112px] min-h-16 mt-4 justify-center items-center rounded-full overflow-hidden"
+        className="flex flex-row w-full flex-1 min-w-[112px] min-h-[50px] mt-4 justify-center items-center rounded-full overflow-hidden"
       >
         <Image source={icon} tintColor="#D9D9D9" className="size-5" />
         <Text className=" text-[#D9D9D9] text-secondary text-base font-semibold ml-2 ">

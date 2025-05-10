@@ -260,9 +260,7 @@ const ContextApi = ({ children }) => {
           userId: userAcc.id,
         }
       );
-      if (res.status === 200) {
         setFavoriteMovies([]);
-      }
     } catch (error) {
       console.error("Error deleting favorite movies:", error);
     }
@@ -281,9 +279,7 @@ const ContextApi = ({ children }) => {
           userId: userAcc.id,
         }
       );
-      if (res.status === 200) {
         setRecentOpenMovies([]);
-      }
     } catch (error) {
       console.error("Error deleting favorite movies:", error);
     }

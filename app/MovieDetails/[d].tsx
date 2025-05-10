@@ -58,46 +58,7 @@ export default function MovieDetails() {
     setLiked((prev) => !prev);
   };
 
-    const [showDrawer, setShowDrawer] = useState(false);
-    const [showDrawer2, setShowDrawer2] = useState(false);
-    const [alertText, setAlertText] = useState("");
     const slideAnim = useRef(new Animated.Value(height)).current;
-
-    const openDrawer = (text: string) => {
-        setAlertText(text);
-        setShowDrawer(true);
-        Animated.timing(slideAnim, {
-            toValue: height * 0.5,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
-    };
-
-    const openDrawer2 = (text: string) => {
-        setAlertText(text);
-        setShowDrawer2(true);
-        Animated.timing(slideAnim, {
-            toValue: height * 0.5,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
-    };
-
-    const closeDrawer = () => {
-        Animated.timing(slideAnim, {
-            toValue: height,
-            duration: 300,
-            useNativeDriver: false,
-        }).start(() => setShowDrawer(false));
-    };
-
-    const closeDrawer2 = () => {
-        Animated.timing(slideAnim, {
-            toValue: height,
-            duration: 300,
-            useNativeDriver: false,
-        }).start(() => setShowDrawer2(false));
-    };
 
   return (
     <View className="bg-[#282828] flex-1">
