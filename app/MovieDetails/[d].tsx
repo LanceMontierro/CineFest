@@ -104,7 +104,7 @@ export default function MovieDetails() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          minHeight: isLandscape ? height + 250 : "110%",
+          minHeight: isLandscape ? height + 250 : "120%",
         }}
       >
         <View>
@@ -188,14 +188,15 @@ export default function MovieDetails() {
             <Image source={icons.star} className="size-4" />
           </View>
 
-          <View className="flex-row flex-wrap justify-center items-center mt-2 rounded-md px-5 py-3 self-center">
-            <Text className="text-[#FAFAFA] font-semibold text-center text-base">
-              Awards:
+            <Text className="text-[#FAFAFA] font-semibold text-center mt-3 text-base">
+                Awards
             </Text>
+
+          <View className="flex-row flex-wrap justify-center items-center rounded-md px-5 py-3 self-center">
             {(Array.isArray(awards) ? awards : awards?.split(",") || []).map(
               (item: string, index: number) => (
                 <View key={index} className="flex-row items-center">
-                  <Text className="text-neutral-400">{item}</Text>
+                  <Text className="text-neutral-400"> {item}</Text>
                   {index !==
                     (Array.isArray(awards)
                       ? awards.length - 1
@@ -207,7 +208,7 @@ export default function MovieDetails() {
             )}
           </View>
 
-          <Text className="text-[#FAFAFA] font-bold text-sm mb-2 text-center">
+          <Text className="text-[#FAFAFA] font-bold text-sm mb-2 mt-3 text-center">
             Description
           </Text>
 
@@ -215,20 +216,35 @@ export default function MovieDetails() {
             {description}
           </Text>
 
-          <View className="flex-row flex-wrap justify-center items-center mt-2 rounded-md px-5 py-3 self-center">
-              <TouchableOpacity onPress={() => openDrawer("Cast List")}>
-                <Text className="text-[#FAFAFA] font-semibold text-center text-base">
-                    {cast?.length > 0 ? "Cast" : "No Cast Available"}
-                </Text>
-              </TouchableOpacity>
+            <Text className="text-[#FAFAFA] font-semibold text-center text-base mt-5">
+                {cast?.length > 0 ? "Cast" : "Cast: N/A"}
+            </Text>
+
+          <View className="flex-row flex-wrap justify-center items-center rounded-md px-5 py-3 self-center">
+              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                  {(Array.isArray(cast) ? cast : cast?.split(",") || []).map(
+                      (item: string, index: number) => (
+                          <View key={index} className="flex-row items-center">
+                              <View className="bg-[#787878] mt-2 rounded-full w-[item.length] px-5 h-10 flex items-center justify-center mr-2">
+                              <Text className="text-[#FAFAFA]">{item}</Text>
+                              </View>
+                              {index !==
+                                  (Array.isArray(cast)
+                                      ? cast.length - 1
+                                      : cast.split(",").length - 1) && (
+                                          <Text className="text-neutral-800 mx-1">|</Text>
+                                  )}
+                          </View>
+                          )
+                      )}
+              </ScrollView>
           </View>
 
-          <View className="flex-row flex-wrap justify-center items-center mt-2 rounded-md px-5 py-3 self-center">
-            <TouchableOpacity onPress={() => openDrawer2("Trailer Link")}>
+          <View className="flex-row flex-wrap justify-center items-center rounded-md px-5 py-3 self-center">
               <Text className="text-[#FAFAFA] font-semibold text-center text-base">
-                {link?.length > 0 ? "Watch Trailer" : "No Trailer Available"}
+                {link?.length > 0 ? "Watch Trailer " : "No Trailer Available"}
               </Text>
-            </TouchableOpacity>
+              <Text className="text-neutral-400 font-bold mb-4">{link}</Text>
           </View>
         </View>
       </ScrollView>
@@ -260,81 +276,6 @@ export default function MovieDetails() {
         />
         <Text className="text-white font-semibold text-base">Go Back</Text>
       </TouchableOpacity>
-
-        <Modal visible={showDrawer} transparent animationType="none">
-            <Pressable className="flex-1">
-                <Animated.View
-                    style={{
-                        position: "absolute",
-                        top: slideAnim,
-                        left: 0,
-                        right: 0,
-                        backgroundColor: "#e3e3e3",
-                        borderTopLeftRadius: 25,
-                        borderTopRightRadius: 25,
-                        padding: 20,
-                        height: height * 0.5,
-                    }}
-                >
-                    <ScrollView
-                        showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{
-                            minHeight: isLandscape ? height :height + 150,
-                        }}
-                    >
-                        <Text className="text-xl font-bold mb-4">{alertText}</Text>
-                        <View className="flex-row flex-wrap justify-center items-center rounded-md px-5 self-center">
-                        {(Array.isArray(cast) ? cast : cast?.split(",") || []).map(
-                            (item: string, index: number) => (
-                                <View key={index} className="flex-row items-center">
-                                    <Text className="text-black">{item}</Text>
-                                    {index !==
-                                        (Array.isArray(cast)
-                                            ? cast.length - 1
-                                            : cast.split(",").length - 1) && (
-                                            <Text className="text-neutral-800 mx-1">|</Text>
-                                        )}
-                                </View>
-                            )
-                        )}
-                        </View>
-                    </ScrollView>
-                    <TouchableOpacity
-                        className="bg-[#404040] px-4 py-3 rounded-full items-center"
-                        onPress={closeDrawer}
-                    >
-                        <Text className="text-white">Close</Text>
-                    </TouchableOpacity>
-                </Animated.View>
-            </Pressable>
-        </Modal>
-
-        <Modal visible={showDrawer2} transparent animationType="none">
-            <Pressable className="flex-1">
-                <Animated.View
-                    style={{
-                        position: "absolute",
-                        top: slideAnim,
-                        left: 0,
-                        right: 0,
-                        backgroundColor: "#e3e3e3",
-                        borderTopLeftRadius: 25,
-                        borderTopRightRadius: 25,
-                        padding: 20,
-                        height: height * 0.5,
-                    }}
-                >
-                        <Text className="text-xl font-bold mb-4">{alertText}</Text>
-                        <Text className="text-gray-600 text-xl font-bold mb-4">{link}</Text>
-                    <TouchableOpacity
-                        className="bg-[#404040] px-4 py-3 rounded-full items-center"
-                        onPress={closeDrawer2}
-                    >
-                        <Text className="text-white">Close</Text>
-                    </TouchableOpacity>
-                </Animated.View>
-            </Pressable>
-        </Modal>
     </View>
   );
 }
