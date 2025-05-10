@@ -257,7 +257,7 @@ const ContextApi = ({ children }) => {
       const res = await axios.delete(
         `${API_URL}/users/delete-all-favorite-movies`,
         {
-          data: { userId: userAcc.id },
+          params: { userId: userAcc.id },
         }
       );
       if (res.status === 200) {
@@ -278,7 +278,7 @@ const ContextApi = ({ children }) => {
       const res = await axios.delete(
         `${API_URL}/users/delete-all-recently-viewed-movies`,
         {
-          data: { userId: userAcc.id },
+          params: { userId: userAcc.id },
         }
       );
       if (res.status === 200) {
