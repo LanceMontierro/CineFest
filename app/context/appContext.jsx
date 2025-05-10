@@ -247,6 +247,48 @@ const ContextApi = ({ children }) => {
     }
   };
 
+  const deleteAllFavoriteMovies = async () => {
+    if (!userAcc) {
+      console.log("User account not found. Cannot delete favorite movies");
+      return;
+    }
+
+    try {
+      const res = await axios.delete(
+        `${API_URL}/users/delete-all-favorite-movies`,
+        {
+          data: { userId: userAcc.id },
+        }
+      );
+      if (res.status === 200) {
+        setFavoriteMovies([]);
+      }
+    } catch (error) {
+      console.error("Error deleting favorite movies:", error);
+    }
+  };
+
+  const deleteAllRecentlyViewedMovies = async () => {
+    if (!userAcc) {
+      console.log("User account not found. Cannot delete favorite movies");
+      return;
+    }
+
+    try {
+      const res = await axios.delete(
+        `${API_URL}/users/delete-all-recently-viewed-movies`,
+        {
+          data: { userId: userAcc.id },
+        }
+      );
+      if (res.status === 200) {
+        setRecentOpenMovies([]);
+      }
+    } catch (error) {
+      console.error("Error deleting favorite movies:", error);
+    }
+  };
+
   return (
     <appContext.Provider
       value={{
@@ -268,6 +310,8 @@ const ContextApi = ({ children }) => {
         topRatedMovies,
         addToFavoriteMovies,
         addToRecentlyViewedMovies,
+        deleteAllFavoriteMovies,
+        deleteAllRecentlyViewedMovies,
       }}
     >
       {children}

@@ -132,3 +132,55 @@ export const addToFavoriteMovies = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const deleteAllFavoriteMovies = async (req, res) => {
+  const { userId } = req.body;
+
+  if (!userId) {
+    return res
+      .status(400)
+      .json({ message: "UserId is required to delete all favorite movies" });
+  }
+
+  try {
+    const user = await userSchema.findOne({ userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.favoriteMovies = [];
+    await user.save();
+
+    return res.status(200).json({ message: "All favorite movies deleted" });
+  } catch (error) {
+    console.error("Error delete all favorite movies:", error);
+  }
+};
+
+export const deleteAllRecentlyViewedMovies = async (req, res) => {
+  const { userId } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({
+      message: "UserId is required to delete all recently viewed movies",
+    });
+  }
+  try {
+    const user = await userSchema.findOne({ userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.recentlyViewed = [];
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "All recently viewed movies deleted" });
+  } catch (error) {
+    console.error("Error delete all recently viewed movies:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
