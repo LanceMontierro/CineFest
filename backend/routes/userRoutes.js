@@ -14,8 +14,8 @@ userRoutes.post("/saveUser", saveUser);
 userRoutes.get("/get-user-details", getAllUserDetails);
 userRoutes.post("/add-to-favorite-movies", addToFavoriteMovies);
 userRoutes.post("/add-to-recently-viewed-movies", addToRecentlyViewedMovies);
-userRoutes.delete("/delete-all-favorite-movies", deleteAllFavoriteMovies);
-userRoutes.delete(
+userRoutes.post("/delete-all-favorite-movies", deleteAllFavoriteMovies);
+userRoutes.post(
   "/delete-all-recently-viewed-movies",
   deleteAllRecentlyViewedMovies
 );
