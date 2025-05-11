@@ -129,16 +129,17 @@ const Profile = () => {
 
 
         <Image
+
             source={images.bahay}
             className={`${isLandscape ? 'absolute w-full z-0' : 'absolute w-full z-0'}`}
-            style={{borderRadius: 20}}
+            style={{borderRadius: 20, borderWidth: 2, borderColor: '#000000'}}
             resizeMode="cover"
         />
 
 
 
           <View className="justify-center items-center">
-            <View className="bg-[#2E2E2E] mt-24 z-10 w-[317] h-[267] rounded-[25] justify-center items-center">
+            <View  style={{borderWidth: 2, borderColor: '#000000',}} className="bg-[#2E2E2E] mt-24 z-10 w-[317] h-[267] rounded-[25] justify-center items-center">
               <Image source={images.Star1} className="mt-[-50]" />
               {user && user.emailAddresses?.[0]?.emailAddress ? (
                   <Text className="mt-10 text-white text-lg">
@@ -151,16 +152,16 @@ const Profile = () => {
               )}
             </View>
 
-            <View className="bg-[#787878] z-20 w-[370] h-[370] mt-[-55] rounded-[25] p-4">
+            <View style={{borderWidth: 2, borderColor: '#000000'}} className="bg-[#787878] z-20 w-[370] h-[400] mt-[-55] rounded-[25] p-4">
               <ScrollView
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{ minHeight:  isLandscape ? height * 2.6 :"124%" }}
               >
 
-              <Text className="text-[#D9D9D9] text-lg mb-4">Account</Text>
+              <Text className="text-[#D9D9D9] text-lg mb-4 font-bold">Account</Text>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  className="flex-row items-center rounded-xl p-4 mb-2"
                   onPress={() => openDrawer("Notification")}
 
               >
@@ -176,7 +177,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  className="flex-row items-center rounded-xl p-4 mb-2"
                   onPress={() => openDrawer2("Delete Recent Viewed")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -193,7 +194,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  className="flex-row items-center rounded-xl p-4 mb-2"
                   onPress={() => openDrawer3("Delete Saved Movies")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -209,10 +210,10 @@ const Profile = () => {
                 <Text className="text-[#D9D9D9]">{">"}</Text>
               </TouchableOpacity>
 
-              <Text className="text-[#D9D9D9] text-lg mb-4">General</Text>
+              <Text className="text-[#D9D9D9] text-lg mb-4 font-bold">General</Text>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  className="flex-row items-center  rounded-xl p-4 mb-2"
                   onPress={() => openDrawer4("Privacy & Policy")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -229,7 +230,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  className="flex-row items-center  rounded-xl p-4 mb-2"
                   onPress={() => openDrawer5("Terms & Conditions")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -246,7 +247,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4"
+                  className="flex-row items-center  rounded-xl p-4"
                   onPress={handleSignOut}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">

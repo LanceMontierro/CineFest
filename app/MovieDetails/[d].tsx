@@ -58,14 +58,12 @@ export default function MovieDetails() {
     setLiked((prev) => !prev);
   };
 
-    const slideAnim = useRef(new Animated.Value(height)).current;
-
   return (
     <View className="bg-[#282828] flex-1">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          minHeight: isLandscape ? height + 250 : "120%",
+          minHeight: isLandscape ? height + 250 : "100%",
         }}
       >
         <View>
@@ -77,14 +75,9 @@ export default function MovieDetails() {
             }}
           />
 
-            <TouchableOpacity className="absolute z-50" onPress={() => router.back()}>
-            <View className="absolute top-5 ml-3 left-6 z-50">
-                <Image source={icons.Left} className="z-50 w-10 h-10" resizeMode="contain"/>
-            </View>
-            </TouchableOpacity>
-
           <View
-            className={`bg-[#404040] rounded-b-3xl px-4 py-4 absolute right-5 items-center justify-center z-50 ${
+              style={{borderWidth: 2, borderColor: '#000000',}}
+              className={`bg-[#404040] rounded-b-3xl px-4 py-4 absolute right-5 items-center justify-center z-50 ${
               isLandscape ? "w-16 h-16 left-5" : "right-5"
             }`}
           >
@@ -204,11 +197,6 @@ export default function MovieDetails() {
                                       marginRight: 8,
                                       justifyContent: 'center',
                                       alignItems: 'center',
-                                      shadowColor: '#000',
-                                      shadowOffset: { width: 0, height: 2 },
-                                      shadowOpacity: 0.25,
-                                      shadowRadius: 3.84,
-                                      elevation: 5,
                                   }}
                               >
                                   <Text
@@ -239,6 +227,36 @@ export default function MovieDetails() {
               </Text>
               <Text selectable={true} className="text-neutral-400 font-bold mb-4">{link}</Text>
           </View>
+
+            <TouchableOpacity
+                style={{
+                    backgroundColor: "#404040",
+                    marginTop:34,
+                    bottom: 5,
+                    left: 0,
+                    right: 0,
+                    borderWidth: 2,
+                    borderColor: '#000000',
+                    paddingHorizontal: 20,
+                    paddingVertical: 14,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginLeft: isLandscape ? 150 : 30,
+                    marginRight: isLandscape ? 150 : 30,
+                    justifyContent: "center",
+                    borderRadius: 17,
+                    marginBottom: isLandscape ? 20 : 60,
+                }}
+                onPress={router.back}
+            >
+                <Image
+                    source={icons.arrow}
+                    className="size-5 mr-1 mt-0.5 rotate-180"
+                    tintColor="#fff"
+                />
+                <Text className="text-white font-semibold text-base">Go Back</Text>
+            </TouchableOpacity>
+
         </View>
       </ScrollView>
 
