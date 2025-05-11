@@ -47,7 +47,7 @@ export default function TabsLayout() {
           marginHorizontal: 20,
             marginLeft: isLandscape ? 150 : 20,
             marginRight: isLandscape ? 150 : 20,
-          marginBottom: isLandscape ? 10 : 70,
+          marginBottom: isLandscape ? 10 : 60,
           height: isLandscape ? 60 : 52,
           position: "absolute",
           overflow: "hidden",
