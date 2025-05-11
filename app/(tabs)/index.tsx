@@ -74,7 +74,7 @@ const Index = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingBottom: 40,
-            minHeight: isLandscape ? height + 550 : height + 450,
+            minHeight: isLandscape ? height + 550 : height + 560,
               paddingHorizontal: 20,
           }}
         >

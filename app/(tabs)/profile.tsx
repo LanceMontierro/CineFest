@@ -71,7 +71,7 @@ const Profile = () => {
 
   const openDrawer3 = (text: string) => {
     setAlertText(text);
-    setShowDrawer2(true);
+    setShowDrawer3(true);
     Animated.timing(slideAnim, {
       toValue: height * 0.5,
       duration: 300,
@@ -100,7 +100,7 @@ const Profile = () => {
       toValue: height,
       duration: 300,
       useNativeDriver: false,
-    }).start(() => setShowDrawer2(false));
+    }).start(() => setShowDrawer3(false));
   };
 
   const closeDrawer4 = () => {
@@ -126,10 +126,7 @@ const Profile = () => {
 
       <View className="flex-1 bg-[#282828]">
 
-        <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ minHeight:  isLandscape ? height * 2.6 :"124%" }}
-        >
+
 
         <Image
             source={images.bahay}
@@ -154,7 +151,12 @@ const Profile = () => {
               )}
             </View>
 
-            <View className="bg-[#787878] z-20 w-[370] h-[267] mt-[-55] rounded-[25] p-4">
+            <View className="bg-[#787878] z-20 w-[370] h-[370] mt-[-55] rounded-[25] p-4">
+              <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{ minHeight:  isLandscape ? height * 2.6 :"124%" }}
+              >
+
               <Text className="text-[#D9D9D9] text-lg mb-4">Account</Text>
 
               <TouchableOpacity
@@ -175,7 +177,7 @@ const Profile = () => {
 
               <TouchableOpacity
                   className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
-                  onPress={() => openDrawer3("Delete Recent Viewed")}
+                  onPress={() => openDrawer2("Delete Recent Viewed")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
                   <Image
@@ -192,7 +194,7 @@ const Profile = () => {
 
               <TouchableOpacity
                   className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
-                  onPress={() => openDrawer2("Delete Saved Movies")}
+                  onPress={() => openDrawer3("Delete Saved Movies")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
                   <Image
@@ -206,11 +208,7 @@ const Profile = () => {
                 </Text>
                 <Text className="text-[#D9D9D9]">{">"}</Text>
               </TouchableOpacity>
-            </View>
 
-            <View className="mt-4" />
-
-            <View className="bg-[#787878] z-20 w-[370] h-[267] rounded-[25] p-4">
               <Text className="text-[#D9D9D9] text-lg mb-4">General</Text>
 
               <TouchableOpacity
@@ -261,9 +259,11 @@ const Profile = () => {
                 <Text className="text-[#D9D9D9] text-base flex-1">Log-out</Text>
                 <Text className="text-[#D9D9D9]">{">"}</Text>
               </TouchableOpacity>
+            </ScrollView>
             </View>
+
           </View>
-        </ScrollView>
+
 
         <Modal visible={showDrawer} transparent animationType="none">
           <Pressable className="flex-1">
@@ -450,7 +450,6 @@ const Profile = () => {
         </Modal>
 
         <Modal visible={showDrawer2} transparent animationType="none">
-
           <Pressable className="flex-1" onPress={closeDrawer2}>
 
             <Animated.View
@@ -470,13 +469,18 @@ const Profile = () => {
               <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
               <TouchableOpacity
                   className="bg-red-800 px-4 py-3 rounded-full items-center"
-                  onPress={deleteAllRecentlyViewedMovies}
+                  onPress={() => {
+                    deleteAllRecentlyViewedMovies();
+                    closeDrawer2();
+                  }}
               >
                 <Text className="text-[#D9DFF2]">DELETE</Text>
               </TouchableOpacity>
             </Animated.View>
           </Pressable>
         </Modal>
+
+
         <Modal visible={showDrawer3} transparent animationType="none">
 
           <Pressable className="flex-1" onPress={closeDrawer3}>
@@ -498,7 +502,7 @@ const Profile = () => {
               <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
               <TouchableOpacity
                   className="bg-red-800 px-4 py-3 rounded-full items-center"
-                  onPress={() => deleteAllFavoriteMovies()}
+                  onPress={() => {deleteAllFavoriteMovies(); closeDrawer3();}}
               >
                 <Text className="text-[#D9DFF2]">DELETE</Text>
               </TouchableOpacity>

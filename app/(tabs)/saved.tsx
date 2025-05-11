@@ -89,17 +89,29 @@ const Saved = ({ item }: { item: Movie }) => {
         </Text>
 
         <TouchableOpacity
-          className="bg-[#D9D9D9] rounded-[20] w-[100] h-[37] mb-2 justify-center items-center"
+          className="bg-[#D9D9D9] rounded-[20] flex-row w-[100] h-[37] mb-2 justify-center items-center"
           onPress={() => setShowFilters(!showFilters)}
         >
-          <Text className="text-[16] text-black">Filter-1</Text>
+            <Image
+                source={icons.Filter}
+                className="w-5 h-5"
+                resizeMode="contain"
+                tintColor="#787878"
+            />
+          <Text className="text-xs text-black">Genre/Awards</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="bg-[#D9D9D9] rounded-[20] w-[100] h-[37] mb-2 justify-center items-center"
+          className="bg-[#D9D9D9] flex-row rounded-[20] w-[100] h-[37] mb-2 justify-center items-center"
           onPress={() => setShowFilters2(!showFilters2)}
         >
-          <Text className="text-[16] text-black">Filter-2</Text>
+            <Image
+                source={icons.Filter}
+                className="w-5 h-5"
+                resizeMode="contain"
+                tintColor="#787878"
+            />
+          <Text className="text-xs text-black">Year/Rating</Text>
         </TouchableOpacity>
       </View>
 

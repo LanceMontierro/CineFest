@@ -23,7 +23,7 @@ export const saveUser = async (req, res) => {
   } catch (error) {
     console.error("Error saving user:", error);
     return res.status(500).json({ message: "Internal server error" });
-  }
+}
 };
 
 export const getAllUserDetails = async (req, res) => {
@@ -61,12 +61,12 @@ export const addToRecentlyViewedMovies = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const exisitingMovieIndex = user.recentlyViewed.findIndex(
+    const existingMovieIndex = user.recentlyViewed.findIndex(
       (m) => m.title === movie.title
     );
 
-    if (exisitingMovieIndex !== -1) {
-      user.recentlyViewed.splice(exisitingMovieIndex, 1);
+    if (existingMovieIndex !== -1) {
+      user.recentlyViewed.splice(existingMovieIndex, 1);
     }
 
     user.recentlyViewed.unshift(movie);
