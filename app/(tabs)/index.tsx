@@ -61,6 +61,15 @@ const Index = () => {
 
   return (
     <>
+    <ScrollView
+        className="flex-1 bg-[#282828]"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+            paddingBottom: 40,
+            minHeight: isLandscape ? height + 550 : height + 600,
+        }}
+    >
+
       <View className="flex-1 bg-[#282828]">
 
           <Image
@@ -68,16 +77,6 @@ const Index = () => {
               className="absolute w-full z-0"
               resizeMode="cover"
           />
-
-        <ScrollView
-          className="flex-1"
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingBottom: 40,
-            minHeight: isLandscape ? height + 550 : height + 560,
-              paddingHorizontal: 20,
-          }}
-        >
 
             <View className="justify-center items-center">
                 <Image
@@ -90,19 +89,12 @@ const Index = () => {
                 />
             </View>
 
-            <View className={`${isLandscape ? 'mt-4' : 'mt-10'}`}>
-                <SearchBar2 placeholder={"Search MMFF Movies"} onPress={() => {
-                    router.push("/search");
-                }}/>
-            </View>
-
-
           <SampleLatest data={latestMovies} />
           <SampleTop data={topRatedMovies} />
           <SampleRecent data={recentOpenMovies} />
 
-        </ScrollView>
       </View>
+    </ScrollView>
     </>
   );
 };

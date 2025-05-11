@@ -61,16 +61,19 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
         <Image
           source={{ uri: item.poster }}
           style={{
-            width: isLandscape ? cardWidth * 1.1 : cardWidth,
-            height: cardWidth * 1.4,
-            borderRadius: 10,
+            width: isLandscape ? cardWidth * 1.1 : cardWidth * 1.5,
+            height: cardWidth * 2,
+            borderRadius: 14,
           }}
           resizeMode="cover"
         />
-        <Text className="text-white text-sm mt-2 text-center">
-          {item.title}
-        </Text>
-        <Text className="text-white text-xs">⭐ {item.rating}</Text>
+        <View className="flex-row">
+            <Text className="text-white text-xl mt-2 text-center">
+              {item.title  && item.title.length > 30
+                  ? item.title.slice(0, 20) + "..."
+                  : item.title || "No Title"} |  {new Date(item.releaseDate).getFullYear()}
+            </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -98,8 +101,8 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
         ) : (
           <Carousel
             loop
-            width={width}
-            height={cardWidth * 1.53}
+            width={width * 1.15}
+            height={cardWidth * 2.1}
             autoPlay={false}
             data={data}
             scrollAnimationDuration={800}

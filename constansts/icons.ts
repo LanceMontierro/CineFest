@@ -18,11 +18,13 @@ import Filter from "@/assets/icons/Filter.png";
 import splashicon from "@/assets/images/splashicon.png";
 import Bookmark1 from "@/assets/icons/Bookmark1.png";
 import Bookmark2 from "@/assets/icons/Bookmark2.png";
+import Left from "@/assets/icons/Left.png";
 
 
 export const icons = {
   home,
   Filter,
+  Left,
   Bookmark1,
   Bookmark2,
   Sync,

@@ -68,7 +68,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
     const isLandscape = width > height;
 
     return (
-        <View>
+        <View className="mt-5">
             <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">Recently Viewed</Text>
             <View className={`${isLandscape ? 'justify-center items-center' : 'justify-center items-center'}`}>
                 {data.length === 0 ? (
