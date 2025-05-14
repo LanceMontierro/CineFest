@@ -195,10 +195,10 @@ const Introstyle = () => {
             <Text style={{ color: "white", fontSize: 30, fontWeight: "600", marginTop: 8 }}>
               Welcome to CineFest!
             </Text>
-            <Text style={{ color: "white", fontSize: 15, marginTop: 8, opacity: 0.6 }}>
+            <Text style={{ color: isLandscape ? "white" : "white", fontSize: 15, marginTop: 8, opacity: isLandscape ? 1 : 0.6 }}>
               Your ultimate app for finding
             </Text>
-            <Text style={{ color: "white", fontSize: 15, opacity: 0.6 }}>
+            <Text style={{ color: isLandscape ? "white" : "white", fontSize: 15, opacity: isLandscape ? 1 : 0.6 }}>
               METRO MANILA FILMS!
             </Text>
 

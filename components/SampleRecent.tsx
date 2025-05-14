@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions} from 'react-native';
+import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions, FlatList} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { useRouter } from "expo-router";
 import {useAppContext} from "@/app/context/appContext";
@@ -72,23 +72,20 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
             <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">Recently Viewed</Text>
             <View className={`${isLandscape ? 'justify-center items-center' : 'justify-center items-center'}`}>
                 {data.length === 0 ? (
-                    <Text className="text-white ml-4">No Recently Viewed available.</Text>
+                    <Text className="text-white ml-4">No Top Rating available.</Text>
                 ) : (
-                    <Carousel
-                        loop
-                        width={width}
-                        height={cardWidth * 1.53}
-                        autoPlay={false}
+                    <FlatList
                         data={data}
-                        scrollAnimationDuration={800}
-                        mode="parallax"
-                        modeConfig={{
-                            parallaxScrollingScale: 0.9,
-                            parallaxScrollingOffset: cardWidth * 1.2,
-                        }}
                         renderItem={({ item }) => (
                             <MovieCard item={item} cardWidth={cardWidth} />
                         )}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{
+                            paddingHorizontal: 10,
+                            gap: 20,
+                        }}
+                        className="mt-2"
                     />
                 )}
             </View>

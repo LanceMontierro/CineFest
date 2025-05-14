@@ -126,8 +126,6 @@ const Profile = () => {
 
       <View className="flex-1 bg-[#282828]">
 
-
-
         <Image
 
             source={images.bahay}
@@ -136,7 +134,10 @@ const Profile = () => {
             resizeMode="cover"
         />
 
-
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ minHeight:  isLandscape ? height * 2.1 :0 }}
+        >
 
           <View className="justify-center items-center">
             <View  style={{borderWidth: 2, borderColor: '#000000',}} className="bg-[#2E2E2E] mt-24 z-10 w-[317] h-[267] rounded-[25] justify-center items-center">
@@ -262,9 +263,8 @@ const Profile = () => {
               </TouchableOpacity>
             </ScrollView>
             </View>
-
           </View>
-
+        </ScrollView>
 
         <Modal visible={showDrawer} transparent animationType="none">
           <Pressable className="flex-1">
