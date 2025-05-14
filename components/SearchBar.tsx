@@ -1,10 +1,6 @@
 import {View, TextInput, Image, TouchableOpacity, useWindowDimensions} from "react-native";
 import { icons } from "@/constansts/icons";
 import React, {useState} from 'react';
-import GenreF from "@/components/GenreF";
-import Awards from "@/components/Awards";
-import YearF from "@/components/YearF";
-import RatingsF from "@/components/RatingsF";
 
 interface SearchBarProps {
     placeholder: string;

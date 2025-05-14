@@ -52,7 +52,8 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
             <View className="items-center justify-center">
                 <Image
                     source={{ uri: item.poster }}
-                    style={{ width: isLandscape ? cardWidth * 1.1 :cardWidth, height: cardWidth * 1.4, borderRadius: 10 }}
+                    style={{ width: isLandscape ? cardWidth * 1.1 :cardWidth, height: cardWidth * 1.4, borderRadius: 10, borderWidth: 2,
+                        borderColor: '#000000' }}
                     resizeMode="cover"
                 />
                 <Text className="text-white text-sm mt-2 text-center">{item.title}</Text>

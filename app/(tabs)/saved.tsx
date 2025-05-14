@@ -157,17 +157,15 @@ const Saved = ({ item }: { item: Movie }) => {
                     height: 109,
                     borderRadius: 20,
                     marginBottom: 4,
-                    shadowColor: "#9e9e9e",
-                    shadowOffset: { width: 0, height: 8 },
-                    shadowOpacity: 0.4,
-                    shadowRadius: 10,
-                    elevation: 12,
+                      borderWidth: 2,
+                      borderColor: '#000000'
                   }}
                 >
                   <View className="flex-row justify-between items-center p-4 px-5 rounded-b-3xl">
                     <Image
                       source={{ uri: item.poster }}
                       className="w-[123] h-[82] rounded-[16]"
+                      style={{borderWidth: 2, borderColor: '#000000'}}
                     />
                     <View className="flex-1 ml-4">
                       <Text

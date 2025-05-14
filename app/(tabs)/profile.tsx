@@ -274,7 +274,7 @@ const Profile = () => {
                   top: slideAnim,
                   left: 0,
                   right: 0,
-                  backgroundColor: "#e3e3e3",
+                  backgroundColor: "#b5b5b5",
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
@@ -308,7 +308,7 @@ const Profile = () => {
                   top: slideAnim,
                   left: 0,
                   right: 0,
-                  backgroundColor: "#e3e3e3",
+                  backgroundColor: "#b5b5b5",
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
@@ -391,7 +391,7 @@ const Profile = () => {
                   top: slideAnim,
                   left: 0,
                   right: 0,
-                  backgroundColor: "#e3e3e3",
+                  backgroundColor: "#b5b5b5",
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
@@ -459,7 +459,7 @@ const Profile = () => {
                   top: slideAnim,
                   left: 0,
                   right: 0,
-                  backgroundColor: "#D9D9D9",
+                  backgroundColor: "#b5b5b5",
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
@@ -469,7 +469,7 @@ const Profile = () => {
               <Text className="text-xl font-bold mb-4">{alertText}</Text>
               <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
               <TouchableOpacity
-                  className="bg-red-800 px-4 py-3 rounded-full items-center"
+                  className="bg-[#3c3c3c] px-4 py-3 rounded-full items-center"
                   onPress={() => {
                     deleteAllRecentlyViewedMovies();
                     closeDrawer2();
@@ -502,7 +502,7 @@ const Profile = () => {
               <Text className="text-xl font-bold mb-4">{alertText}</Text>
               <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
               <TouchableOpacity
-                  className="bg-red-800 px-4 py-3 rounded-full items-center"
+                  className="bg-[#3c3c3c] px-4 py-3 rounded-full items-center"
                   onPress={() => {deleteAllFavoriteMovies(); closeDrawer3();}}
               >
                 <Text className="text-[#D9DFF2]">DELETE</Text>

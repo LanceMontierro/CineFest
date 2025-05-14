@@ -64,6 +64,8 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
             width: isLandscape ? cardWidth * 1.1 : cardWidth * 1.5,
             height: cardWidth * 2,
             borderRadius: 14,
+            borderWidth: 2,
+            borderColor: '#000000'
           }}
           resizeMode="cover"
         />
