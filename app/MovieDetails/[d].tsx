@@ -145,7 +145,7 @@ export default function MovieDetails() {
               • {rating}
             </Text>
 
-            <Image source={icons.star} className="size-4" />
+            <Image source={icons.star} className="size-4" tintColor="#FAFAFA" />
           </View>
 
             <Text className="text-[#FAFAFA] font-semibold text-center mt-3 text-base">
