@@ -152,7 +152,7 @@ const Saved = ({ item }: { item: Movie }) => {
               >
                 <View
                   style={{
-                    backgroundColor: "#787878",
+                    backgroundColor: "#D9D9D9",
                     width: 320,
                     height: 109,
                     borderRadius: 20,
@@ -169,13 +169,13 @@ const Saved = ({ item }: { item: Movie }) => {
                     />
                     <View className="flex-1 ml-4">
                       <Text
-                        className="text-white font-bold text-base"
+                        className="text-[#3c3c3c] font-bold text-base"
                         numberOfLines={1}
                       >
                         {item.title}
                       </Text>
                       <Text
-                        className="text-white text-sm mt-1"
+                        className="text-[#3c3c3c] text-sm mt-1"
                         numberOfLines={1}
                       >
                         {Array.isArray(item.genre)

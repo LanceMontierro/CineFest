@@ -329,7 +329,6 @@ const Profile = () => {
                   When you sign in using your Google Account, we collect the following information from your profile:{'\n'}
                   - Full Name{'\n'}
                   - Email Address{'\n'}
-                  - Profile Picture (optional){'\n'}
                   We use Google OAuth 2.0 authentication and do not access your password or any other sensitive data.{'\n\n'}
 
                   b. App Usage Data{'\n'}
