@@ -162,7 +162,7 @@ const Profile = () => {
               <Text className="text-[#D9D9D9] text-lg mb-4 font-bold">Account</Text>
 
               <TouchableOpacity
-                  className="flex-row items-center rounded-xl p-4 mb-2"
+                  className="flex-row items-center rounded-xl p-4"
                   onPress={() => openDrawer("Notification")}
 
               >
@@ -178,7 +178,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center rounded-xl p-4 mb-2"
+                  className="flex-row items-center rounded-xl p-4"
                   onPress={() => openDrawer2("Delete Recent Viewed")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -195,7 +195,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center rounded-xl p-4 mb-2"
+                  className="flex-row items-center rounded-xl p-4 mb-4"
                   onPress={() => openDrawer3("Delete Saved Movies")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -214,7 +214,7 @@ const Profile = () => {
               <Text className="text-[#D9D9D9] text-lg mb-4 font-bold">General</Text>
 
               <TouchableOpacity
-                  className="flex-row items-center  rounded-xl p-4 mb-2"
+                  className="flex-row items-center  rounded-xl p-4"
                   onPress={() => openDrawer4("Privacy & Policy")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -231,7 +231,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center  rounded-xl p-4 mb-2"
+                  className="flex-row items-center  rounded-xl p-4"
                   onPress={() => openDrawer5("Terms & Conditions")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">

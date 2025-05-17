@@ -16,7 +16,6 @@ const SearchBar = ({ placeholder, searchQuery, setSearchQuery, onFilterPress, on
     const isLandscape = width > height;
 
     return (
-
         <View style={{
             flexDirection: 'row',
             alignItems: 'center',
@@ -24,23 +23,24 @@ const SearchBar = ({ placeholder, searchQuery, setSearchQuery, onFilterPress, on
             paddingVertical: 10,
             marginRight:  isLandscape ? 120 : 20,
             marginLeft:  isLandscape ? 120 : 20,
-            backgroundColor: 'black',
+            borderWidth:1,
+            borderColor:"#8a8a8a",
             borderRadius: 50,
+
         }}>
 
             <Image
                 source={icons.search}
                 className="w-5 h-5"
                 resizeMode="contain"
-                tintColor="#787878"
             />
 
             <TextInput
                 value={searchQuery}
                 placeholder={placeholder}
                 onChangeText={(text) => setSearchQuery(text)}
-                className="flex-1 ml-2 text-[#787878]"
-                placeholderTextColor="#787878"
+                className="flex-1 ml-2 text-[#D9D9D9]"
+                placeholderTextColor="#D9D9D9"
             />
 
             {onFilterPress && (
@@ -49,7 +49,6 @@ const SearchBar = ({ placeholder, searchQuery, setSearchQuery, onFilterPress, on
                         source={icons.Filter}
                         className="w-5 h-5 mr-2"
                         resizeMode="contain"
-                        tintColor="#787878"
                     />
                 </TouchableOpacity>
             )}
@@ -60,7 +59,6 @@ const SearchBar = ({ placeholder, searchQuery, setSearchQuery, onFilterPress, on
                         source={icons.Filter}
                         className="w-5 h-5 mr-2"
                         resizeMode="contain"
-                        tintColor="#787878"
                     />
                 </TouchableOpacity>
             )}
