@@ -66,20 +66,24 @@ const MovieCard = ({
     const isLandscape = width > height;
 
     return (
-        <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
-            <View className="items-center justify-center">
-                <Image
-                    source={{ uri: item.poster }}
-                    style={{
-                        width: isLandscape ? cardWidth * 1.1 : cardWidth * 1.5,
-                        height: cardWidth * 2,
-                        borderRadius: 14,
-                        borderWidth: 2,
-                        borderColor: "#000000",
-                    }}
-                    resizeMode="cover"
-                />
-                <View className="flex-row">
+        <>
+            <View className="justify-center items-center">
+                <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
+                    <View className="items-center justify-center">
+                        <Image
+                            source={{ uri: item.poster }}
+                            style={{
+                                width: isLandscape ? cardWidth * 1.1 : cardWidth * 1.5,
+                                height: cardWidth * 2,
+                                borderRadius: 14,
+                                borderWidth: 2,
+                                borderColor: "#000000",
+                            }}
+                            resizeMode="cover"
+                        />
+                    </View>
+                </TouchableOpacity>
+                <View className="flex-row z-50">
                     <Text className="text-white text-xl mt-2 text-center">
                         {item.title && item.title.length > 30
                             ? item.title.slice(0, 20) + "..."
@@ -89,10 +93,10 @@ const MovieCard = ({
                 </View>
             </View>
 
-            <View className="absolute bottom-9 -left-3.5 px-2 py-1 rounded-full">
+            <View className="absolute bottom-[-115] -right-[-140] rounded-full">
                 <MaskedView
                     maskElement={
-                        <Text className="font-bold text-white text-6xl">{index + 1}</Text>
+                        <Text className="font-bold text-white text-9xl">{index + 1}</Text>
                     }
                 >
                     <Image
@@ -102,7 +106,7 @@ const MovieCard = ({
                     />
                 </MaskedView>
             </View>
-        </TouchableOpacity>
+        </>
     );
 };
 

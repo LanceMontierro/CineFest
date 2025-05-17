@@ -56,7 +56,11 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
                         borderColor: '#000000' }}
                     resizeMode="cover"
                 />
-                <Text className="text-white text-sm mt-2 text-center">{item.title}</Text>
+                <Text className="text-white text-sm mt-2 text-center">
+                    {item.title && item.title.length > 30
+                        ? item.title.slice(0, 20) + "..."
+                        : item.title || "No Title"}{" "}
+                </Text>
                 <Text className="text-white text-xs">⭐ {item.rating}</Text>
             </View>
         </TouchableOpacity>

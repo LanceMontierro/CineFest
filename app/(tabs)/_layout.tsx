@@ -11,7 +11,7 @@ function TabIcon({ focused, icon, title }: any) {
       <ImageBackground
         className=" flex flex-row w-full flex-1 min-w-[112px] min-h-[55px] mt-4 justify-center items-center rounded-[20] overflow-hidden"
       >
-        <Image source={icon} className="w-8 h-8" />
+        <Image source={icon} className="w-6 h-6" />
         <Text className=" text-[#D9D9D9] text-secondary text-base font-semibold ml-2 ">
           {title}
         </Text>
@@ -21,7 +21,7 @@ function TabIcon({ focused, icon, title }: any) {
 
   return (
     <View className="size-full justify-center items-center mt-4">
-      <Image source={icon} className="w-8 h-8" />
+      <Image source={icon} className="w-6 h-6" />
     </View>
   );
 }
@@ -32,6 +32,7 @@ export default function TabsLayout() {
     const isLandscape = width > height;
 
   return (
+
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
@@ -40,12 +41,13 @@ export default function TabsLayout() {
           height:  isLandscape ? "80%" : "100%",
           justifyContent: "center",
           alignItems: "center",
+
         },
         tabBarStyle: {
           backgroundColor: "transparent",
           borderRadius: 20,
           marginHorizontal: 20,
-            top: isLandscape ? undefined :  700,
+            top: isLandscape ? undefined :  680,
             marginLeft: isLandscape ? 150 : 20,
             marginRight: isLandscape ? 150 : 20,
           marginBottom: isLandscape ? 10 : 60,
