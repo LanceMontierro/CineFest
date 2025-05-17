@@ -89,7 +89,6 @@ const MovieCard = ({
                 </View>
             </View>
 
-            {/* Numbered Ranking Bubble */}
             <View className="absolute bottom-9 -left-3.5 px-2 py-1 rounded-full">
                 <MaskedView
                     maskElement={
