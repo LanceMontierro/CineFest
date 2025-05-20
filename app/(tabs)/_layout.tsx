@@ -9,7 +9,7 @@ function TabIcon({ focused, icon, title }: any) {
   if (focused) {
     return (
       <ImageBackground
-        className=" flex flex-row w-full flex-1 min-w-[112px] min-h-[55px] mt-4 justify-center items-center rounded-[20] overflow-hidden"
+        className="bg-[#535353] flex flex-row w-full flex-1 min-w-[112px] min-h-[55px] mt-4 justify-center items-center rounded-[20] overflow-hidden"
       >
         <Image source={icon} className="w-6 h-6" />
         <Text className=" text-[#D9D9D9] text-secondary text-base font-semibold ml-2 ">
@@ -47,7 +47,7 @@ export default function TabsLayout() {
           backgroundColor: "transparent",
           borderRadius: 20,
           marginHorizontal: 20,
-            top: isLandscape ? undefined :  680,
+            top: isLandscape ? undefined :  690,
             marginLeft: isLandscape ? 150 : 20,
             marginRight: isLandscape ? 150 : 20,
           marginBottom: isLandscape ? 10 : 60,

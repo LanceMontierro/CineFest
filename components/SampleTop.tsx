@@ -3,6 +3,8 @@ import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions, Fl
 import Carousel from 'react-native-reanimated-carousel';
 import { useRouter } from "expo-router";
 import {useAppContext} from "@/app/context/appContext";
+import MaskedView from "@react-native-masked-view/masked-view";
+import {images} from "@/constansts/images";
 
 type Movie = {
     title: string;
@@ -22,7 +24,15 @@ interface TrendingMoviesProps {
 const { width } = Dimensions.get('window');
 
 
-const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
+const MovieCard = ({
+                       item,
+                       cardWidth,
+                       index,
+                   }: {
+    item: Movie;
+    cardWidth: number;
+    index: number;
+}) => {
     const router = useRouter();
     const { addToRecentlyViewedMovies } = useAppContext();
 
@@ -49,19 +59,42 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
 
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
-            <View className="items-center justify-center">
-                <Image
-                    source={{ uri: item.poster }}
-                    style={{ width: isLandscape ? cardWidth * 1.1 :cardWidth, height: cardWidth * 1.4, borderRadius: 10, borderWidth: 2,
-                        borderColor: '#000000' }}
-                    resizeMode="cover"
-                />
-                <Text className="text-white text-sm mt-2 text-center">
-                    {item.title && item.title.length > 30
-                        ? item.title.slice(0, 20) + "..."
-                        : item.title || "No Title"}{" "}
-                </Text>
-                <Text className="text-white text-xs">⭐ {item.rating}</Text>
+            <View className="items-center justify-center mt-[-90] mb-[-90]">
+                <View className="flex-row items-center">
+                    <View style={{ marginRight: -90 }} className="justify-center items-center">
+                        <MaskedView
+                            maskElement={
+                                <Text className="font-extrabold text-[310px]">{index + 1}</Text>
+                            }
+                        >
+                            <Image
+                                source={images.rankingGradient}
+                                resizeMode="cover"
+                                tintColor={"#8f8f8f"}
+                                style={{ height: cardWidth * 2.7}}
+                            />
+                        </MaskedView>
+                    </View>
+                    <View>
+                        <Image
+                            source={{ uri: item.poster }}
+                            style={{
+                                width: isLandscape ? cardWidth * 1.1 : cardWidth,
+                                height: cardWidth * 1.4,
+                                borderRadius: 10,
+                                borderWidth: 2,
+                                borderColor: '#000000',
+                            }}
+                            resizeMode="cover"
+                        />
+                        <Text className="text-white text-sm text-center">
+                            {item.title && item.title.length > 30
+                                ? item.title.slice(0, 20) + "..."
+                                : item.title || "No Title"}{" "}
+                        </Text>
+                        <Text className="text-white text-center text-xs">⭐ {item.rating}</Text>
+                    </View>
+                </View>
             </View>
         </TouchableOpacity>
     );
@@ -81,8 +114,8 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
             ) : (
                 <FlatList
                     data={data}
-                    renderItem={({ item }) => (
-                        <MovieCard item={item} cardWidth={cardWidth} />
+                    renderItem={({ item,index }) => (
+                        <MovieCard item={item} cardWidth={cardWidth}  index={index}/>
                     )}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}

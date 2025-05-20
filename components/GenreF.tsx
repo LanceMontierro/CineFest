@@ -24,7 +24,7 @@ const Filters = () => {
       setSelectedCategories((prev) => [...prev, category]);
     }
 
-    setActiveFilter((prev) => ({
+    setActiveFilter((prev: any) => ({
       ...prev,
       genre: prev.genre === category ? null : category,
     }));
