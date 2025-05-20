@@ -16,10 +16,34 @@ const ContextApi = ({ children }) => {
   const [recentOpenMovies, setRecentOpenMovies] = useState([]);
   const [userAcc, setUserAcc] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [activeFilter, setActiveFilter] = useState();
+  const [activeFilter, setActiveFilter] = useState({
+    genre: null,
+    year: null,
+    awards: null,
+    rating: null,
+  });
   const { signOut } = useClerk();
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
+
+  const applyFilters = (movies) => {
+    return movies.filter((movie) => {
+      const matchesGenre = activeFilter.genre
+        ? movie.genre.toLowerCase().includes(activeFilter.genre.toLowerCase())
+        : true;
+      const matchesYear = activeFilter.year
+        ? new Date(movie.releaseDate).getFullYear() === activeFilter.year
+        : true;
+      const matchesAwards = activeFilter.awards
+        ? movie.awards.toLowerCase().includes(activeFilter.awards.toLowerCase())
+        : true;
+      const matchesRating = activeFilter.rating
+        ? parseFloat(movie.rating) >= parseFloat(activeFilter.rating)
+        : true;
+
+      return matchesGenre && matchesYear && matchesAwards && matchesRating;
+    });
+  };
 
   const latestMovies = movies
     .filter((movie) => {
@@ -312,6 +336,9 @@ const ContextApi = ({ children }) => {
         addToRecentlyViewedMovies,
         deleteAllFavoriteMovies,
         deleteAllRecentlyViewedMovies,
+        activeFilter,
+        setActiveFilter,
+        applyFilters,
       }}
     >
       {children}

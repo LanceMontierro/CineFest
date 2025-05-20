@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Text, ScrollView, TouchableOpacity } from "react-native";
-
+import { useAppContext } from "@/app/context/appContext";
 import { genre } from "@/constansts/filter";
 
 const Filters = () => {
@@ -9,6 +9,7 @@ const Filters = () => {
   const initialFilters = params.filter ? params.filter.split(",") : [];
   const [selectedCategories, setSelectedCategories] =
     useState<string[]>(initialFilters);
+  const { activeFilter, setActiveFilter } = useAppContext();
 
   useEffect(() => {
     router.setParams({
@@ -22,6 +23,11 @@ const Filters = () => {
     } else {
       setSelectedCategories((prev) => [...prev, category]);
     }
+
+    setActiveFilter((prev) => ({
+      ...prev,
+      genre: prev.genre === category ? null : category,
+    }));
   };
 
   return (

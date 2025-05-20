@@ -34,7 +34,19 @@ const Saved = ({ item }: { item: Movie }) => {
   const [showFilters, setShowFilters] = useState(false);
   const [showFilters2, setShowFilters2] = useState(false);
 
-  const { favortiteMovies } = useAppContext();
+  const { favortiteMovies, applyFilters, activeFilter } = useAppContext();
+
+  const isAnyFilterActive = (filterObj: any) => {
+    return Object.values(filterObj).some(
+      (val) =>
+        (Array.isArray(val) && val.length > 0) ||
+        (typeof val === "string" && val) ||
+        (typeof val === "number" && val !== null)
+    );
+  };
+  const moviesToShow = isAnyFilterActive(activeFilter)
+    ? applyFilters(favortiteMovies)
+    : favortiteMovies;
   const router = useRouter();
 
   const handlePress = (item: any) => {
@@ -127,12 +139,12 @@ const Saved = ({ item }: { item: Movie }) => {
         }}
       >
         <View className="justify-between items-center">
-          {favortiteMovies.length === 0 ? (
+          {moviesToShow.length === 0 ? (
             <Text className="text-white text-lg mt-10">
               No saved movies yet.
             </Text>
           ) : (
-            favortiteMovies.map((item: any, index: any) => (
+            moviesToShow.map((item: any, index: any) => (
               <TouchableWithoutFeedback
                 key={index}
                 onPress={() => handlePress(item)}
