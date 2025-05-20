@@ -115,7 +115,7 @@ const Search = () => {
           minHeight: Math.max(
             height,
             isLandscape
-              ? filteredMovies.length * 135
+              ? filteredMovies.length * 98
               : filteredMovies.length * 155
           ),
           paddingBottom: 15,
