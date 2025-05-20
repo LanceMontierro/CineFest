@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, {useState, useRef, useContext} from "react";
 import {
   View,
   Text,
@@ -12,10 +12,11 @@ import {
 } from "react-native";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";
-import { useAppContext } from "@/app/context/appContext";
+import AppContext, { useAppContext } from "@/app/context/appContext";
 
 const Profile = () => {
-  const { user, handleSignOut } = useAppContext();
+
+  const { user, handleSignOut, deleteAllFavoriteMovies, deleteAllRecentlyViewedMovies } = useAppContext();
 
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
@@ -70,7 +71,7 @@ const Profile = () => {
 
   const openDrawer3 = (text: string) => {
     setAlertText(text);
-    setShowDrawer2(true);
+    setShowDrawer3(true);
     Animated.timing(slideAnim, {
       toValue: height * 0.5,
       duration: 300,
@@ -99,7 +100,7 @@ const Profile = () => {
       toValue: height,
       duration: 300,
       useNativeDriver: false,
-    }).start(() => setShowDrawer2(false));
+    }).start(() => setShowDrawer3(false));
   };
 
   const closeDrawer4 = () => {
@@ -124,18 +125,22 @@ const Profile = () => {
   return (
 
       <View className="flex-1 bg-[#282828]">
+
         <Image
+
             source={images.bahay}
             className={`${isLandscape ? 'absolute w-full z-0' : 'absolute w-full z-0'}`}
+            style={{borderRadius: 20, borderWidth: 2, borderColor: '#000000'}}
             resizeMode="cover"
         />
 
         <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ minHeight:  isLandscape ? height * 2.6 :"124%" }}
+            contentContainerStyle={{ minHeight:  isLandscape ? height * 2.1 :0 }}
         >
+
           <View className="justify-center items-center">
-            <View className="bg-[#2E2E2E] mt-24 z-10 w-[317] h-[267] rounded-[25] justify-center items-center">
+            <View  style={{borderWidth: 2, borderColor: '#000000',}} className="bg-[#2E2E2E] mt-24 z-10 w-[317] h-[267] rounded-[25] justify-center items-center">
               <Image source={images.Star1} className="mt-[-50]" />
               {user && user.emailAddresses?.[0]?.emailAddress ? (
                   <Text className="mt-10 text-white text-lg">
@@ -148,11 +153,16 @@ const Profile = () => {
               )}
             </View>
 
-            <View className="bg-[#787878] z-20 w-[345] h-[267] mt-[-55] rounded-[25] p-4">
-              <Text className="text-[#D9D9D9] text-lg mb-4">Account</Text>
+            <View style={{borderWidth: 2, borderColor: '#000000'}} className="bg-[#787878] z-20 w-[370] h-[400] mt-[-55] rounded-[25] p-4">
+              <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{ minHeight:  isLandscape ? height * 2.6 :"124%" }}
+              >
+
+              <Text className="text-[#D9D9D9] text-lg mb-4 font-bold">Account</Text>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  className="flex-row items-center rounded-xl p-4"
                   onPress={() => openDrawer("Notification")}
 
               >
@@ -168,8 +178,8 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
-                  onPress={() => openDrawer3("Delete Recent Viewed")}
+                  className="flex-row items-center rounded-xl p-4"
+                  onPress={() => openDrawer2("Delete Recent Viewed")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
                   <Image
@@ -185,8 +195,8 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
-                  onPress={() => openDrawer2("Delete Saved Movies")}
+                  className="flex-row items-center rounded-xl p-4 mb-4"
+                  onPress={() => openDrawer3("Delete Saved Movies")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
                   <Image
@@ -200,15 +210,11 @@ const Profile = () => {
                 </Text>
                 <Text className="text-[#D9D9D9]">{">"}</Text>
               </TouchableOpacity>
-            </View>
 
-            <View className="mt-4" />
-
-            <View className="bg-[#787878] z-20 w-[345] h-[267] rounded-[25] p-4">
-              <Text className="text-[#D9D9D9] text-lg mb-4">General</Text>
+              <Text className="text-[#D9D9D9] text-lg mb-4 font-bold">General</Text>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  className="flex-row items-center  rounded-xl p-4"
                   onPress={() => openDrawer4("Privacy & Policy")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -225,7 +231,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4 mb-2"
+                  className="flex-row items-center  rounded-xl p-4"
                   onPress={() => openDrawer5("Terms & Conditions")}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -242,7 +248,7 @@ const Profile = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                  className="flex-row items-center bg-[#888] rounded-xl p-4"
+                  className="flex-row items-center  rounded-xl p-4"
                   onPress={handleSignOut}
               >
                 <View className="bg-white rounded-xl p-2 mr-4">
@@ -255,6 +261,7 @@ const Profile = () => {
                 <Text className="text-[#D9D9D9] text-base flex-1">Log-out</Text>
                 <Text className="text-[#D9D9D9]">{">"}</Text>
               </TouchableOpacity>
+            </ScrollView>
             </View>
           </View>
         </ScrollView>
@@ -267,7 +274,7 @@ const Profile = () => {
                   top: slideAnim,
                   left: 0,
                   right: 0,
-                  backgroundColor: "#e3e3e3",
+                  backgroundColor: "#b5b5b5",
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
@@ -301,7 +308,7 @@ const Profile = () => {
                   top: slideAnim,
                   left: 0,
                   right: 0,
-                  backgroundColor: "#e3e3e3",
+                  backgroundColor: "#b5b5b5",
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
@@ -322,7 +329,6 @@ const Profile = () => {
                   When you sign in using your Google Account, we collect the following information from your profile:{'\n'}
                   - Full Name{'\n'}
                   - Email Address{'\n'}
-                  - Profile Picture (optional){'\n'}
                   We use Google OAuth 2.0 authentication and do not access your password or any other sensitive data.{'\n\n'}
 
                   b. App Usage Data{'\n'}
@@ -384,7 +390,7 @@ const Profile = () => {
                   top: slideAnim,
                   left: 0,
                   right: 0,
-                  backgroundColor: "#e3e3e3",
+                  backgroundColor: "#b5b5b5",
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
@@ -444,7 +450,6 @@ const Profile = () => {
         </Modal>
 
         <Modal visible={showDrawer2} transparent animationType="none">
-
           <Pressable className="flex-1" onPress={closeDrawer2}>
 
             <Animated.View
@@ -453,7 +458,7 @@ const Profile = () => {
                   top: slideAnim,
                   left: 0,
                   right: 0,
-                  backgroundColor: "#D9D9D9",
+                  backgroundColor: "#b5b5b5",
                   borderTopLeftRadius: 25,
                   borderTopRightRadius: 25,
                   padding: 20,
@@ -463,14 +468,19 @@ const Profile = () => {
               <Text className="text-xl font-bold mb-4">{alertText}</Text>
               <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
               <TouchableOpacity
-                  className="bg-red-800 px-4 py-3 rounded-full items-center"
-                  onPress={closeDrawer2}
+                  className="bg-[#3c3c3c] px-4 py-3 rounded-full items-center"
+                  onPress={() => {
+                    deleteAllRecentlyViewedMovies();
+                    closeDrawer2();
+                  }}
               >
                 <Text className="text-[#D9DFF2]">DELETE</Text>
               </TouchableOpacity>
             </Animated.View>
           </Pressable>
         </Modal>
+
+
         <Modal visible={showDrawer3} transparent animationType="none">
 
           <Pressable className="flex-1" onPress={closeDrawer3}>
@@ -491,8 +501,8 @@ const Profile = () => {
               <Text className="text-xl font-bold mb-4">{alertText}</Text>
               <Text className="text-gray-600 mb-6">U SURE BRO?</Text>
               <TouchableOpacity
-                  className="bg-red-800 px-4 py-3 rounded-full items-center"
-                  onPress={closeDrawer3}
+                  className="bg-[#3c3c3c] px-4 py-3 rounded-full items-center"
+                  onPress={() => {deleteAllFavoriteMovies(); closeDrawer3();}}
               >
                 <Text className="text-[#D9DFF2]">DELETE</Text>
               </TouchableOpacity>

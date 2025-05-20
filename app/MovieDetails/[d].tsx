@@ -58,53 +58,12 @@ export default function MovieDetails() {
     setLiked((prev) => !prev);
   };
 
-    const [showDrawer, setShowDrawer] = useState(false);
-    const [showDrawer2, setShowDrawer2] = useState(false);
-    const [alertText, setAlertText] = useState("");
-    const slideAnim = useRef(new Animated.Value(height)).current;
-
-    const openDrawer = (text: string) => {
-        setAlertText(text);
-        setShowDrawer(true);
-        Animated.timing(slideAnim, {
-            toValue: height * 0.5,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
-    };
-
-    const openDrawer2 = (text: string) => {
-        setAlertText(text);
-        setShowDrawer2(true);
-        Animated.timing(slideAnim, {
-            toValue: height * 0.5,
-            duration: 300,
-            useNativeDriver: false,
-        }).start();
-    };
-
-    const closeDrawer = () => {
-        Animated.timing(slideAnim, {
-            toValue: height,
-            duration: 300,
-            useNativeDriver: false,
-        }).start(() => setShowDrawer(false));
-    };
-
-    const closeDrawer2 = () => {
-        Animated.timing(slideAnim, {
-            toValue: height,
-            duration: 300,
-            useNativeDriver: false,
-        }).start(() => setShowDrawer2(false));
-    };
-
   return (
     <View className="bg-[#282828] flex-1">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          minHeight: isLandscape ? height + 250 : "120%",
+          minHeight: isLandscape ? height + 250 : "100%",
         }}
       >
         <View>
@@ -117,7 +76,8 @@ export default function MovieDetails() {
           />
 
           <View
-            className={`bg-[#404040] rounded-b-3xl px-4 py-4 absolute right-5 items-center justify-center z-50 ${
+              style={{borderWidth: 2, borderColor: '#000000',}}
+              className={`bg-[#404040] rounded-b-3xl px-4 py-4 absolute right-5 items-center justify-center z-50 ${
               isLandscape ? "w-16 h-16 left-5" : "right-5"
             }`}
           >
@@ -129,8 +89,8 @@ export default function MovieDetails() {
               <Image
                 source={
                   liked
-                    ? require("@/assets/icons/Bookmark2.png")
-                    : require("@/assets/icons/Bookmark1.png")
+                    ? require("@/assets/icons/Bookmark1.png")
+                    : require("@/assets/icons/Bookmark2.png")
                 }
                 className="w-10 h-10"
               />
@@ -185,7 +145,7 @@ export default function MovieDetails() {
               • {rating}
             </Text>
 
-            <Image source={icons.star} className="size-4" />
+            <Image source={icons.star} className="size-4" tintColor="#FAFAFA" />
           </View>
 
             <Text className="text-[#FAFAFA] font-semibold text-center mt-3 text-base">
@@ -225,9 +185,30 @@ export default function MovieDetails() {
                   {(Array.isArray(cast) ? cast : cast?.split(",") || []).map(
                       (item: string, index: number) => (
                           <View key={index} className="flex-row items-center">
-                              <View className="bg-[#787878] mt-2 rounded-full w-[item.length] px-5 h-10 flex items-center justify-center mr-2">
-                              <Text className="text-[#FAFAFA]">{item}</Text>
+                              <View
+                                  style={{
+                                      backgroundColor: '#787878',
+                                      borderWidth: 2,
+                                      borderColor: '#000000',
+                                      borderRadius: 999,
+                                      paddingHorizontal: 20,
+                                      height: 40,
+                                      marginTop: 8,
+                                      marginRight: 8,
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                  }}
+                              >
+                                  <Text
+                                      style={{
+                                          color: '#FAFAFA',
+                                          fontWeight: '500',
+                                      }}
+                                  >
+                                      {item}
+                                  </Text>
                               </View>
+
                               {index !==
                                   (Array.isArray(cast)
                                       ? cast.length - 1
@@ -244,38 +225,41 @@ export default function MovieDetails() {
               <Text className="text-[#FAFAFA] font-semibold text-center text-base">
                 {link?.length > 0 ? "Watch Trailer " : "No Trailer Available"}
               </Text>
-              <Text className="text-neutral-400 font-bold mb-4">{link}</Text>
+              <Text selectable={true} className="text-neutral-400 font-bold mb-4">{link}</Text>
           </View>
+
+            <TouchableOpacity
+                style={{
+                    backgroundColor: "#404040",
+                    marginTop:34,
+                    bottom: 5,
+                    left: 0,
+                    right: 0,
+                    borderWidth: 2,
+                    borderColor: '#000000',
+                    paddingHorizontal: 20,
+                    paddingVertical: 14,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginLeft: isLandscape ? 150 : 30,
+                    marginRight: isLandscape ? 150 : 30,
+                    justifyContent: "center",
+                    borderRadius: 17,
+                    marginBottom: isLandscape ? 20 : 60,
+                }}
+                onPress={router.back}
+            >
+                <Image
+                    source={icons.arrow}
+                    className="size-5 mr-1 mt-0.5 rotate-180"
+                    tintColor="#fff"
+                />
+                <Text className="text-white font-semibold text-base">Go Back</Text>
+            </TouchableOpacity>
+
         </View>
       </ScrollView>
 
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#404040",
-          position: "absolute",
-          bottom: 5,
-          left: 0,
-          right: 0,
-          paddingHorizontal: 20,
-          paddingVertical: 14,
-          flexDirection: "row",
-          alignItems: "center",
-          marginLeft: isLandscape ? 150 : 30,
-          marginRight: isLandscape ? 150 : 30,
-          justifyContent: "center",
-          zIndex: 50,
-          borderRadius: 10,
-          marginBottom: isLandscape ? 20 : 60,
-        }}
-        onPress={router.back}
-      >
-        <Image
-          source={icons.arrow}
-          className="size-5 mr-1 mt-0.5 rotate-180"
-          tintColor="#fff"
-        />
-        <Text className="text-white font-semibold text-base">Go Back</Text>
-      </TouchableOpacity>
     </View>
   );
 }

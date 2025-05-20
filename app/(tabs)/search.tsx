@@ -150,6 +150,8 @@ const Search = () => {
                     width: width * 0.43,
                     height: height * 0.3,
                     borderRadius: 10,
+                    borderWidth: 2,
+                    borderColor: '#000000'
                   }}
                 />
                 <Text

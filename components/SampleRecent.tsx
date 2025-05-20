@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions} from 'react-native';
+import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions, FlatList} from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { useRouter } from "expo-router";
 import {useAppContext} from "@/app/context/appContext";
@@ -52,10 +52,15 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
             <View className="items-center justify-center">
                 <Image
                     source={{ uri: item.poster }}
-                    style={{ width: isLandscape ? cardWidth * 1.1 :cardWidth, height: cardWidth * 1.4, borderRadius: 10 }}
+                    style={{ width: isLandscape ? cardWidth * 1.1 :cardWidth, height: cardWidth * 1.4, borderRadius: 10, borderWidth: 2,
+                        borderColor: '#000000' }}
                     resizeMode="cover"
                 />
-                <Text className="text-white text-sm mt-2 text-center">{item.title}</Text>
+                <Text className="text-white text-sm mt-2 text-center">
+                    {item.title && item.title.length > 30
+                        ? item.title.slice(0, 20) + "..."
+                        : item.title || "No Title"}{" "}
+                </Text>
                 <Text className="text-white text-xs">⭐ {item.rating}</Text>
             </View>
         </TouchableOpacity>
@@ -68,27 +73,24 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
     const isLandscape = width > height;
 
     return (
-        <View>
+        <View className="mt-5">
             <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">Recently Viewed</Text>
             <View className={`${isLandscape ? 'justify-center items-center' : 'justify-center items-center'}`}>
                 {data.length === 0 ? (
-                    <Text className="text-white ml-4">No Recently Viewed available.</Text>
+                    <Text className="text-white ml-4">No Recently viewed available.</Text>
                 ) : (
-                    <Carousel
-                        loop
-                        width={width}
-                        height={cardWidth * 1.53}
-                        autoPlay={false}
+                    <FlatList
                         data={data}
-                        scrollAnimationDuration={800}
-                        mode="parallax"
-                        modeConfig={{
-                            parallaxScrollingScale: 0.9,
-                            parallaxScrollingOffset: cardWidth * 1.2,
-                        }}
                         renderItem={({ item }) => (
                             <MovieCard item={item} cardWidth={cardWidth} />
                         )}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{
+                            paddingHorizontal: 10,
+                            gap: 20,
+                        }}
+                        className="mt-2"
                     />
                 )}
             </View>

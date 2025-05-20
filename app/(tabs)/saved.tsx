@@ -17,6 +17,7 @@ import Awards from "@/components/Awards";
 import { useRouter } from "expo-router";
 import { icons } from "@/constansts/icons";
 import { useAppContext } from "./../context/appContext";
+import down from "@/assets/icons/Left.png";
 
 type Movie = {
   title: string;
@@ -101,17 +102,29 @@ const Saved = ({ item }: { item: Movie }) => {
         </Text>
 
         <TouchableOpacity
-          className="bg-[#D9D9D9] rounded-[20] w-[100] h-[37] mb-2 justify-center items-center"
+          className="bg-[#D9D9D9] rounded-[20] flex-row w-[100] h-[37] mb-2 justify-center items-center"
           onPress={() => setShowFilters(!showFilters)}
+          style={{borderWidth: 2, borderColor: '#000000',}}
         >
-          <Text className="text-[16] text-black">Filter-1</Text>
+          <Text className="text-[10px] text-black mr-1">Genre/Awards</Text>
+            <Image
+                source={icons.down}
+                className="w-5 h-5"
+                resizeMode="contain"
+            />
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="bg-[#D9D9D9] rounded-[20] w-[100] h-[37] mb-2 justify-center items-center"
+          className="bg-[#D9D9D9] flex-row rounded-[20] w-[100] h-[37] mb-2 justify-center items-center "
           onPress={() => setShowFilters2(!showFilters2)}
+          style={{borderWidth: 2, borderColor: '#000000',}}
         >
-          <Text className="text-[16] text-black">Filter-2</Text>
+          <Text className="text-[10px] text-black mr-1">Year/Rating</Text>
+            <Image
+                source={icons.down}
+                className="w-5 h-5"
+                resizeMode="contain"
+            />
         </TouchableOpacity>
       </View>
 
@@ -151,32 +164,30 @@ const Saved = ({ item }: { item: Movie }) => {
               >
                 <View
                   style={{
-                    backgroundColor: "#787878",
+                    backgroundColor: "#D9D9D9",
                     width: 320,
                     height: 109,
                     borderRadius: 20,
                     marginBottom: 4,
-                    shadowColor: "#9e9e9e",
-                    shadowOffset: { width: 0, height: 8 },
-                    shadowOpacity: 0.4,
-                    shadowRadius: 10,
-                    elevation: 12,
+                      borderWidth: 2,
+                      borderColor: '#000000'
                   }}
                 >
                   <View className="flex-row justify-between items-center p-4 px-5 rounded-b-3xl">
                     <Image
                       source={{ uri: item.poster }}
                       className="w-[123] h-[82] rounded-[16]"
+                      style={{borderWidth: 2, borderColor: '#000000'}}
                     />
                     <View className="flex-1 ml-4">
                       <Text
-                        className="text-white font-bold text-base"
+                        className="text-[#3c3c3c] font-bold text-base"
                         numberOfLines={1}
                       >
                         {item.title}
                       </Text>
                       <Text
-                        className="text-white text-sm mt-1"
+                        className="text-[#3c3c3c] text-sm mt-1"
                         numberOfLines={1}
                       >
                         {Array.isArray(item.genre)

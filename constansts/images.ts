@@ -22,11 +22,13 @@ import poster10 from "@/assets/images/google.png";
 import dev from "@/assets/images/dev.png";
 import upload from "@/assets/images/upload.png";
 import blank from "@/assets/images/blank.png";
+import po1 from "@/assets/images/po1.png";
 
 
 export const images = {
   bg,
   upperhome,
+  po1,
   upload,
   poster1,
   poster10,

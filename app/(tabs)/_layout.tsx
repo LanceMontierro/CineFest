@@ -3,15 +3,15 @@ import {ImageBackground, Image, Text, View, useWindowDimensions} from "react-nat
 
 import { icons } from "@/constansts/icons";
 import { images } from "@/constansts/images";
+import {BlurView} from "expo-blur";
 
 function TabIcon({ focused, icon, title }: any) {
   if (focused) {
     return (
       <ImageBackground
-        source={images.highlight}
-        className="flex flex-row w-full flex-1 min-w-[112px] min-h-16 mt-4 justify-center items-center rounded-full overflow-hidden"
+        className=" flex flex-row w-full flex-1 min-w-[112px] min-h-[55px] mt-4 justify-center items-center rounded-[20] overflow-hidden"
       >
-        <Image source={icon} tintColor="#D9D9D9" className="size-5" />
+        <Image source={icon} className="w-6 h-6" />
         <Text className=" text-[#D9D9D9] text-secondary text-base font-semibold ml-2 ">
           {title}
         </Text>
@@ -20,8 +20,8 @@ function TabIcon({ focused, icon, title }: any) {
   }
 
   return (
-    <View className="size-full justify-center items-center mt-4 rounded-full">
-      <Image source={icon} tintColor="#D9D9D9" className="size-5" />
+    <View className="size-full justify-center items-center mt-4">
+      <Image source={icon} className="w-6 h-6" />
     </View>
   );
 }
@@ -32,6 +32,7 @@ export default function TabsLayout() {
     const isLandscape = width > height;
 
   return (
+
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
@@ -40,20 +41,25 @@ export default function TabsLayout() {
           height:  isLandscape ? "80%" : "100%",
           justifyContent: "center",
           alignItems: "center",
+
         },
         tabBarStyle: {
-          backgroundColor: "#000000",
-          borderRadius: 50,
+          backgroundColor: "transparent",
+          borderRadius: 20,
           marginHorizontal: 20,
+            top: isLandscape ? undefined :  680,
             marginLeft: isLandscape ? 150 : 20,
             marginRight: isLandscape ? 150 : 20,
-          marginBottom: isLandscape ? 10 : 70,
+          marginBottom: isLandscape ? 10 : 60,
           height: isLandscape ? 60 : 52,
           position: "absolute",
-          overflow: "hidden",
           borderWidth: 1,
-          borderColor: "#0F0D23",
+          borderColor: "#8a8a8a",
+            overflow: 'hidden',
         },
+          tabBarBackground: () => (
+              <BlurView intensity={850} tint="dark" style={{ flex: 1 }} />
+          ),
       }}
     >
       <Tabs.Screen
