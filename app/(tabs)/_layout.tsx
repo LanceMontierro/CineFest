@@ -47,7 +47,7 @@ export default function TabsLayout() {
           backgroundColor: "transparent",
           borderRadius: 20,
           marginHorizontal: 20,
-            top: isLandscape ? undefined :  700,
+            top: isLandscape ? undefined :  690,
             marginLeft: isLandscape ? 150 : 20,
             marginRight: isLandscape ? 150 : 20,
           marginBottom: isLandscape ? 10 : 60,

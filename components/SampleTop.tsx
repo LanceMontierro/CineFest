@@ -87,7 +87,7 @@ const MovieCard = ({
                             }}
                             resizeMode="cover"
                         />
-                        <Text className="text-white text-sm mt-2 text-center">
+                        <Text className="text-white text-sm text-center">
                             {item.title && item.title.length > 30
                                 ? item.title.slice(0, 20) + "..."
                                 : item.title || "No Title"}{" "}
