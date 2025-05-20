@@ -46,10 +46,7 @@ const ContextApi = ({ children }) => {
   };
 
   const latestMovies = movies
-    .filter((movie) => {
-      const date = new Date(movie.releaseDate);
-      return movie.releaseDate && date.getFullYear() === 2024;
-    })
+    .filter((movie) => !!movie.releaseDate)
     .sort(
       (a, b) =>
         new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
@@ -169,22 +166,54 @@ const ContextApi = ({ children }) => {
 
   console.log(movies);
 
-  const createMovie = async (movie) => {
+  const createMovie = async ({
+    title,
+    description,
+    poster,
+    genre,
+    releaseDate,
+    rating,
+    awards,
+    link,
+    cast,
+  }) => {
     if (!userAcc) {
       console.log("User account not found. Cannot create movies.");
       return;
     }
     try {
+      // Convert comma-separated strings to arrays if needed
+      const genreArr = Array.isArray(genre)
+        ? genre
+        : genre
+        ? genre.split(",").map((g) => g.trim())
+        : [];
+      const ratingArr = Array.isArray(rating)
+        ? rating
+        : rating
+        ? rating.split(",").map((r) => r.trim())
+        : [];
+      const awardsArr = Array.isArray(awards)
+        ? awards
+        : awards
+        ? awards.split(",").map((a) => a.trim())
+        : [];
+      const castArr = Array.isArray(cast)
+        ? cast
+        : cast
+        ? cast.split(",").map((c) => c.trim())
+        : [];
+
       const res = await axios.post(`${API_URL}/movies/create-movie`, {
-        title: movie.title,
-        description: movie.description,
-        poster: movie.poster,
-        genre: movie.genre,
-        releaseDate: movie.releaseDate,
-        rating: movie.rating,
-        awards: movie.awards,
-        link: movie.link,
-        cast: movie.cast,
+        title,
+        description,
+        poster,
+        genre: genreArr,
+        releaseDate,
+        rating: ratingArr,
+        awards: awardsArr,
+        link,
+        cast: castArr,
       });
 
       if (res.status === 200) {
@@ -284,7 +313,7 @@ const ContextApi = ({ children }) => {
           userId: userAcc.id,
         }
       );
-        setFavoriteMovies([]);
+      setFavoriteMovies([]);
     } catch (error) {
       console.error("Error deleting favorite movies:", error);
     }
@@ -303,7 +332,7 @@ const ContextApi = ({ children }) => {
           userId: userAcc.id,
         }
       );
-        setRecentOpenMovies([]);
+      setRecentOpenMovies([]);
     } catch (error) {
       console.error("Error deleting favorite movies:", error);
     }

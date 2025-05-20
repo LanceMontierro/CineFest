@@ -26,6 +26,8 @@ const SAdmin = () => {
     handleSignOut: () => void;
   };
 
+  const { createMovie } = useAppContext();
+
   type Movie = {
     title: string;
     description: string;
@@ -36,6 +38,39 @@ const SAdmin = () => {
     awards: string;
     link: string;
     cast: string;
+  };
+
+  const [title, setTitle] = useState("");
+  const [genre, setGenre] = useState("");
+  const [description, setDescription] = useState("");
+  const [awards, setAwards] = useState("");
+  const [link, setLink] = useState("");
+  const [cast, setCast] = useState("");
+  const [releaseDate, setReleaseDate] = useState("");
+  const [rating, setRating] = useState("");
+
+  const handleSubmit = async () => {
+    await createMovie({
+      title,
+      description,
+      poster: poster || "",
+      genre,
+      releaseDate,
+      rating,
+      awards,
+      link,
+      cast,
+    });
+    setTitle("");
+    setGenre("");
+    setDescription("");
+    setAwards("");
+    setLink("");
+    setCast("");
+    setReleaseDate("");
+    setRating("");
+    setPoster(null);
+    setShowForm(false);
   };
 
   const [selectedToDelete, setSelectedToDelete] = useState<number | null>(null);
@@ -188,29 +223,49 @@ const SAdmin = () => {
             placeholder="Title"
             placeholderTextColor="#999"
             className="bg-[#444] text-white p-2 rounded mb-2"
+            value={title}
+            onChangeText={setTitle}
           />
           <TextInput
             placeholder="Genre"
             placeholderTextColor="#999"
             className="bg-[#444] text-white p-2 rounded mb-2"
+            value={genre}
+            onChangeText={setGenre}
           />
           <TextInput
             placeholder="Description"
             placeholderTextColor="#999"
             multiline
             className="bg-[#444] text-white p-2 rounded mb-2 h-20"
+            value={description}
+            onChangeText={setDescription}
           />
           <TextInput
             placeholder="Awards"
             placeholderTextColor="#999"
             className="bg-[#444] text-white p-2 rounded mb-2"
+            value={awards}
+            onChangeText={setAwards}
+          />
+          <TextInput
+            placeholder="Release Date (YYYY-MM-DD)"
+            placeholderTextColor="#999"
+            className="bg-[#444] text-white p-2 rounded mb-2"
+            value={releaseDate}
+            onChangeText={setReleaseDate}
           />
           <TextInput
             placeholder="Link"
             placeholderTextColor="#999"
             className="bg-[#444] text-white p-2 rounded mb-2"
+            value={link}
+            onChangeText={setLink}
           />
-          <TouchableOpacity className="bg-[#D9D9D9] p-2 rounded mt-2">
+          <TouchableOpacity
+            className="bg-[#D9D9D9] p-2 rounded mt-2"
+            onPress={handleSubmit}
+          >
             <Text className="text-black text-center">Submit</Text>
           </TouchableOpacity>
         </View>
