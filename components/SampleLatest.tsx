@@ -69,7 +69,7 @@ const MovieCard = ({
         <>
             <View className="justify-center items-center">
                 <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
-                    <View className="items-center justify-center">
+                    <View className="items-center justify-center z-10">
                         <Image
                             source={{ uri: item.poster }}
                             style={{
@@ -91,20 +91,6 @@ const MovieCard = ({
                         | {new Date(item.releaseDate).getFullYear()}
                     </Text>
                 </View>
-            </View>
-
-            <View className="absolute bottom-[-115] -right-[-140] rounded-full">
-                <MaskedView
-                    maskElement={
-                        <Text className="font-bold text-white text-9xl">{index + 1}</Text>
-                    }
-                >
-                    <Image
-                        source={images.rankingGradient}
-                        className="size-14"
-                        resizeMode="cover"
-                    />
-                </MaskedView>
             </View>
         </>
     );

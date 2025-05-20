@@ -1,5 +1,6 @@
 export const genre = [
     { title: "Action", category: "Action" },
+    { title: "Romance", category: "Romance" },
     { title: "Adventure", category: "Adventure" },
     { title: "Comedy", category: "Comedy" },
     { title: "Crime ", category: "Crime" },
