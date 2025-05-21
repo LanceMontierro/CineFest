@@ -24,6 +24,8 @@ const ContextApi = ({ children }) => {
   });
   const { signOut } = useClerk();
 
+
+
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
   const applyFilters = (movies) => {
@@ -38,12 +40,16 @@ const ContextApi = ({ children }) => {
         ? movie.awards.toLowerCase().includes(activeFilter.awards.toLowerCase())
         : true;
       const matchesRating = activeFilter.rating
-        ? parseFloat(movie.rating) >= parseFloat(activeFilter.rating)
+        ? movie.rating === activeFilter.rating
         : true;
+
+
 
       return matchesGenre && matchesYear && matchesAwards && matchesRating;
     });
   };
+
+  console.log()
 
   const latestMovies = movies
     .filter((movie) => !!movie.releaseDate)
@@ -164,7 +170,7 @@ const ContextApi = ({ children }) => {
     }
   };
 
-  console.log(movies);
+
 
   const createMovie = async ({
     title,
