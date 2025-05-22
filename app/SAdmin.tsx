@@ -15,7 +15,6 @@ import { icons } from "@/constansts/icons";
 import { useAppContext } from "@/app/context/appContext";
 import { useRouter } from "expo-router";
 import SearchBar from "@/components/SearchBar";
-import { deleteMovie } from "./../backend/controllers/movieController";
 
 const SAdmin = () => {
   const [showForm, setShowForm] = useState(false);
@@ -197,80 +196,79 @@ const SAdmin = () => {
       </ScrollView>
 
       {showForm && (
-          <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={{ minHeight: "100%", paddingBottom: 15 }}
-          >
-        <View className="mt-5 p-4 px-14 bg-[#333] mb-80 rounded-lg">
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ minHeight: "100%", paddingBottom: 15 }}
+        >
+          <View className="mt-5 p-4 px-14 bg-[#333] mb-80 rounded-lg">
+            <TouchableOpacity
+              onPress={pickImage}
+              className="bg-[#444] p-2 rounded mb-3 items-center"
+            >
+              <Text className="text-white">
+                {poster ? "Change Poster" : "Upload Poster"}
+              </Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={pickImage}
-            className="bg-[#444] p-2 rounded mb-3 items-center"
-          >
-            <Text className="text-white">
-              {poster ? "Change Poster" : "Upload Poster"}
-            </Text>
-          </TouchableOpacity>
+            {poster && (
+              <Image
+                source={{ uri: poster }}
+                className="w-full h-60 rounded mb-4"
+                resizeMode="cover"
+              />
+            )}
 
-          {poster && (
-            <Image
-              source={{ uri: poster }}
-              className="w-full h-60 rounded mb-4"
-              resizeMode="cover"
+            <TextInput
+              placeholder="Title"
+              placeholderTextColor="#999"
+              className="bg-[#444] text-white p-2 rounded mb-2"
+              value={title}
+              onChangeText={setTitle}
             />
-          )}
-
-          <TextInput
-            placeholder="Title"
-            placeholderTextColor="#999"
-            className="bg-[#444] text-white p-2 rounded mb-2"
-            value={title}
-            onChangeText={setTitle}
-          />
-          <TextInput
-            placeholder="Genre"
-            placeholderTextColor="#999"
-            className="bg-[#444] text-white p-2 rounded mb-2"
-            value={genre}
-            onChangeText={setGenre}
-          />
-          <TextInput
-            placeholder="Description"
-            placeholderTextColor="#999"
-            multiline
-            className="bg-[#444] text-white p-2 rounded mb-2 h-20"
-            value={description}
-            onChangeText={setDescription}
-          />
-          <TextInput
-            placeholder="Awards"
-            placeholderTextColor="#999"
-            className="bg-[#444] text-white p-2 rounded mb-2"
-            value={awards}
-            onChangeText={setAwards}
-          />
-          <TextInput
-            placeholder="Release Date (YYYY-MM-DD)"
-            placeholderTextColor="#999"
-            className="bg-[#444] text-white p-2 rounded mb-2"
-            value={releaseDate}
-            onChangeText={setReleaseDate}
-          />
-          <TextInput
-            placeholder="Link"
-            placeholderTextColor="#999"
-            className="bg-[#444] text-white p-2 rounded mb-2"
-            value={link}
-            onChangeText={setLink}
-          />
-          <TouchableOpacity
-            className="bg-[#D9D9D9] p-2 rounded mt-2"
-            onPress={handleSubmit}
-          >
-            <Text className="text-black text-center">Submit</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <TextInput
+              placeholder="Genre"
+              placeholderTextColor="#999"
+              className="bg-[#444] text-white p-2 rounded mb-2"
+              value={genre}
+              onChangeText={setGenre}
+            />
+            <TextInput
+              placeholder="Description"
+              placeholderTextColor="#999"
+              multiline
+              className="bg-[#444] text-white p-2 rounded mb-2 h-20"
+              value={description}
+              onChangeText={setDescription}
+            />
+            <TextInput
+              placeholder="Awards"
+              placeholderTextColor="#999"
+              className="bg-[#444] text-white p-2 rounded mb-2"
+              value={awards}
+              onChangeText={setAwards}
+            />
+            <TextInput
+              placeholder="Release Date (YYYY-MM-DD)"
+              placeholderTextColor="#999"
+              className="bg-[#444] text-white p-2 rounded mb-2"
+              value={releaseDate}
+              onChangeText={setReleaseDate}
+            />
+            <TextInput
+              placeholder="Link"
+              placeholderTextColor="#999"
+              className="bg-[#444] text-white p-2 rounded mb-2"
+              value={link}
+              onChangeText={setLink}
+            />
+            <TouchableOpacity
+              className="bg-[#D9D9D9] p-2 rounded mt-2"
+              onPress={handleSubmit}
+            >
+              <Text className="text-black text-center">Submit</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       )}
     </View>
   );
