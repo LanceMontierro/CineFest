@@ -226,6 +226,22 @@ const ContextApi = ({ children }) => {
     }
   };
 
+  const deleteMovie = async (id) => {
+    if (!userAcc) {
+      console.log("User account not found. Cannot delete movies.");
+      return;
+    }
+
+    try {
+      const res = await axios.delete(`${API_URL}/movies/delete-movie/${id}`);
+      const updatedMovies = await fetchMovieDetails();
+      setMovies(updatedMovies);
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error deleting movies:", error);
+    }
+  };
+
   const addToFavoriteMovies = async (movie) => {
     if (!userAcc) {
       console.log("User account not found. Cannot add to favorite movies.");
@@ -364,6 +380,7 @@ const ContextApi = ({ children }) => {
         activeFilter,
         setActiveFilter,
         applyFilters,
+        deleteMovie,
       }}
     >
       {children}

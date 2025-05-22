@@ -15,20 +15,22 @@ import { icons } from "@/constansts/icons";
 import { useAppContext } from "@/app/context/appContext";
 import { useRouter } from "expo-router";
 import SearchBar from "@/components/SearchBar";
+import { deleteMovie } from "./../backend/controllers/movieController";
 
 const SAdmin = () => {
   const [showForm, setShowForm] = useState(false);
   const [poster, setPoster] = useState<string | null>(null);
-  const [result, setResult] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
   const { user, movies, handleSignOut } = useAppContext() as {
     user: any;
     movies: Movie[];
     handleSignOut: () => void;
   };
 
-  const { createMovie } = useAppContext();
+  const { createMovie, deleteMovie, latestMovies } = useAppContext();
 
   type Movie = {
+    _id: string;
     title: string;
     description: string;
     poster: string;
@@ -151,21 +153,21 @@ const SAdmin = () => {
         contentContainerStyle={{ minHeight: "195%", paddingBottom: 15 }}
       >
         <Text className="text-white font-semibold ml-7 mb-4">
-          Added({result.length})
+          Added({latestMovies.length})
         </Text>
         <View className="flex-row flex-wrap justify-between">
-          {result.map((item, index) => {
+          {latestMovies.map((item: Movie, index: number) => {
             const isSelected = selectedToDelete === index;
 
             return (
               <TouchableWithoutFeedback
-                key={index}
+                key={item._id}
                 onPress={handlePress}
                 onLongPress={() => setSelectedToDelete(index)}
               >
                 <View className="space-y-2 mb-4 relative">
                   <Image
-                    source={images.blank}
+                    source={item.poster ? { uri: item.poster } : images.blank}
                     style={{
                       width: width * 0.44,
                       height: height * 0.3,
@@ -176,9 +178,7 @@ const SAdmin = () => {
                     <TouchableOpacity
                       className="absolute top-2 right-2 bg-red-600 p-1.5 rounded-full z-10"
                       onPress={() => {
-                        const updated = [...result];
-                        updated.splice(index, 1);
-                        setResult(updated);
+                        deleteMovie(item._id);
                         setSelectedToDelete(null);
                       }}
                     >
@@ -186,10 +186,14 @@ const SAdmin = () => {
                     </TouchableOpacity>
                   )}
                   <Text className="text-white font-bold text-sm">
-                    Movie Title
+                    {item.title}
                   </Text>
                   <Text className="text-white font-bold text-sm">
-                    Genre & Year
+                    {Array.isArray(item.genre)
+                      ? item.genre.join(", ")
+                      : item.genre}{" "}
+                    &nbsp;
+                    {item.releaseDate?.slice(0, 4)}
                   </Text>
                 </View>
               </TouchableWithoutFeedback>
