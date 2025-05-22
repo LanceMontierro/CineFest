@@ -5,11 +5,20 @@ import { icons } from "@/constansts/icons";
 import { images } from "@/constansts/images";
 import {BlurView} from "expo-blur";
 
+
 function TabIcon({ focused, icon, title }: any) {
+
+    const { width, height } = useWindowDimensions();
+    const isLandscape = width > height;
+
   if (focused) {
     return (
       <ImageBackground
-        className="bg-[#535353] flex flex-row w-full flex-1 min-w-[112px] min-h-[55px] mt-4 justify-center items-center rounded-[20] overflow-hidden"
+          className={`${
+              isLandscape
+                  ? "bg-[#535353] flex flex-row w-full flex-1 min-w-[135px] min-h-[85px] mt-6 justify-center items-center rounded-[20] overflow-hidden"
+                  : "bg-[#535353] flex flex-row w-full flex-1 min-w-[112px] min-h-[55px] mt-4 justify-center items-center rounded-[20] overflow-hidden"
+          }`}
       >
         <Image source={icon} className="w-6 h-6" />
         <Text className=" text-[#D9D9D9] text-secondary text-base font-semibold ml-2 ">
@@ -20,7 +29,7 @@ function TabIcon({ focused, icon, title }: any) {
   }
 
   return (
-    <View className="size-full justify-center items-center mt-4">
+    <View className="size-full justify-center items-center mt-6">
       <Image source={icon} className="w-6 h-6" />
     </View>
   );
@@ -47,7 +56,7 @@ export default function TabsLayout() {
           backgroundColor: "transparent",
           borderRadius: 20,
           marginHorizontal: 20,
-            top: isLandscape ? undefined :  690,
+            bottom: isLandscape ? 25 : 15,
             marginLeft: isLandscape ? 150 : 20,
             marginRight: isLandscape ? 150 : 20,
           marginBottom: isLandscape ? 10 : 60,

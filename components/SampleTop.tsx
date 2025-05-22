@@ -70,7 +70,7 @@ const MovieCard = ({
                             <Image
                                 source={images.rankingGradient}
                                 resizeMode="cover"
-                                tintColor={"#8f8f8f"}
+
                                 style={{ height: cardWidth * 2.7}}
                             />
                         </MaskedView>

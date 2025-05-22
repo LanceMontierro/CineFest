@@ -17,33 +17,70 @@ const ContextApi = ({ children }) => {
   const [userAcc, setUserAcc] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [activeFilter, setActiveFilter] = useState({
-    genre: null,
+    genre: [],
     year: null,
-    awards: null,
+    awards: [],
     rating: null,
   });
   const { signOut } = useClerk();
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
-  const applyFilters = (movies) => {
+  function applyFilters(movies) {
     return movies.filter((movie) => {
-      const matchesGenre = activeFilter.genre
-        ? movie.genre.toLowerCase().includes(activeFilter.genre.toLowerCase())
-        : true;
-      const matchesYear = activeFilter.year
-        ? new Date(movie.releaseDate).getFullYear() === activeFilter.year
-        : true;
-      const matchesAwards = activeFilter.awards
-        ? movie.awards.toLowerCase().includes(activeFilter.awards.toLowerCase())
-        : true;
-      const matchesRating = activeFilter.rating
-        ? parseFloat(movie.rating) >= parseFloat(activeFilter.rating)
-        : true;
+      const {
+        genre = [],
+        awards = [],
+        rating = null,
+        year = null,
+      } = activeFilter;
 
-      return matchesGenre && matchesYear && matchesAwards && matchesRating;
+      const matchesGenre =
+        genre.length === 0 ||
+        genre.some((selected) => movie.genre.includes(selected));
+
+      const matchesAwards =
+        awards.length === 0 ||
+        awards.some((selected) => movie.awards.includes(selected));
+
+      const matchesRating =
+        !rating || parseFloat(movie.rating) >= parseFloat(rating);
+
+      const matchesYear = !year || movie.releaseDate.includes(String(year));
+
+      return matchesGenre && matchesAwards && matchesRating && matchesYear;
     });
+  }
+
+  const toggleGenre = (selected) => {
+    if (activeFilter.genre.includes(selected)) {
+      setActiveFilter({
+        ...activeFilter,
+        genre: activeFilter.genre.filter((g) => g !== selected),
+      });
+    } else {
+      setActiveFilter({
+        ...activeFilter,
+        genre: [...activeFilter.genre, selected],
+      });
+    }
   };
+
+  const toggleAwards = (selected) => {
+    if (activeFilter.awards.includes(selected)) {
+      setActiveFilter({
+        ...activeFilter,
+        awards: activeFilter.awards.filter((a) => a !== selected),
+      });
+    } else {
+      setActiveFilter({
+        ...activeFilter,
+        awards: [...activeFilter.awards, selected],
+      });
+    }
+  };
+
+  console.log();
 
   const latestMovies = movies
     .filter((movie) => !!movie.releaseDate)
@@ -164,8 +201,6 @@ const ContextApi = ({ children }) => {
     }
   };
 
-  console.log(movies);
-
   const createMovie = async ({
     title,
     description,
@@ -182,7 +217,6 @@ const ContextApi = ({ children }) => {
       return;
     }
     try {
-      // Convert comma-separated strings to arrays if needed
       const genreArr = Array.isArray(genre)
         ? genre
         : genre
