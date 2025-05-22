@@ -12,15 +12,14 @@ const Filters = () => {
   const { activeFilter, setActiveFilter, toggleGenre } = useAppContext();
 
   useEffect(() => {
-    // Sync URL params
+
     router.setParams({
       filter: selectedCategories.join(","),
     });
 
-    // Also sync with context filter
     setActiveFilter((prev: any) => ({
       ...prev,
-      genre: selectedCategories, // keep genre as array
+      genre: selectedCategories,
     }));
   }, [selectedCategories]);
 

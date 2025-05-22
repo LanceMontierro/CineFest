@@ -19,7 +19,7 @@ const ContextApi = ({ children }) => {
   const [activeFilter, setActiveFilter] = useState({
     genre: [],
     year: null,
-    awards: null,
+    awards: [],
     rating: null,
   });
   const { signOut } = useClerk();
@@ -30,14 +30,14 @@ const ContextApi = ({ children }) => {
 
   function applyFilters(movies) {
     return movies.filter((movie) => {
-      const { genre = [], awards = null, rating = null, year = null } = activeFilter;
+      const { genre = [], awards = [], rating = null, year = null } = activeFilter;
 
       const matchesGenre =
           genre.length === 0 ||
           genre.some((selected) => movie.genre.includes(selected));
 
       const matchesAwards =
-          !awards || awards.length === 0 ||
+          awards.length === 0 ||
           awards.some((selected) => movie.awards.includes(selected));
 
       const matchesRating =
@@ -60,6 +60,20 @@ const ContextApi = ({ children }) => {
       setActiveFilter({
         ...activeFilter,
         genre: [...activeFilter.genre, selected],
+      });
+    }
+  };
+
+  const toggleAwards = (selected) => {
+    if (activeFilter.awards.includes(selected)) {
+      setActiveFilter({
+        ...activeFilter,
+        awards: activeFilter.awards.filter((a) => a !== selected),
+      });
+    } else {
+      setActiveFilter({
+        ...activeFilter,
+        awards: [...activeFilter.awards, selected],
       });
     }
   };
@@ -203,7 +217,7 @@ const ContextApi = ({ children }) => {
       return;
     }
     try {
-      // Convert comma-separated strings to arrays if needed
+
       const genreArr = Array.isArray(genre)
           ? genre
           : genre
@@ -374,6 +388,7 @@ const ContextApi = ({ children }) => {
             isSignedIn,
             user,
             toggleGenre,
+            toggleAwards,
             handleSignOut,
             saveUser,
             createMovie,
