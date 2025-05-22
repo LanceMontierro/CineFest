@@ -50,6 +50,7 @@ const ContextApi = ({ children }) => {
     });
   }
 
+
   const toggleGenre = (selected) => {
     if (activeFilter.genre.includes(selected)) {
       setActiveFilter({

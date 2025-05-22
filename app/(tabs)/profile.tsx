@@ -1,4 +1,4 @@
-import React, {useState, useRef, useContext} from "react";
+import React, {useState, useRef, useContext, useEffect} from "react";
 import {
   View,
   Text,
@@ -8,11 +8,40 @@ import {
   Modal,
   Animated,
   Dimensions,
-  Pressable, SafeAreaView, useWindowDimensions, Switch,
+  Pressable, SafeAreaView, useWindowDimensions, Switch, Button,
 } from "react-native";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";
 import AppContext, { useAppContext } from "@/app/context/appContext";
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+import { Platform } from 'react-native';
+import {NotificationTriggerInput} from "expo-notifications";
+import NotificationSwitch from "@/components/NotificationSwitch";
+
+useEffect(() => {
+  registerForPushNotificationsAsync();
+}, []);
+
+async function registerForPushNotificationsAsync() {
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+}
+
 
 const Profile = () => {
 
@@ -120,14 +149,12 @@ const Profile = () => {
   };
 
   const [switchValue, setSwitchValue] = useState(false);
-  const toggleSwitch = (value: any) => {setSwitchValue(value); }
 
   return (
 
       <View className="flex-1 bg-[#282828]">
 
         <Image
-
             source={images.bahay}
             className={`${isLandscape ? 'absolute w-full z-0' : 'absolute w-full z-0'}`}
             style={{borderRadius: 20, borderWidth: 2, borderColor: '#000000'}}
@@ -160,7 +187,6 @@ const Profile = () => {
               >
 
               <Text className="text-[#D9D9D9] text-lg mb-4 font-bold">Account</Text>
-
               <TouchableOpacity
                   className="flex-row items-center rounded-xl p-4"
                   onPress={() => openDrawer("Notification")}
@@ -283,12 +309,7 @@ const Profile = () => {
             >
               <View className="flex-row items-center justify-between">
               <Text className="text-xl font-bold mb-4">{alertText}</Text>
-              <Switch
-                onValueChange={toggleSwitch}
-                value={switchValue}
-                trackColor={{ false: "#767577", true: "#2e2e2e" }}
-                thumbColor={switchValue ? "#787878" : "#f4f3f4"}
-              />
+                <NotificationSwitch />
               </View>
               <TouchableOpacity
                   className="bg-[#404040] px-4 py-3 rounded-full items-center"
