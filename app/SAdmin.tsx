@@ -199,8 +199,12 @@ const SAdmin = () => {
       </ScrollView>
 
       {showForm && (
+          <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={{ minHeight: "100%", paddingBottom: 15 }}
+          >
         <View className="mt-5 p-4 px-14 bg-[#333] mb-80 rounded-lg">
-          {/* 🆕 Upload Button */}
+
           <TouchableOpacity
             onPress={pickImage}
             className="bg-[#444] p-2 rounded mb-3 items-center"
@@ -210,7 +214,6 @@ const SAdmin = () => {
             </Text>
           </TouchableOpacity>
 
-          {/* 🆕 Image Preview */}
           {poster && (
             <Image
               source={{ uri: poster }}
@@ -269,6 +272,7 @@ const SAdmin = () => {
             <Text className="text-black text-center">Submit</Text>
           </TouchableOpacity>
         </View>
+      </ScrollView>
       )}
     </View>
   );
