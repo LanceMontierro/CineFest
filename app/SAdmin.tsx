@@ -110,12 +110,6 @@ const SAdmin = () => {
       />
 
       <View className="flex-row ml-52 justify-between px-8">
-        <TouchableOpacity onPress={router.back}>
-          <View className="mt-5">
-            <Text className="font-bold text-blue-500">Go Back</Text>
-          </View>
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={handleSignOut}>
           <View className="mt-5">
             <Text className="font-bold text-red-900">Log Out</Text>
