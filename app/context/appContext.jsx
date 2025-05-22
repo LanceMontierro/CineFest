@@ -17,7 +17,7 @@ const ContextApi = ({ children }) => {
   const [userAcc, setUserAcc] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [activeFilter, setActiveFilter] = useState({
-    genre: null,
+    genre: [],
     year: null,
     awards: null,
     rating: null,
@@ -28,47 +28,62 @@ const ContextApi = ({ children }) => {
 
   const API_URL = Constants.expoConfig.extra.EXPO_PUBLIC_API_URL;
 
-  const applyFilters = (movies) => {
+  function applyFilters(movies) {
     return movies.filter((movie) => {
-      const matchesGenre = activeFilter.genre
-        ? movie.genre.toLowerCase().includes(activeFilter.genre.toLowerCase())
-        : true;
-      const matchesYear = activeFilter.year
-        ? new Date(movie.releaseDate).getFullYear() === activeFilter.year
-        : true;
-      const matchesAwards = activeFilter.awards
-        ? movie.awards.toLowerCase().includes(activeFilter.awards.toLowerCase())
-        : true;
-      const matchesRating = activeFilter.rating
-        ? movie.rating === activeFilter.rating
-        : true;
+      const { genre = [], awards = null, rating = null, year = null } = activeFilter;
 
+      const matchesGenre =
+          genre.length === 0 ||
+          genre.some((selected) => movie.genre.includes(selected));
 
+      const matchesAwards =
+          !awards || awards.length === 0 ||
+          awards.some((selected) => movie.awards.includes(selected));
 
-      return matchesGenre && matchesYear && matchesAwards && matchesRating;
+      const matchesRating =
+          !rating || parseFloat(movie.rating) >= parseFloat(rating);
+
+      const matchesYear =
+          !year || movie.releaseDate.includes(String(year));
+
+      return matchesGenre && matchesAwards && matchesRating && matchesYear;
     });
+  }
+
+  const toggleGenre = (selected) => {
+    if (activeFilter.genre.includes(selected)) {
+      setActiveFilter({
+        ...activeFilter,
+        genre: activeFilter.genre.filter((g) => g !== selected),
+      });
+    } else {
+      setActiveFilter({
+        ...activeFilter,
+        genre: [...activeFilter.genre, selected],
+      });
+    }
   };
 
   console.log()
 
   const latestMovies = movies
-    .filter((movie) => !!movie.releaseDate)
-    .sort(
-      (a, b) =>
-        new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
-    )
-    .slice(0, 10);
+      .filter((movie) => !!movie.releaseDate)
+      .sort(
+          (a, b) =>
+              new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime()
+      )
+      .slice(0, 10);
 
   const topRatedMovies = movies
-    .filter(
-      (movie) =>
-        Array.isArray(movie.rating) &&
-        movie.rating.length > 0 &&
-        movie.rating[0] !== "N/A" &&
-        !isNaN(parseFloat(movie.rating[0]))
-    )
-    .sort((a, b) => parseFloat(b.rating[0]) - parseFloat(a.rating[0]))
-    .slice(0, 6);
+      .filter(
+          (movie) =>
+              Array.isArray(movie.rating) &&
+              movie.rating.length > 0 &&
+              movie.rating[0] !== "N/A" &&
+              !isNaN(parseFloat(movie.rating[0]))
+      )
+      .sort((a, b) => parseFloat(b.rating[0]) - parseFloat(a.rating[0]))
+      .slice(0, 6);
 
   useEffect(() => {
     const filterMovies = movies.filter((movie) => {
@@ -82,30 +97,30 @@ const ContextApi = ({ children }) => {
       const data = res.data;
 
       return Array.isArray(data)
-        ? data.map(
-            ({
-              title,
-              poster,
-              description,
-              awards,
-              cast,
-              links,
-              releaseDate,
-              genre,
-              rating,
-            }) => ({
-              title,
-              poster,
-              cast,
-              releaseDate,
-              rating,
-              genre,
-              description,
-              awards,
-              links,
-            })
+          ? data.map(
+              ({
+                 title,
+                 poster,
+                 description,
+                 awards,
+                 cast,
+                 links,
+                 releaseDate,
+                 genre,
+                 rating,
+               }) => ({
+                title,
+                poster,
+                cast,
+                releaseDate,
+                rating,
+                genre,
+                description,
+                awards,
+                links,
+              })
           )
-        : [];
+          : [];
     } catch (error) {
       console.error("Error fetching movies:", error.message);
       return [];
@@ -141,7 +156,7 @@ const ContextApi = ({ children }) => {
         if (!userAcc) return;
 
         const userRes = await axios.get(
-          `${API_URL}/users/get-user-details?username=${userAcc}`
+            `${API_URL}/users/get-user-details?username=${userAcc}`
         );
         setFavoriteMovies(userRes.data.favorites || []);
         setRecentOpenMovies(userRes.data.recentlyViewed || []);
@@ -173,16 +188,16 @@ const ContextApi = ({ children }) => {
 
 
   const createMovie = async ({
-    title,
-    description,
-    poster,
-    genre,
-    releaseDate,
-    rating,
-    awards,
-    link,
-    cast,
-  }) => {
+                               title,
+                               description,
+                               poster,
+                               genre,
+                               releaseDate,
+                               rating,
+                               awards,
+                               link,
+                               cast,
+                             }) => {
     if (!userAcc) {
       console.log("User account not found. Cannot create movies.");
       return;
@@ -190,25 +205,25 @@ const ContextApi = ({ children }) => {
     try {
       // Convert comma-separated strings to arrays if needed
       const genreArr = Array.isArray(genre)
-        ? genre
-        : genre
-        ? genre.split(",").map((g) => g.trim())
-        : [];
+          ? genre
+          : genre
+              ? genre.split(",").map((g) => g.trim())
+              : [];
       const ratingArr = Array.isArray(rating)
-        ? rating
-        : rating
-        ? rating.split(",").map((r) => r.trim())
-        : [];
+          ? rating
+          : rating
+              ? rating.split(",").map((r) => r.trim())
+              : [];
       const awardsArr = Array.isArray(awards)
-        ? awards
-        : awards
-        ? awards.split(",").map((a) => a.trim())
-        : [];
+          ? awards
+          : awards
+              ? awards.split(",").map((a) => a.trim())
+              : [];
       const castArr = Array.isArray(cast)
-        ? cast
-        : cast
-        ? cast.split(",").map((c) => c.trim())
-        : [];
+          ? cast
+          : cast
+              ? cast.split(",").map((c) => c.trim())
+              : [];
 
       const res = await axios.post(`${API_URL}/movies/create-movie`, {
         title,
@@ -239,7 +254,7 @@ const ContextApi = ({ children }) => {
     }
     try {
       const isAlreadyFavorite = favortiteMovies.some(
-        (m) => m.title === movie.title
+          (m) => m.title === movie.title
       );
 
       const res = await axios.post(`${API_URL}/users/add-to-favorite-movies`, {
@@ -256,9 +271,9 @@ const ContextApi = ({ children }) => {
       });
 
       setFavoriteMovies((prev) =>
-        isAlreadyFavorite
-          ? prev.filter((prevMovie) => prevMovie.title !== movie.title)
-          : [...prev, movie]
+          isAlreadyFavorite
+              ? prev.filter((prevMovie) => prevMovie.title !== movie.title)
+              : [...prev, movie]
       );
     } catch (error) {
       console.error("Error adding to favorite movies:", error);
@@ -273,25 +288,25 @@ const ContextApi = ({ children }) => {
 
     try {
       const res = await axios.post(
-        `${API_URL}/users/add-to-recently-viewed-movies`,
-        {
-          userId: userAcc.id,
-          movie: {
-            title: movie.title,
-            description: movie.description,
-            poster: movie.poster,
-            genre: movie.genre,
-            releaseDate: movie.releaseDate,
-            rating: movie.rating,
-            awards: movie.awards,
-            link: movie.link,
-            cast: movie.cast,
-          },
-        }
+          `${API_URL}/users/add-to-recently-viewed-movies`,
+          {
+            userId: userAcc.id,
+            movie: {
+              title: movie.title,
+              description: movie.description,
+              poster: movie.poster,
+              genre: movie.genre,
+              releaseDate: movie.releaseDate,
+              rating: movie.rating,
+              awards: movie.awards,
+              link: movie.link,
+              cast: movie.cast,
+            },
+          }
       );
       setRecentOpenMovies((prev) => {
         const existingMovieIndex = prev.findIndex(
-          (m) => m.title === movie.title
+            (m) => m.title === movie.title
         );
 
         if (existingMovieIndex !== -1) {
@@ -314,10 +329,10 @@ const ContextApi = ({ children }) => {
 
     try {
       const res = await axios.post(
-        `${API_URL}/users/delete-all-favorite-movies`,
-        {
-          userId: userAcc.id,
-        }
+          `${API_URL}/users/delete-all-favorite-movies`,
+          {
+            userId: userAcc.id,
+          }
       );
       setFavoriteMovies([]);
     } catch (error) {
@@ -333,10 +348,10 @@ const ContextApi = ({ children }) => {
 
     try {
       const res = await axios.post(
-        `${API_URL}/users/delete-all-recently-viewed-movies`,
-        {
-          userId: userAcc.id,
-        }
+          `${API_URL}/users/delete-all-recently-viewed-movies`,
+          {
+            userId: userAcc.id,
+          }
       );
       setRecentOpenMovies([]);
     } catch (error) {
@@ -345,35 +360,36 @@ const ContextApi = ({ children }) => {
   };
 
   return (
-    <appContext.Provider
-      value={{
-        movies,
-        setMovies,
-        favortiteMovies,
-        fetchMovieDetails,
-        setFavoriteMovies,
-        recentOpenMovies,
-        setRecentOpenMovies,
-        userAcc,
-        setUserAcc,
-        isSignedIn,
-        user,
-        handleSignOut,
-        saveUser,
-        createMovie,
-        latestMovies,
-        topRatedMovies,
-        addToFavoriteMovies,
-        addToRecentlyViewedMovies,
-        deleteAllFavoriteMovies,
-        deleteAllRecentlyViewedMovies,
-        activeFilter,
-        setActiveFilter,
-        applyFilters,
-      }}
-    >
-      {children}
-    </appContext.Provider>
+      <appContext.Provider
+          value={{
+            movies,
+            setMovies,
+            favortiteMovies,
+            fetchMovieDetails,
+            setFavoriteMovies,
+            recentOpenMovies,
+            setRecentOpenMovies,
+            userAcc,
+            setUserAcc,
+            isSignedIn,
+            user,
+            toggleGenre,
+            handleSignOut,
+            saveUser,
+            createMovie,
+            latestMovies,
+            topRatedMovies,
+            addToFavoriteMovies,
+            addToRecentlyViewedMovies,
+            deleteAllFavoriteMovies,
+            deleteAllRecentlyViewedMovies,
+            activeFilter,
+            setActiveFilter,
+            applyFilters,
+          }}
+      >
+        {children}
+      </appContext.Provider>
   );
 };
 
