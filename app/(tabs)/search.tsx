@@ -28,7 +28,7 @@ const Search = () => {
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
-      setFilteredMovies(movies.slice(0, 10));
+      setFilteredMovies(movies.slice(0, 0));
     } else {
       const filtered = movies.filter((movie: any) =>
           movie.title?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -142,16 +142,6 @@ const Search = () => {
                         }}
                     />
 
-
-                    <Text
-                        style={styles.movieTitle}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                    >
-                      {movie.title && movie.title.length > 30
-                          ? movie.title.slice(0, 20) + "..."
-                          : movie.title || "No Title"}
-                    </Text>
                     <Text style={styles.movieDetails}>
                       {(movie.rating || "Genre Unknown") +
                           " • " +
