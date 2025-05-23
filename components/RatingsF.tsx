@@ -1,55 +1,100 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import { Text, ScrollView, TouchableOpacity } from "react-native";
-
-import { ratings } from "@/constansts/filter";
+import { Text, ScrollView, TouchableOpacity, StyleSheet, View } from "react-native";
+import { useAppContext } from "@/app/context/appContext";
+import {awards, ratings, year} from "@/constansts/filter";
 
 const Filters = () => {
   const params = useLocalSearchParams<{ filter?: string }>();
-  const [selectedCategory, setSelectedCategory] = useState(
-    params.filter || "All"
-  );
+  const initialFilters = params.filter ? params.filter.split(",") : [];
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(initialFilters);
+  const { activeFilter, setActiveFilter, toggleAwards } = useAppContext();
+
+  useEffect(() => {
+    router.setParams({
+      filter: selectedCategories.join(","),
+    });
+
+    setActiveFilter((prev: any) => ({
+      ...prev,
+      awards: selectedCategories,
+    }));
+  }, [selectedCategories]);
 
   const handleCategoryPress = (category: string) => {
-    if (selectedCategory === category) {
-      setSelectedCategory("");
-      router.setParams({ filter: "" });
-      return;
-    }
-
-    setSelectedCategory(category);
-    router.setParams({ filter: category });
+    toggleAwards(category);
+    setSelectedCategories((prev) =>
+        prev.includes(category)
+            ? prev.filter((c) => c !== category)
+            : [...prev, category]
+    );
   };
 
   return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      className="mt-3 mb-2"
-    >
-      {ratings.map((item, index) => (
-        <TouchableOpacity
-          onPress={() => handleCategoryPress(item.category)}
-          key={index}
-          className={`flex flex-col items-start mr-4 px-4 py-2 rounded-full ${
-            selectedCategory === item.category
-              ? "bg-primary-300"
-              : "bg-primary-100 border border-[#787878]"
-          }`}
-        >
-          <Text
-            className={`text-sm ${
-              selectedCategory === item.category
-                ? "text-white font-rubik-bold mt-0.5"
-                : "text-[#787878] font-rubik"
-            }`}
-          >
-            {item.title}
-          </Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+      <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContainer}
+      >
+        {ratings.map((item, index) => {
+          const isSelected = selectedCategories.includes(item.category);
+          return (
+              <TouchableOpacity
+                  onPress={() => handleCategoryPress(item.category)}
+                  key={index}
+                  style={[
+                    styles.buttonBase,
+                    isSelected ? styles.buttonSelected : styles.buttonUnselected,
+                  ]}
+              >
+                <Text
+                    style={[
+                      styles.textBase,
+                      isSelected ? styles.textSelected : styles.textUnselected,
+                    ]}
+                >
+                  {item.title}
+                </Text>
+              </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollContainer: {
+    marginTop: 12,
+    marginBottom: 8,
+    paddingHorizontal: 4,
+  },
+  buttonBase: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginRight: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 9999, // rounded-full
+  },
+  buttonSelected: {
+
+  },
+  buttonUnselected: {
+    borderWidth: 1,
+    borderColor: "#5c5c5c",
+  },
+  textBase: {
+    fontSize: 14,
+  },
+  textSelected: {
+    color: "#FFFFFF",
+    fontFamily: "Rubik-Bold",
+    marginTop: 2,
+  },
+  textUnselected: {
+    color: "#787878",
+    fontFamily: "Rubik-Regular",
+  },
+});
 
 export default Filters;

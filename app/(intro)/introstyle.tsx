@@ -80,7 +80,7 @@ function Item({
             _stylez,
           ]}
       >
-        <Image source={image} className="flex-1 rounded-[16]" />
+        <Image source={image} style={{ flex: 1, borderRadius: 16 }} />
       </Animated.View>
   );
 }
@@ -138,18 +138,18 @@ const Introstyle = () => {
   );
 
   return (
-      <GestureHandlerRootView className="flex-1">
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <View
-            className="flex-1 bg-black"
-            style={{ flexDirection: isLandscape ? "row" : "column" }}
+            style={[
+              styles.flex1,
+              { flexDirection: isLandscape ? "row" : "column", backgroundColor: "black" },
+            ]}
         >
-
           <View style={[StyleSheet.absoluteFillObject, { opacity: 0.5 }]}>
             <Animated.Image
                 key={`image-${activeIndex}`}
                 source={IMAGES[activeIndex]}
-                style={{ flex: 1 }}
-                className="w-full h-full"
+                style={{ flex: 1, width: "100%", height: "100%" }}
                 resizeMode="cover"
                 blurRadius={40}
                 entering={FadeIn.duration(1000)}
@@ -157,7 +157,9 @@ const Introstyle = () => {
             />
           </View>
 
-          <View className={`${isLandscape ? 'flex-1 justify-center items-center' : 'flex-1 justify-center items-center mt-20'}`}>
+          <View
+              style={[styles.centerContent, !isLandscape && styles.mt20]}
+          >
             <Marquee spacing={_spacing} position={offset}>
               <Animated.View
                   style={{ flexDirection: "row", gap: _spacing }}
@@ -184,33 +186,22 @@ const Introstyle = () => {
               initialEnteringDelay={1000}
               duration={500}
               stagger={500}
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: 50,
-                paddingHorizontal: 20,
-              }}
+              style={styles.staggerContainer}
           >
-            <Text style={{ color: "white", fontSize: 30, fontWeight: "600", marginTop: 8 }}>
-              Welcome to CineFest!
-            </Text>
-            <Text style={{ color: isLandscape ? "white" : "white", fontSize: 15, marginTop: 8, opacity: isLandscape ? 1 : 0.6 }}>
+            <Text style={styles.title}>Welcome to CineFest!</Text>
+            <Text style={[styles.subtitle, isLandscape && styles.fullOpacity]}>
               Your ultimate app for finding
             </Text>
-            <Text style={{ color: isLandscape ? "white" : "white", fontSize: 15, opacity: isLandscape ? 1 : 0.6 }}>
+            <Text style={[styles.subtitle, isLandscape && styles.fullOpacity]}>
               METRO MANILA FILMS!
             </Text>
 
-            <TouchableOpacity
-                className="mt-10 bg-white shadow-xl shadow-zinc-950 rounded-[16] py-4 px-4"
+           <TouchableOpacity
                 onPress={handleGoogleSignIn}
             >
-              <View className="flex-row items-center">
-                <Image source={images.google} className="w-10 h-10 mr-2" />
-                <Text style={{ color: "black", fontSize: 20 }}>
-                  Continue with Google
-                </Text>
+              <View style={styles.googleButton}>
+                <Image source={images.google} style={styles.googleIcon} />
+                <Text style={styles.googleText}>Continue with Google</Text>
               </View>
             </TouchableOpacity>
           </Stagger>
@@ -218,5 +209,70 @@ const Introstyle = () => {
       </GestureHandlerRootView>
   );
 };
+
+const styles = StyleSheet.create({
+  flex1: {
+    flex: 1,
+  },
+  centerContent: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  mt20: {
+    marginTop: 80,
+  },
+  staggerContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 50,
+    paddingHorizontal: 20,
+  },
+  title: {
+    color: 'white',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  subtitle: {
+    color: 'white',
+    fontSize: 15,
+    marginTop: 2,
+    opacity: 0.7,
+    textAlign: 'center',
+  },
+  fullOpacity: {
+    opacity: 1,
+  },
+  googleButton: {
+    backgroundColor: 'white',
+    borderRadius: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 60,
+  },
+  googleButtonContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  googleIcon: {
+    width: 40,
+    height: 40,
+    marginRight: 8,
+  },
+  googleText: {
+    color: "black",
+    fontSize: 20,
+  },
+});
 
 export default Introstyle;

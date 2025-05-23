@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Animated, Easing } from 'react-native';
+import { View, Animated, Easing, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { Stack, useRouter } from 'expo-router';
 
@@ -13,7 +13,6 @@ export default function Animation() {
     }, []);
 
     const handleAnimationFinish = () => {
-
         Animated.timing(fadeAnim, {
             toValue: 0,
             duration: 800,
@@ -25,13 +24,13 @@ export default function Animation() {
     };
 
     return (
-        <View className="flex-1 bg-black justify-center items-center w-full">
+        <View style={styles.container}>
             <Stack.Screen options={{ headerShown: false }} />
             <Animated.View style={{ opacity: fadeAnim }}>
                 <LottieView
                     ref={animationRef}
                     loop={false}
-                    style={{ width: 200, height: 200}}
+                    style={{ width: 200, height: 200 }}
                     source={require('@/assets/ani/animation2.json')}
                     onAnimationFinish={handleAnimationFinish}
                 />
@@ -39,3 +38,13 @@ export default function Animation() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+    },
+});

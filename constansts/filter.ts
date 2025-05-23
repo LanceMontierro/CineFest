@@ -72,7 +72,6 @@ export const awards = [
 ];
 
 export const year = [
-    { title: "All", category: "All" },
     { title: "1975", category: "1975" },
     { title: "1976", category: "1976" },
     { title: "1977", category: "1977" },
@@ -126,7 +125,6 @@ export const year = [
 ];
 
 export const ratings = [
-    { title: "All", category: "All" },
     { title: 10.0, category: "Rating 10.0" },
     { title: 9.9, category: "Rating 9.9" },
     { title: 9.8, category: "Rating 9.8" },

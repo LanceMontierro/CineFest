@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Dimensions,
     useWindowDimensions, Animated, Pressable, Switch, Modal,
+    StyleSheet
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { icons } from "@/constansts/icons";
@@ -14,252 +15,257 @@ import React, {useState, useEffect, useRef} from "react";
 import { useAppContext } from "./../context/appContext";
 
 export default function MovieDetails() {
-  const { addToRecentlyViewedMovies } = useAppContext();
+    const { addToRecentlyViewedMovies } = useAppContext();
 
-  const {
-    title,
-    poster,
-    description,
-    genre,
-    releaseDate,
-    rating,
-    awards,
-    link,
-    cast,
-  } = useLocalSearchParams();
+    const {
+        title,
+        poster,
+        description,
+        genre,
+        releaseDate,
+        rating,
+        awards,
+        link,
+        cast,
+    } = useLocalSearchParams();
 
-  const { width, height } = useWindowDimensions();
-  const isLandscape = width > height;
+    const { width, height } = useWindowDimensions();
+    const isLandscape = width > height;
 
-  const { addToFavoriteMovies, favortiteMovies } = useAppContext();
+    const { addToFavoriteMovies, favortiteMovies } = useAppContext();
 
-  const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(false);
 
-  useEffect(() => {
-    const isFavorite = favortiteMovies.some(
-      (movie: any) => movie.title === title
-    );
-    setLiked(isFavorite);
-  }, [favortiteMovies, title]);
+    useEffect(() => {
+        const isFavorite = favortiteMovies.some(
+            (movie: any) => movie.title === title
+        );
+        setLiked(isFavorite);
+    }, [favortiteMovies, title]);
 
-  const handleLikePress = () => {
-    const movieData = {
-      title,
-      poster,
-      description,
-      genre,
-      releaseDate,
-      rating,
-      awards,
-      link,
-      cast,
+    const handleLikePress = () => {
+        const movieData = {
+            title,
+            poster,
+            description,
+            genre,
+            releaseDate,
+            rating,
+            awards,
+            link,
+            cast,
+        };
+        addToFavoriteMovies(movieData);
+        setLiked((prev) => !prev);
     };
-    addToFavoriteMovies(movieData);
-    setLiked((prev) => !prev);
-  };
 
-  return (
-    <View className="bg-[#282828] flex-1">
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          minHeight: isLandscape ? height + 250 : "100%",
-        }}
-      >
-        <View>
-          <Image
-            source={{ uri: poster as string }}
-            style={{
-              width: isLandscape ? width + 50 : width,
-              height: isLandscape ? height * 0.7 : height * 0.55,
-            }}
-          />
-
-          <View
-              style={{borderWidth: 2, borderColor: '#000000',}}
-              className={`bg-[#404040] rounded-b-3xl px-4 py-4 absolute right-5 items-center justify-center z-50 ${
-              isLandscape ? "w-16 h-16 left-5" : "right-5"
-            }`}
-          >
-            <TouchableOpacity
-              onPress={handleLikePress}
-              activeOpacity={0.8}
-              className={`${isLandscape ? "w-10 h-10" : ""}`}
-            >
-              <Image
-                source={
-                  liked
-                    ? require("@/assets/icons/Bookmark1.png")
-                    : require("@/assets/icons/Bookmark2.png")
-                }
-                className="w-10 h-10"
-              />
-            </TouchableOpacity>
-          </View>
-
-          <LinearGradient
-            colors={[
-              "transparent",
-              "rgba(23, 23, 23, 0.8)",
-              "rgba(40, 40, 40, 1)",
-            ]}
-            style={{ width, height: height * 0.4 }}
-            start={{ x: 0.5, y: 0 }}
-            end={{ x: 0.5, y: 1 }}
-            className="absolute bottom-0"
-          />
-        </View>
-
-        <View className="mt-[-50]">
-          <Text className="text-[#FAFAFA] text-center text-3xl font-bold tracking-wider px-5">
-            {title}
-          </Text>
-
-          <View className="flex-row justify-center items-center gap-x-1 mt-2">
-            <Text className="text-neutral-400 font-semibold text-center text-base">
-              {releaseDate} •
-            </Text>
-
-            <View className="flex-row flex-wrap justify-center items-center">
-              {(Array.isArray(genre)
-                ? genre
-                : genre?.split(",").map((item) => item.trim()) || []
-              ).map((item: string, index: number) => (
-                <View key={index} className="flex-row items-center">
-                  <Text className="text-neutral-400 text-base text-center">
-                    {item}
-                  </Text>
-                  {index !==
-                    (Array.isArray(genre)
-                      ? genre.length - 1
-                      : genre.split(",").length - 1) && (
-                    <Text className="text-neutral-400 text-base text-center mx-1">
-                      |
-                    </Text>
-                  )}
-                </View>
-              ))}
-            </View>
-
-            <Text className="text-neutral-400 font-semibold text-center text-base">
-              • {rating}
-            </Text>
-
-            <Image source={icons.star} className="size-4" tintColor="#FAFAFA" />
-          </View>
-
-            <Text className="text-[#FAFAFA] font-semibold text-center mt-3 text-base">
-                Awards
-            </Text>
-
-          <View className="flex-row flex-wrap justify-center items-center rounded-md px-5 py-3 self-center">
-            {(Array.isArray(awards) ? awards : awards?.split(",") || []).map(
-              (item: string, index: number) => (
-                <View key={index} className="flex-row items-center">
-                  <Text className="text-neutral-400"> {item}</Text>
-                  {index !==
-                    (Array.isArray(awards)
-                      ? awards.length - 1
-                      : awards.split(",").length - 1) && (
-                    <Text className="text-neutral-400 mx-1">|</Text>
-                  )}
-                </View>
-              )
-            )}
-          </View>
-
-          <Text className="text-[#FAFAFA] font-bold text-sm mb-2 mt-3 text-center">
-            Description
-          </Text>
-
-          <Text className="text-neutral-400 text-center px-5">
-            {description}
-          </Text>
-
-            <Text className="text-[#FAFAFA] font-semibold text-center text-base mt-5">
-                {cast?.length > 0 ? "Cast" : "Cast: N/A"}
-            </Text>
-
-          <View className="flex-row flex-wrap justify-center items-center rounded-md px-5 py-3 self-center">
-              <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                  {(Array.isArray(cast) ? cast : cast?.split(",") || []).map(
-                      (item: string, index: number) => (
-                          <View key={index} className="flex-row items-center">
-                              <View
-                                  style={{
-                                      backgroundColor: '#787878',
-                                      borderWidth: 2,
-                                      borderColor: '#000000',
-                                      borderRadius: 999,
-                                      paddingHorizontal: 20,
-                                      height: 40,
-                                      marginTop: 8,
-                                      marginRight: 8,
-                                      justifyContent: 'center',
-                                      alignItems: 'center',
-                                  }}
-                              >
-                                  <Text
-                                      style={{
-                                          color: '#FAFAFA',
-                                          fontWeight: '500',
-                                      }}
-                                  >
-                                      {item}
-                                  </Text>
-                              </View>
-
-                              {index !==
-                                  (Array.isArray(cast)
-                                      ? cast.length - 1
-                                      : cast.split(",").length - 1) && (
-                                          <Text className="text-neutral-800 mx-1">|</Text>
-                                  )}
-                          </View>
-                          )
-                      )}
-              </ScrollView>
-          </View>
-
-          <View className="flex-row flex-wrap justify-center items-center rounded-md px-5 py-3 self-center">
-              <Text className="text-[#FAFAFA] font-semibold text-center text-base">
-                {link?.length > 0 ? "Watch Trailer " : "No Trailer Available"}
-              </Text>
-              <Text selectable={true} className="text-neutral-400 font-bold mb-4">{link}</Text>
-          </View>
-
-            <TouchableOpacity
-                style={{
-                    backgroundColor: "#404040",
-                    marginTop:34,
-                    bottom: 5,
-                    left: 0,
-                    right: 0,
-                    borderWidth: 2,
-                    borderColor: '#000000',
-                    paddingHorizontal: 20,
-                    paddingVertical: 14,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginLeft: isLandscape ? 150 : 30,
-                    marginRight: isLandscape ? 150 : 30,
-                    justifyContent: "center",
-                    borderRadius: 17,
-                    marginBottom: isLandscape ? 20 : 60,
+    return (
+        <View style={styles.container}>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                    minHeight: isLandscape ? height + 250 : "100%",
                 }}
-                onPress={router.back}
             >
-                <Image
-                    source={icons.arrow}
-                    className="size-5 mr-1 mt-0.5 rotate-180"
-                    tintColor="#fff"
-                />
-                <Text className="text-white font-semibold text-base">Go Back</Text>
-            </TouchableOpacity>
+                <View>
+                    <Image
+                        source={{ uri: poster as string }}
+                        style={{
+                            width: isLandscape ? width + 50 : width,
+                            height: isLandscape ? height * 0.7 : height * 0.55,
+                        }}
+                    />
 
+                    <View
+                        style={[styles.bookmarkContainer, isLandscape && styles.bookmarkLandscape]}
+                    >
+                        <TouchableOpacity
+                            onPress={handleLikePress}
+                            activeOpacity={0.8}
+                            style={isLandscape ? styles.bookmarkButton : undefined}
+                        >
+                            <Image
+                                source={
+                                    liked
+                                        ? require("@/assets/icons/Bookmark1.png")
+                                        : require("@/assets/icons/Bookmark2.png")
+                                }
+                                style={styles.bookmarkIcon}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <LinearGradient
+                        colors={[
+                            "transparent",
+                            "rgba(23, 23, 23, 0.8)",
+                            "rgba(40, 40, 40, 1)",
+                        ]}
+                        style={[styles.gradient, { width, height: height * 0.4 }]}
+                        start={{ x: 0.5, y: 0 }}
+                        end={{ x: 0.5, y: 1 }}
+                    />
+                </View>
+
+                <View style={{ marginTop: -50 }}>
+                    <Text style={styles.title}>{title}</Text>
+
+                    <View style={styles.metaContainer}>
+                        <Text style={styles.metaText}>{releaseDate} •</Text>
+
+                        <View style={styles.genreWrap}>
+                            {(Array.isArray(genre)
+                                    ? genre
+                                    : genre?.split(",").map((item) => item.trim()) || []
+                            ).map((item: string, index: number) => (
+                                <View key={index} style={styles.metaItem}>
+                                    <Text style={styles.metaText}>{item}</Text>
+                                    {index !==
+                                        (Array.isArray(genre)
+                                            ? genre.length - 1
+                                            : genre.split(",").length - 1) && (
+                                            <Text style={styles.metaText}> | </Text>
+                                        )}
+                                </View>
+                            ))}
+                        </View>
+
+                        <Text style={styles.metaText}>• {rating}</Text>
+                        <Image source={icons.star} style={styles.starIcon} tintColor="#FAFAFA" />
+                    </View>
+
+                    <Text style={styles.awardsTitle}>Awards</Text>
+
+                    <View style={styles.awardsContainer}>
+                        {(Array.isArray(awards) ? awards : awards?.split(",") || []).map(
+                            (item: string, index: number) => (
+                                <View key={index} style={styles.metaItem}>
+                                    <Text style={styles.metaText}> {item}</Text>
+                                    {index !==
+                                        (Array.isArray(awards)
+                                            ? awards.length - 1
+                                            : awards.split(",").length - 1) && (
+                                            <Text style={styles.metaText}> | </Text>
+                                        )}
+                                </View>
+                            )
+                        )}
+                    </View>
+
+                    <Text style={styles.sectionTitle}>Description</Text>
+                    <Text style={styles.description}>{description}</Text>
+
+                    <Text style={styles.castTitle}>{cast?.length > 0 ? "Cast" : "Cast: N/A"}</Text>
+
+                    <View style={styles.castContainer}>
+                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                            {(Array.isArray(cast) ? cast : cast?.split(",") || []).map(
+                                (item: string, index: number) => (
+                                    <View key={index} style={styles.metaItem}>
+                                        <View style={styles.castBadge}>
+                                            <Text style={styles.castText}>{item}</Text>
+                                        </View>
+                                        {index !==
+                                            (Array.isArray(cast)
+                                                ? cast.length - 1
+                                                : cast.split(",").length - 1) && (
+                                                <Text style={styles.divider}>|</Text>
+                                            )}
+                                    </View>
+                                )
+                            )}
+                        </ScrollView>
+                    </View>
+
+                    <View style={styles.linkContainer}>
+                        <Text style={styles.linkTitle}>{link?.length > 0 ? "Watch Trailer " : "No Trailer Available"}</Text>
+                        <Text selectable style={styles.link}>{link}</Text>
+                    </View>
+
+                    <TouchableOpacity
+                        style={[styles.backButton, isLandscape && styles.backButtonLandscape]}
+                        onPress={router.back}
+                    >
+                        <Image
+                            source={icons.arrow}
+                            style={styles.backIcon}
+                            tintColor="#fff"
+                        />
+                        <Text style={styles.backText}>Go Back</Text>
+                    </TouchableOpacity>
+
+                </View>
+            </ScrollView>
         </View>
-      </ScrollView>
-
-    </View>
-  );
+    );
 }
+
+const styles = StyleSheet.create({
+    container: { backgroundColor: "#282828", flex: 1 },
+    bookmarkContainer: {
+        borderWidth: 2,
+        borderColor: '#000000',
+        backgroundColor: '#404040',
+        borderRadius: 24,
+        padding: 16,
+        position: 'absolute',
+        right: 20,
+        top: 20,
+        zIndex: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    bookmarkLandscape: { left: 20, right: 'auto', width: 64, height: 64 },
+    bookmarkButton: { width: 40, height: 40 },
+    bookmarkIcon: { width: 40, height: 40 },
+    gradient: { position: 'absolute', bottom: 0 },
+    title: { color: '#FAFAFA', textAlign: 'center', fontSize: 24, fontWeight: 'bold', paddingHorizontal: 20 },
+    metaContainer: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: 4, marginTop: 8 },
+    metaText: { color: '#A3A3A3', fontWeight: '600', textAlign: 'center', fontSize: 14 },
+    genreWrap: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
+    metaItem: { flexDirection: 'row', alignItems: 'center' },
+    starIcon: { width: 16, height: 16, marginLeft: 4 },
+    awardsTitle: { color: '#FAFAFA', fontWeight: '600', textAlign: 'center', marginTop: 12, fontSize: 16 },
+    awardsContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', padding: 16 },
+    sectionTitle: { color: '#FAFAFA', fontWeight: '700', fontSize: 14, textAlign: 'center', marginVertical: 8 },
+    description: { color: '#A3A3A3', textAlign: 'center', paddingHorizontal: 20 },
+    castTitle: { color: '#FAFAFA', fontWeight: '600', textAlign: 'center', fontSize: 16, marginTop: 20 },
+    castContainer: { paddingHorizontal: 20, paddingVertical: 12 },
+    castBadge: {
+        backgroundColor: '#787878',
+        borderWidth: 2,
+        borderColor: '#000000',
+        borderRadius: 999,
+        paddingHorizontal: 20,
+        height: 40,
+        marginTop: 8,
+        marginRight: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    castText: { color: '#FAFAFA', fontWeight: '500' },
+    divider: { color: '#1A1A1A', marginHorizontal: 4 },
+    linkContainer: { paddingHorizontal: 20, paddingVertical: 12, alignItems: 'center' },
+    linkTitle: { color: '#FAFAFA', fontWeight: '600', fontSize: 16, textAlign: 'center' },
+    link: { color: '#A3A3A3', fontWeight: '700', marginTop: 4 },
+    backButton: {
+        backgroundColor: "#404040",
+        borderWidth: 2,
+        borderColor: '#000000',
+        paddingHorizontal: 20,
+        paddingVertical: 14,
+        flexDirection: "row",
+        alignItems: "center",
+        marginHorizontal: 30,
+        justifyContent: "center",
+        borderRadius: 17,
+        marginBottom: 60,
+        marginTop: 34,
+    },
+    backButtonLandscape: {
+        marginHorizontal: 150,
+        marginBottom: 20,
+    },
+    backIcon: { width: 20, height: 20, marginRight: 8, transform: [{ rotate: "180deg" }] },
+    backText: { color: '#fff', fontWeight: '600', fontSize: 16 },
+});

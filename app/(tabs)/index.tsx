@@ -6,7 +6,8 @@ import {
   Image,
   FlatList,
   Dimensions,
-  useWindowDimensions,
+    StyleSheet,
+    useWindowDimensions,
 } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -15,7 +16,7 @@ import SampleRecent from "@/components/SampleRecent";
 import React, { useState } from "react";
 import SampleTop from "@/components/SampleTop";
 import SampleLatest from "@/components/SampleLatest";
-import {images} from "@/constansts/images";
+import {images, } from "@/constansts/images";
 import SearchBar2 from "@/components/SearchBar2";
 import {icons} from "@/constansts/icons";
 
@@ -59,33 +60,48 @@ const Index = () => {
     cast: string;
   };
 
-  return (
+    const styles = StyleSheet.create({
+        landscapeImage: {
+            width: 48,
+            height: 40,
+            marginHorizontal: 'auto',
+        },
+        portraitImage: {
+            width: 48,
+            height: 40,
+            marginTop: 64,
+            marginBottom: 20,
+            marginHorizontal: 'auto',
+        },
+    });
+
+    return (
     <>
     <ScrollView
-        className="flex-1 bg-[#282828]"
+        style={{ backgroundColor: "#282828", flex: 1 }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
             paddingBottom: 40,
-            minHeight: isLandscape ? height + 550 : height + 620,
+            minHeight: isLandscape ? height + 550 : height + 670,
         }}
     >
 
-      <View className="flex-1 bg-[#282828]">
+      <View style={{flex: 1, backgroundColor: "#282828"}}>
 
           <Image
               source={images.upperhome}
-              className="absolute w-full z-0"
+              style={{
+                  position: 'absolute',
+                  width: '100%',
+                  zIndex: 0,
+              }}
               resizeMode="cover"
           />
 
             <View className="justify-center items-center">
                 <Image
                     source={icons.splashicon}
-                    className={`${
-                        isLandscape
-                            ? "w-12 h-10 mt-6 mx-auto"
-                            : "w-12 h-10 mt-16 mb-5 mx-auto"
-                    }`}
+                    style={isLandscape ? styles.landscapeImage : styles.portraitImage}
                 />
             </View>
 

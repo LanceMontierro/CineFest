@@ -7,8 +7,8 @@ module.exports = withNativeWind(config, { input: "./app/globals.css" });
 
 if (process.env.EXPO_EXPORT === "true") {
     config.transformer.nativewind = {
-        silent: true,         // suppress logs
-        disableWatchMode: true,  // <--- THIS prevents the background process
+        silent: true,
+        disableWatchMode: true,
     };
 }
 
