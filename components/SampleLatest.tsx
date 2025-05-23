@@ -6,12 +6,11 @@ import {
     Image,
     TouchableOpacity,
     useWindowDimensions,
+    StyleSheet,
 } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { useRouter } from "expo-router";
 import { useAppContext } from "@/app/context/appContext";
-import MaskedView from "@react-native-masked-view/masked-view";
-import { images } from "@/constansts/images";
 
 type Movie = {
     title: string;
@@ -66,33 +65,31 @@ const MovieCard = ({
     const isLandscape = width > height;
 
     return (
-        <>
-            <View className="justify-center items-center">
-                <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
-                    <View className="items-center justify-center z-10">
-                        <Image
-                            source={{ uri: item.poster }}
-                            style={{
-                                width: isLandscape ? cardWidth * 1.1 : cardWidth * 1.5,
-                                height: cardWidth * 2,
-                                borderRadius: 14,
-                                borderWidth: 2,
-                                borderColor: "#000000",
-                            }}
-                            resizeMode="cover"
-                        />
-                    </View>
-                </TouchableOpacity>
-                <View className="flex-row z-50">
-                    <Text className="text-white text-xl mt-2 text-center">
-                        {item.title && item.title.length > 30
-                            ? item.title.slice(0, 20) + "..."
-                            : item.title || "No Title"}{" "}
-                        | {new Date(item.releaseDate).getFullYear()}
-                    </Text>
+        <View style={styles.cardWrapper}>
+            <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
+                <View style={styles.imageWrapper}>
+                    <Image
+                        source={{ uri: item.poster }}
+                        style={{
+                            width: isLandscape ? cardWidth * 1.1 : cardWidth * 1.5,
+                            height: cardWidth * 2,
+                            borderRadius: 14,
+                            borderWidth: 2,
+                            borderColor: "#000000",
+                        }}
+                        resizeMode="cover"
+                    />
                 </View>
+            </TouchableOpacity>
+            <View style={styles.titleWrapper}>
+                <Text style={styles.titleText}>
+                    {item.title && item.title.length > 30
+                        ? item.title.slice(0, 20) + "..."
+                        : item.title || "No Title"}{" "}
+                    | {new Date(item.releaseDate).getFullYear()}
+                </Text>
             </View>
-        </>
+        </View>
     );
 };
 
@@ -103,18 +100,10 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
 
     return (
         <View>
-            <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">
-                Latest MMFF
-            </Text>
-            <View
-                className={`${
-                    isLandscape
-                        ? "justify-center items-center"
-                        : "justify-center items-center"
-                }`}
-            >
+            <Text style={styles.sectionTitle}>Latest MMFF</Text>
+            <View style={styles.carouselContainer}>
                 {data.length === 0 ? (
-                    <Text className="text-white ml-4">No Latest MMFF available.</Text>
+                    <Text style={styles.emptyMessage}>No Latest MMFF available.</Text>
                 ) : (
                     <Carousel
                         loop
@@ -137,3 +126,41 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    sectionTitle: {
+        color: "#ffffff",
+        fontSize: 20,
+        marginTop: 16,
+        marginBottom: 24,
+        marginLeft: 16,
+        fontWeight: "bold",
+    },
+    carouselContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    emptyMessage: {
+        color: "#ffffff",
+        marginLeft: 16,
+    },
+    cardWrapper: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    imageWrapper: {
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 10,
+    },
+    titleWrapper: {
+        flexDirection: "row",
+        zIndex: 50,
+    },
+    titleText: {
+        color: "#ffffff",
+        fontSize: 18,
+        marginTop: 8,
+        textAlign: "center",
+    },
+});

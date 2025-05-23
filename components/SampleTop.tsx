@@ -1,10 +1,18 @@
 import React from 'react';
-import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions, FlatList} from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
+import {
+    View,
+    Text,
+    Dimensions,
+    Image,
+    TouchableOpacity,
+    useWindowDimensions,
+    FlatList,
+    StyleSheet,
+} from 'react-native';
 import { useRouter } from "expo-router";
-import {useAppContext} from "@/app/context/appContext";
+import { useAppContext } from "@/app/context/appContext";
 import MaskedView from "@react-native-masked-view/masked-view";
-import {images} from "@/constansts/images";
+import { images } from "@/constansts/images";
 
 type Movie = {
     title: string;
@@ -22,7 +30,6 @@ interface TrendingMoviesProps {
 }
 
 const { width } = Dimensions.get('window');
-
 
 const MovieCard = ({
                        item,
@@ -54,24 +61,23 @@ const MovieCard = ({
         addToRecentlyViewedMovies(item);
     };
 
-    const {width, height } = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
     const isLandscape = width > height;
 
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
-            <View className="items-center justify-center mt-[-90] mb-[-90]">
-                <View className="flex-row items-center">
-                    <View style={{ marginRight: -90 }} className="justify-center items-center">
+            <View style={[styles.cardWrapper, { marginTop: -90, marginBottom: -90 }]}>
+                <View style={styles.cardRow}>
+                    <View style={{ marginRight: -90, justifyContent: 'center', alignItems: 'center' }}>
                         <MaskedView
                             maskElement={
-                                <Text className="font-extrabold text-[310px]">{index + 1}</Text>
+                                <Text style={styles.maskText}>{index + 1}</Text>
                             }
                         >
                             <Image
                                 source={images.rankingGradient}
                                 resizeMode="cover"
-
-                                style={{ height: cardWidth * 2.7}}
+                                style={{ height: cardWidth * 2.7 }}
                             />
                         </MaskedView>
                     </View>
@@ -87,12 +93,12 @@ const MovieCard = ({
                             }}
                             resizeMode="cover"
                         />
-                        <Text className="text-white text-sm text-center">
+                        <Text style={styles.movieTitle}>
                             {item.title && item.title.length > 30
                                 ? item.title.slice(0, 20) + "..."
-                                : item.title || "No Title"}{" "}
+                                : item.title || "No Title"}
                         </Text>
-                        <Text className="text-white text-center text-xs">⭐ {item.rating}</Text>
+                        <Text style={styles.movieRating}>⭐ {item.rating}</Text>
                     </View>
                 </View>
             </View>
@@ -106,27 +112,71 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
     const isLandscape = width > height;
 
     return (
-        <View className="mt-5">
-            <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">Top Rating</Text>
-            <View className={`${isLandscape ? 'justify-center items-center' : 'justify-center items-center'}`}>
-            {data.length === 0 ? (
-                <Text className="text-white ml-4">No Top Rating available.</Text>
-            ) : (
-                <FlatList
-                    data={data}
-                    renderItem={({ item,index }) => (
-                        <MovieCard item={item} cardWidth={cardWidth}  index={index}/>
-                    )}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{
-                        paddingHorizontal: 10,
-                        gap: 20,
-                    }}
-                    className="mt-2"
-                />
-            )}
-                </View>
+        <View style={styles.container}>
+            <Text style={styles.title}>Top Rating</Text>
+            <View style={styles.carouselContainer}>
+                {data.length === 0 ? (
+                    <Text style={styles.emptyText}>No Top Rating available.</Text>
+                ) : (
+                    <FlatList
+                        data={data}
+                        renderItem={({ item, index }) => (
+                            <MovieCard item={item} cardWidth={cardWidth} index={index} />
+                        )}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={{
+                            paddingHorizontal: 10,
+                            gap: 20,
+                        }}
+                    />
+                )}
+            </View>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginTop: 20,
+    },
+    title: {
+        color: '#ffffff',
+        fontSize: 20,
+        marginTop: 16,
+        marginBottom: 24,
+        marginLeft: 16,
+        fontWeight: 'bold',
+    },
+    carouselContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    emptyText: {
+        color: '#ffffff',
+        marginLeft: 16,
+    },
+    cardWrapper: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cardRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    maskText: {
+        fontWeight: '900',
+        fontSize: 310,
+    },
+    movieTitle: {
+        color: '#ffffff',
+        fontSize: 14,
+        textAlign: 'center',
+        marginTop: 4,
+    },
+    movieRating: {
+        color: '#ffffff',
+        fontSize: 12,
+        textAlign: 'center',
+    },
+});

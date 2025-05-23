@@ -1,8 +1,16 @@
 import React from 'react';
-import {View, Text, Dimensions, Image, TouchableOpacity, useWindowDimensions, FlatList} from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
+import {
+    View,
+    Text,
+    Dimensions,
+    Image,
+    TouchableOpacity,
+    useWindowDimensions,
+    FlatList,
+    StyleSheet,
+} from 'react-native';
 import { useRouter } from "expo-router";
-import {useAppContext} from "@/app/context/appContext";
+import { useAppContext } from "@/app/context/appContext";
 
 type Movie = {
     title: string;
@@ -20,7 +28,6 @@ interface TrendingMoviesProps {
 }
 
 const { width } = Dimensions.get('window');
-
 
 const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
     const router = useRouter();
@@ -44,24 +51,29 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
         addToRecentlyViewedMovies(item);
     };
 
-    const {width, height } = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
     const isLandscape = width > height;
 
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
-            <View className="items-center justify-center">
+            <View style={styles.cardContainer}>
                 <Image
                     source={{ uri: item.poster }}
-                    style={{ width: isLandscape ? cardWidth * 1.1 :cardWidth, height: cardWidth * 1.4, borderRadius: 10, borderWidth: 2,
-                        borderColor: '#000000' }}
+                    style={{
+                        width: isLandscape ? cardWidth * 1.1 : cardWidth,
+                        height: cardWidth * 1.4,
+                        borderRadius: 10,
+                        borderWidth: 2,
+                        borderColor: '#000000',
+                    }}
                     resizeMode="cover"
                 />
-                <Text className="text-white text-sm mt-2 text-center">
+                <Text style={styles.movieTitle}>
                     {item.title && item.title.length > 30
                         ? item.title.slice(0, 20) + "..."
-                        : item.title || "No Title"}{" "}
+                        : item.title || "No Title"}
                 </Text>
-                <Text className="text-white text-xs">⭐ {item.rating}</Text>
+                <Text style={styles.rating}>⭐ {item.rating}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -73,11 +85,11 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
     const isLandscape = width > height;
 
     return (
-        <View className="mt-5">
-            <Text className="text-white text-xl mt-4 mb-6 ml-4 font-bold">Recently Viewed</Text>
-            <View className={`${isLandscape ? 'justify-center items-center' : 'justify-center items-center'}`}>
+        <View style={styles.wrapper}>
+            <Text style={styles.sectionTitle}>Recently Viewed</Text>
+            <View style={styles.carouselWrapper}>
                 {data.length === 0 ? (
-                    <Text className="text-white ml-4">No Recently viewed available.</Text>
+                    <Text style={styles.emptyText}>No Recently viewed available.</Text>
                 ) : (
                     <FlatList
                         data={data}
@@ -90,10 +102,45 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
                             paddingHorizontal: 10,
                             gap: 20,
                         }}
-                        className="mt-2"
                     />
                 )}
             </View>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    wrapper: {
+        marginTop: 20,
+    },
+    sectionTitle: {
+        color: "#ffffff",
+        fontSize: 20,
+        marginTop: 16,
+        marginBottom: 24,
+        marginLeft: 16,
+        fontWeight: "bold",
+    },
+    carouselWrapper: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    emptyText: {
+        color: "#ffffff",
+        marginLeft: 16,
+    },
+    cardContainer: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    movieTitle: {
+        color: "#ffffff",
+        fontSize: 14,
+        marginTop: 8,
+        textAlign: "center",
+    },
+    rating: {
+        color: "#ffffff",
+        fontSize: 12,
+    },
+});

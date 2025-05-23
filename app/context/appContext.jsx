@@ -402,6 +402,8 @@ const ContextApi = ({ children }) => {
         setUserAcc,
         isSignedIn,
         user,
+        toggleGenre,
+        toggleAwards,
         handleSignOut,
         saveUser,
         createMovie,

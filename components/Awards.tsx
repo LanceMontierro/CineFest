@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import { Text, ScrollView, TouchableOpacity } from "react-native";
+import { Text, ScrollView, TouchableOpacity, StyleSheet, View } from "react-native";
 import { useAppContext } from "@/app/context/appContext";
 import { awards } from "@/constansts/filter";
-
 
 const Filters = () => {
   const params = useLocalSearchParams<{ filter?: string }>();
@@ -12,7 +11,6 @@ const Filters = () => {
   const { activeFilter, setActiveFilter, toggleAwards } = useAppContext();
 
   useEffect(() => {
-
     router.setParams({
       filter: selectedCategories.join(","),
     });
@@ -36,7 +34,7 @@ const Filters = () => {
       <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          className="mt-3 mb-2"
+          contentContainerStyle={styles.scrollContainer}
       >
         {awards.map((item, index) => {
           const isSelected = selectedCategories.includes(item.category);
@@ -44,18 +42,16 @@ const Filters = () => {
               <TouchableOpacity
                   onPress={() => handleCategoryPress(item.category)}
                   key={index}
-                  className={`flex flex-col items-start mr-4 px-4 py-2 rounded-full ${
-                      isSelected
-                          ? "bg-primary-300"
-                          : "bg-primary-100 border border-[#787878]"
-                  }`}
+                  style={[
+                    styles.buttonBase,
+                    isSelected ? styles.buttonSelected : styles.buttonUnselected,
+                  ]}
               >
                 <Text
-                    className={`text-sm ${
-                        isSelected
-                            ? "text-white font-rubik-bold mt-0.5"
-                            : "text-[#787878] font-rubik"
-                    }`}
+                    style={[
+                      styles.textBase,
+                      isSelected ? styles.textSelected : styles.textUnselected,
+                    ]}
                 >
                   {item.title}
                 </Text>
@@ -65,5 +61,40 @@ const Filters = () => {
       </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollContainer: {
+    marginTop: 12,
+    marginBottom: 8,
+    paddingHorizontal: 4,
+  },
+  buttonBase: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginRight: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 9999, // rounded-full
+  },
+  buttonSelected: {
+
+  },
+  buttonUnselected: {
+    borderWidth: 1,
+    borderColor: "#5c5c5c",
+  },
+  textBase: {
+    fontSize: 14,
+  },
+  textSelected: {
+    color: "#FFFFFF",
+    fontFamily: "Rubik-Bold",
+    marginTop: 2,
+  },
+  textUnselected: {
+    color: "#787878",
+    fontFamily: "Rubik-Regular",
+  },
+});
 
 export default Filters;
