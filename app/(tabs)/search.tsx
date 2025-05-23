@@ -141,11 +141,8 @@ const Search = () => {
                           borderColor: '#000000'
                         }}
                     />
-
                     <Text style={styles.movieDetails}>
-                      {(movie.rating || "Genre Unknown") +
-                          " • " +
-                          (movie.releaseDate
+                      {(movie.releaseDate
                               ? new Date(movie.releaseDate).getFullYear()
                               : "Unknown")}
                     </Text>
@@ -176,6 +173,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 40,
   },
+  starIcon: { width: 16, height: 16, marginLeft: 4 },
   logoLandscape: {
     marginTop: 24,
     marginHorizontal: "auto",
