@@ -44,9 +44,19 @@ const ContextApi = ({ children }) => {
         awards.some((selected) => movie.awards.includes(selected));
 
       const matchesRating =
-        !rating || parseFloat(movie.rating) >= parseFloat(rating);
+        !rating ||
+        (Array.isArray(movie.rating)
+          ? movie.rating
+              .map(String)
+              .includes(String(rating).replace("Rating ", ""))
+          : String(movie.rating) === String(rating).replace("Rating ", ""));
 
-      const matchesYear = !year || movie.releaseDate.includes(String(year));
+      const matchesYear =
+        !year ||
+        (movie.releaseDate &&
+          (movie.releaseDate.length === 4
+            ? Number(movie.releaseDate) === Number(year)
+            : new Date(movie.releaseDate).getFullYear() === Number(year)));
 
       return matchesGenre && matchesAwards && matchesRating && matchesYear;
     });

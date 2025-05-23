@@ -1,64 +1,66 @@
 import { useState, useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
-import { Text, ScrollView, TouchableOpacity, StyleSheet, View } from "react-native";
+import {
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+} from "react-native";
 import { useAppContext } from "@/app/context/appContext";
-import {awards, year} from "@/constansts/filter";
+import { awards, year } from "@/constansts/filter";
 
 const Filters = () => {
   const params = useLocalSearchParams<{ filter?: string }>();
-  const initialFilters = params.filter ? params.filter.split(",") : [];
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(initialFilters);
+  const initialFilter = params.filter || "";
+  const [selectedCategories, setSelectedCategories] =
+    useState<string>(initialFilter);
   const { activeFilter, setActiveFilter, toggleAwards } = useAppContext();
 
   useEffect(() => {
     router.setParams({
-      filter: selectedCategories.join(","),
+      filter: selectedCategories,
     });
 
     setActiveFilter((prev: any) => ({
       ...prev,
-      awards: selectedCategories,
+      year: selectedCategories,
     }));
   }, [selectedCategories]);
 
   const handleCategoryPress = (category: string) => {
-    toggleAwards(category);
-    setSelectedCategories((prev) =>
-        prev.includes(category)
-            ? prev.filter((c) => c !== category)
-            : [...prev, category]
-    );
+    setSelectedCategories((prev) => (prev === category ? "" : category));
   };
 
   return (
-      <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.scrollContainer}
-      >
-        {year.map((item, index) => {
-          const isSelected = selectedCategories.includes(item.category);
-          return (
-              <TouchableOpacity
-                  onPress={() => handleCategoryPress(item.category)}
-                  key={index}
-                  style={[
-                    styles.buttonBase,
-                    isSelected ? styles.buttonSelected : styles.buttonUnselected,
-                  ]}
-              >
-                <Text
-                    style={[
-                      styles.textBase,
-                      isSelected ? styles.textSelected : styles.textUnselected,
-                    ]}
-                >
-                  {item.title}
-                </Text>
-              </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.scrollContainer}
+    >
+      {year.map((item, index) => {
+        const isSelected = selectedCategories === item.category;
+        return (
+          <TouchableOpacity
+            onPress={() => handleCategoryPress(item.category)}
+            key={index}
+            style={[
+              styles.buttonBase,
+              isSelected ? styles.buttonSelected : styles.buttonUnselected,
+            ]}
+          >
+            <Text
+              style={[
+                styles.textBase,
+                isSelected ? styles.textSelected : styles.textUnselected,
+              ]}
+            >
+              {item.title}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+    </ScrollView>
   );
 };
 
@@ -76,9 +78,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 9999, // rounded-full
   },
-  buttonSelected: {
-
-  },
+  buttonSelected: {},
   buttonUnselected: {
     borderWidth: 1,
     borderColor: "#5c5c5c",
