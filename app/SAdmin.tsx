@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Dimensions,
+  StyleSheet,
 } from "react-native";
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -84,7 +85,7 @@ const SAdmin = () => {
 
   const pickImage = async () => {
     const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
       alert("Permission to access media library is required!");
       return;
@@ -103,175 +104,193 @@ const SAdmin = () => {
   };
 
   return (
-    <View className="flex-1 bg-[#282828]">
-      <Image
-        source={images.dev}
-        className="absolute w-full z-0"
-        resizeMode="cover"
-      />
-
-      <View className="flex-row ml-52 justify-between px-8">
-        <TouchableOpacity onPress={handleSignOut}>
-          <View className="mt-5">
-            <Text className="font-bold text-red-900">Log Out</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <View className="mt-10 px-5">
-        <SearchBar
-          placeholder={""}
-          searchQuery={""}
-          setSearchQuery={function (text: string): void {
-            throw new Error("Function not implemented.");
-          }}
+      <View style={styles.container}>
+        <Image
+            source={images.dev}
+            style={styles.backgroundImage}
+            resizeMode="cover"
         />
-      </View>
 
-      <View className="flex-row justify-between items-center px-6">
-        <Text className="text-lg text-[#D9D9D9] font-bold mt-5 mb-3 mr-16">
-          MMFF Movies
-        </Text>
-        <TouchableOpacity onPress={() => setShowForm(!showForm)}>
-          <View className="flex-row mt-2 w-[180] h-[48] bg-[#404040] rounded-[60]">
-            <Image source={icons.Sync} className="ml-5" />
-            <Text className="mt-4 ml-3 text-[#D9D9D9]">Upload Movie</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView
-        className="flex-1 px-5 mt-4"
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ minHeight: "195%", paddingBottom: 15 }}
-      >
-        <Text className="text-white font-semibold ml-7 mb-4">
-          Added({latestMovies.length})
-        </Text>
-        <View className="flex-row flex-wrap justify-between">
-          {latestMovies.map((item: Movie, index: number) => {
-            const isSelected = selectedToDelete === index;
-
-            return (
-              <TouchableWithoutFeedback
-                key={item._id}
-                onPress={handlePress}
-                onLongPress={() => setSelectedToDelete(index)}
-              >
-                <View className="space-y-2 mb-4 relative">
-                  <Image
-                    source={item.poster ? { uri: item.poster } : images.blank}
-                    style={{
-                      width: width * 0.44,
-                      height: height * 0.3,
-                      borderRadius: 10,
-                    }}
-                  />
-                  {isSelected && (
-                    <TouchableOpacity
-                      className="absolute top-2 right-2 bg-red-600 p-1.5 rounded-full z-10"
-                      onPress={() => {
-                        deleteMovie(item._id);
-                        setSelectedToDelete(null);
-                      }}
-                    >
-                      <Text className="text-white text-xs font-bold">X</Text>
-                    </TouchableOpacity>
-                  )}
-                  <Text className="text-white font-bold text-sm">
-                    {item.title}
-                  </Text>
-                  <Text className="text-white font-bold text-sm">
-                    {Array.isArray(item.genre)
-                      ? item.genre.join(", ")
-                      : item.genre}{" "}
-                    &nbsp;
-                    {item.releaseDate?.slice(0, 4)}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
-            );
-          })}
+        <View style={styles.logoutContainer}>
+          <TouchableOpacity onPress={handleSignOut}>
+            <View style={styles.logoutTextContainer}>
+              <Text style={styles.logoutText}>Log Out</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
 
-      {showForm && (
+        <View style={styles.searchBarContainer}>
+          <SearchBar
+              placeholder={""}
+              searchQuery={""}
+              setSearchQuery={function (text: string): void {
+                throw new Error("Function not implemented.");
+              }}
+          />
+        </View>
+
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>MMFF Movies</Text>
+          <TouchableOpacity onPress={() => setShowForm(!showForm)}>
+            <View style={styles.uploadButton}>
+              <Image source={icons.Sync} style={styles.uploadIcon} />
+              <Text style={styles.uploadText}>Upload Movie</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
         <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ minHeight: "100%", paddingBottom: 15 }}
+            style={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ minHeight: height * 1.95, paddingBottom: 15 }}
         >
-          <View className="mt-5 p-4 px-14 bg-[#333] mb-80 rounded-lg">
-            <TouchableOpacity
-              onPress={pickImage}
-              className="bg-[#444] p-2 rounded mb-3 items-center"
-            >
-              <Text className="text-white">
-                {poster ? "Change Poster" : "Upload Poster"}
-              </Text>
-            </TouchableOpacity>
+          <Text style={styles.addedText}>Added({latestMovies.length})</Text>
+          <View style={styles.moviesContainer}>
+            {latestMovies.map((item: Movie, index: number) => {
+              const isSelected = selectedToDelete === index;
 
-            {poster && (
-              <Image
-                source={{ uri: poster }}
-                className="w-full h-60 rounded mb-4"
-                resizeMode="cover"
-              />
-            )}
-
-            <TextInput
-              placeholder="Title"
-              placeholderTextColor="#999"
-              className="bg-[#444] text-white p-2 rounded mb-2"
-              value={title}
-              onChangeText={setTitle}
-            />
-            <TextInput
-              placeholder="Genre"
-              placeholderTextColor="#999"
-              className="bg-[#444] text-white p-2 rounded mb-2"
-              value={genre}
-              onChangeText={setGenre}
-            />
-            <TextInput
-              placeholder="Description"
-              placeholderTextColor="#999"
-              multiline
-              className="bg-[#444] text-white p-2 rounded mb-2 h-20"
-              value={description}
-              onChangeText={setDescription}
-            />
-            <TextInput
-              placeholder="Awards"
-              placeholderTextColor="#999"
-              className="bg-[#444] text-white p-2 rounded mb-2"
-              value={awards}
-              onChangeText={setAwards}
-            />
-            <TextInput
-              placeholder="Release Date (YYYY-MM-DD)"
-              placeholderTextColor="#999"
-              className="bg-[#444] text-white p-2 rounded mb-2"
-              value={releaseDate}
-              onChangeText={setReleaseDate}
-            />
-            <TextInput
-              placeholder="Link"
-              placeholderTextColor="#999"
-              className="bg-[#444] text-white p-2 rounded mb-2"
-              value={link}
-              onChangeText={setLink}
-            />
-            <TouchableOpacity
-              className="bg-[#D9D9D9] p-2 rounded mt-2"
-              onPress={handleSubmit}
-            >
-              <Text className="text-black text-center">Submit</Text>
-            </TouchableOpacity>
+              return (
+                  <TouchableWithoutFeedback
+                      key={item._id}
+                      onPress={handlePress}
+                      onLongPress={() => setSelectedToDelete(index)}
+                  >
+                    <View style={styles.movieItem}>
+                      <Image
+                          source={item.poster ? { uri: item.poster } : images.blank}
+                          style={{
+                            width: width * 0.44,
+                            height: height * 0.3,
+                            borderRadius: 10,
+                          }}
+                      />
+                      {isSelected && (
+                          <TouchableOpacity
+                              style={styles.deleteButton}
+                              onPress={() => {
+                                deleteMovie(item._id);
+                                setSelectedToDelete(null);
+                              }}
+                          >
+                            <Text style={styles.deleteButtonText}>X</Text>
+                          </TouchableOpacity>
+                      )}
+                      <Text style={styles.movieTitle}>{item.title.length > 20 ? item.title.slice(0, 17) + "..." : item.title}</Text>
+                      <Text style={styles.movieGenre}>
+                        {Array.isArray(item.genre)
+                            ? item.genre.join(", ")
+                            : item.genre}{" "}
+                        &nbsp;
+                        {item.releaseDate?.slice(0, 4)}
+                      </Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+              );
+            })}
           </View>
         </ScrollView>
-      )}
-    </View>
+
+        {showForm && (
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ minHeight: "100%", paddingBottom: 15 }}
+            >
+              <View style={styles.formContainer}>
+                <TouchableOpacity onPress={pickImage} style={styles.pickButton}>
+                  <Text style={styles.pickButtonText}>
+                    {poster ? "Change Poster" : "Upload Poster"}
+                  </Text>
+                </TouchableOpacity>
+
+                {poster && (
+                    <Image
+                        source={{ uri: poster }}
+                        style={styles.posterImage}
+                        resizeMode="cover"
+                    />
+                )}
+
+                <TextInput
+                    placeholder="Title"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={title}
+                    onChangeText={setTitle}
+                />
+                <TextInput
+                    placeholder="Genre"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={genre}
+                    onChangeText={setGenre}
+                />
+                <TextInput
+                    placeholder="Description"
+                    placeholderTextColor="#999"
+                    multiline
+                    style={styles.textarea}
+                    value={description}
+                    onChangeText={setDescription}
+                />
+                <TextInput
+                    placeholder="Awards"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={awards}
+                    onChangeText={setAwards}
+                />
+                <TextInput
+                    placeholder="Release Date (YYYY-MM-DD)"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={releaseDate}
+                    onChangeText={setReleaseDate}
+                />
+                <TextInput
+                    placeholder="Link"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={link}
+                    onChangeText={setLink}
+                />
+                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+                  <Text style={styles.submitButtonText}>Submit</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+        )}
+      </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#282828' },
+  backgroundImage: { position: 'absolute', width: '100%', zIndex: 0 },
+  logoutContainer: { flexDirection: 'row', marginLeft: 52, justifyContent: 'space-between', paddingHorizontal: 8 },
+  logoutTextContainer: { marginTop: 5 },
+  logoutText: { fontWeight: 'bold', color: '#7f1d1d' },
+  searchBarContainer: { marginTop: 10, paddingHorizontal: 5 },
+  headerContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 6 },
+  headerText: { fontSize: 18, color: '#D9D9D9', fontWeight: 'bold', marginTop: 5, marginBottom: 3, marginRight: 16 },
+  uploadButton: { flexDirection: 'row', marginTop: 2, width: 180, height: 48, backgroundColor: '#404040', borderRadius: 60 },
+  uploadIcon: { marginLeft: 5 },
+  uploadText: { marginTop: 16, marginLeft: 3, color: '#D9D9D9' },
+  scrollContainer: { flex: 1, paddingHorizontal: 5, marginTop: 4 },
+  addedText: { color: 'white', fontWeight: '600', marginLeft: 7, marginBottom: 4 },
+  moviesContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingRight:5, paddingLeft:5, paddingBottom: 50 },
+  movieItem: { marginBottom: 4, position: 'relative' },
+  deleteButton: { position: 'absolute', top: 2, right: 2, backgroundColor: '#dc2626', padding: 6, borderRadius: 9999, zIndex: 10 },
+  deleteButtonText: { color: 'white', fontSize: 12, fontWeight: 'bold' },
+  movieTitle: { color: 'white', fontWeight: 'bold', fontSize: 14 },
+  movieGenre: { color: 'white', fontWeight: 'bold', fontSize: 14 },
+  formContainer: { marginTop: 5, padding: 16, paddingHorizontal: 56, backgroundColor: '#333', marginBottom: 80, borderRadius: 8 },
+  pickButton: { backgroundColor: '#444', padding: 8, borderRadius: 4, marginBottom: 12, alignItems: 'center' },
+  pickButtonText: { color: 'white' },
+  posterImage: { width: '100%', height: 240, borderRadius: 8, marginBottom: 16 },
+  input: { backgroundColor: '#444', color: 'white', padding: 8, borderRadius: 4, marginBottom: 8 },
+  textarea: { backgroundColor: '#444', color: 'white', padding: 8, borderRadius: 4, marginBottom: 8, height: 80 },
+  submitButton: { backgroundColor: '#D9D9D9', padding: 8, borderRadius: 4, marginTop: 8 },
+  submitButtonText: { color: 'black', textAlign: 'center' },
+});
 
 export default SAdmin;
