@@ -79,8 +79,24 @@ const SAdmin = () => {
   const router = useRouter();
   const { width, height } = Dimensions.get("window");
 
-  const handlePress = () => {
-    router.push("/MovieDetails/[d]");
+  const handlePress = (movie: any) => {
+    router.push({
+      pathname: "/MovieDetails/[d]",
+      params: {
+        d: movie.title,
+        title: movie.title,
+        description: movie.description,
+        poster: movie.poster,
+        genre: movie.genre || "Unknown",
+        releaseDate: movie.releaseDate || "Unknown",
+        rating: movie.rating || "N/A",
+        awards: movie.awards || "None",
+        link: movie.link || "",
+        cast: movie.cast,
+      },
+    });
+
+    console.log(movie.title);
   };
 
   const pickImage = async () => {
