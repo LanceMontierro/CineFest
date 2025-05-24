@@ -9,7 +9,7 @@ import {
   Dimensions,
   StyleSheet,
 } from "react-native";
-import { useState } from "react";
+import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { images } from "@/constansts/images";
 import { icons } from "@/constansts/icons";
@@ -103,6 +103,8 @@ const SAdmin = () => {
     }
   };
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
       <View style={styles.container}>
         <Image
@@ -121,11 +123,9 @@ const SAdmin = () => {
 
         <View style={styles.searchBarContainer}>
           <SearchBar
-              placeholder={""}
-              searchQuery={""}
-              setSearchQuery={function (text: string): void {
-                throw new Error("Function not implemented.");
-              }}
+              placeholder="Search MMFF movies"
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
           />
         </View>
 
@@ -175,14 +175,14 @@ const SAdmin = () => {
                             <Text style={styles.deleteButtonText}>X</Text>
                           </TouchableOpacity>
                       )}
-                      <Text style={styles.movieTitle}>{item.title.length > 20 ? item.title.slice(0, 17) + "..." : item.title}</Text>
-                      <Text style={styles.movieGenre}>
-                        {Array.isArray(item.genre)
-                            ? item.genre.join(", ")
-                            : item.genre}{" "}
-                        &nbsp;
-                        {item.releaseDate?.slice(0, 4)}
-                      </Text>
+                      <View style={styles.titleWrapper}>
+                        <Text style={styles.titleText}>
+                          {item.title && item.title.length > 30
+                              ? item.title.slice(0, 10) + "..."
+                              : item.title || "No Title"}{" "}
+                          | {new Date(item.releaseDate).getFullYear()}
+                        </Text>
+                      </View>
                     </View>
                   </TouchableWithoutFeedback>
               );
@@ -264,25 +264,25 @@ const SAdmin = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#282828' },
+  container: { flex: 1, backgroundColor: '#282828'},
   backgroundImage: { position: 'absolute', width: '100%', zIndex: 0 },
-  logoutContainer: { flexDirection: 'row', marginLeft: 52, justifyContent: 'space-between', paddingHorizontal: 8 },
-  logoutTextContainer: { marginTop: 5 },
-  logoutText: { fontWeight: 'bold', color: '#7f1d1d' },
-  searchBarContainer: { marginTop: 10, paddingHorizontal: 5 },
-  headerContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 6 },
+  logoutContainer: {flexDirection: 'row', marginLeft: 240, justifyContent: 'space-between', paddingHorizontal: 8 },
+  logoutTextContainer: {marginTop: 15, paddingHorizontal: 10, borderRadius: 10, backgroundColor:"#f81c1c", alignItems: 'center' },
+  logoutText: { fontWeight: 'bold', color: '#d4d4d4', fontSize: 14, paddingRight: 10, paddingLeft: 10, paddingTop: 5, paddingBottom: 5 },
+  searchBarContainer: { marginTop: 35, paddingHorizontal: 5 },
+  headerContainer: {paddingRight:20, paddingLeft:20 ,flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 6 , marginTop: 20},
   headerText: { fontSize: 18, color: '#D9D9D9', fontWeight: 'bold', marginTop: 5, marginBottom: 3, marginRight: 16 },
-  uploadButton: { flexDirection: 'row', marginTop: 2, width: 180, height: 48, backgroundColor: '#404040', borderRadius: 60 },
+  uploadButton: { flexDirection: 'row', marginTop: 2, width: 150, height: 48, backgroundColor: '#404040', borderRadius: 60 },
   uploadIcon: { marginLeft: 5 },
-  uploadText: { marginTop: 16, marginLeft: 3, color: '#D9D9D9' },
-  scrollContainer: { flex: 1, paddingHorizontal: 5, marginTop: 4 },
-  addedText: { color: 'white', fontWeight: '600', marginLeft: 7, marginBottom: 4 },
-  moviesContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingRight:5, paddingLeft:5, paddingBottom: 50 },
-  movieItem: { marginBottom: 4, position: 'relative' },
+  uploadText: { marginTop: 13, marginLeft: 3, color: '#D9D9D9' },
+  scrollContainer: { flex: 1, paddingHorizontal: 5, marginTop: 10 },
+  addedText: { color: 'white', fontWeight: '600', marginLeft: 7, marginBottom: 15 },
+  moviesContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingRight:5, paddingLeft:5, paddingBottom: 50,  },
+  movieItem: { marginBottom: 35, position: 'relative', justifyContent: 'center', alignItems: 'center' },
   deleteButton: { position: 'absolute', top: 2, right: 2, backgroundColor: '#dc2626', padding: 6, borderRadius: 9999, zIndex: 10 },
   deleteButtonText: { color: 'white', fontSize: 12, fontWeight: 'bold' },
-  movieTitle: { color: 'white', fontWeight: 'bold', fontSize: 14 },
-  movieGenre: { color: 'white', fontWeight: 'bold', fontSize: 14 },
+  movieTitle: { color: 'white', fontWeight: 'bold', fontSize: 9 , justifyContent: 'center', alignItems: 'center'},
+  movieGenre: { color: 'white', fontWeight: 'bold', fontSize: 9 },
   formContainer: { marginTop: 5, padding: 16, paddingHorizontal: 56, backgroundColor: '#333', marginBottom: 80, borderRadius: 8 },
   pickButton: { backgroundColor: '#444', padding: 8, borderRadius: 4, marginBottom: 12, alignItems: 'center' },
   pickButtonText: { color: 'white' },
@@ -291,6 +291,15 @@ const styles = StyleSheet.create({
   textarea: { backgroundColor: '#444', color: 'white', padding: 8, borderRadius: 4, marginBottom: 8, height: 80 },
   submitButton: { backgroundColor: '#D9D9D9', padding: 8, borderRadius: 4, marginTop: 8 },
   submitButtonText: { color: 'black', textAlign: 'center' },
+  titleWrapper: {
+    flexDirection: "row",
+    zIndex: 50,
+  },
+  titleText: {
+    color: "#ffffff",
+    fontSize: 15,
+    marginTop: 8,
+  },
 });
 
 export default SAdmin;
