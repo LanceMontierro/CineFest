@@ -125,10 +125,10 @@ const Search = () => {
               minHeight: Math.max(
                   height,
                   isLandscape
-                      ? moviesToShow.length * 98
+                      ? moviesToShow.length
                       : moviesToShow.length * 155
               ),
-              paddingBottom: 15,
+              paddingBottom: isLandscape ? 120 :15,
             }}
         >
           <View
@@ -145,7 +145,9 @@ const Search = () => {
                             key={index}
                             onPress={() => handlePress(movie)}
                         >
-                          <View style={styles.movieCard}>
+                          <View style={isLandscape
+                              ? styles.movieCardLandscape
+                              : styles.movieCard}>
                             <Image
                                 source={{ uri: movie.poster || images.blank }}
                                 style={{
@@ -262,8 +264,14 @@ const styles = StyleSheet.create({
   moviesContainerLandscape: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
-    paddingHorizontal: 32,
+    justifyContent: "flex-start",
+    paddingHorizontal: 15,
+    alignItems: "center",
+  },
+  movieCardLandscape:{
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight:10,
   },
   moviesContainer: {
     flexDirection: "row",
@@ -277,7 +285,7 @@ const styles = StyleSheet.create({
   },
   movieImage: {
     width: "100%",
-    aspectRatio: 2 / 3, // consistent height ratio
+    aspectRatio: 2 / 3,
     borderRadius: 10,
     borderWidth: 2,
     borderColor: "#000000",

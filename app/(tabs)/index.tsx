@@ -82,7 +82,7 @@ const Index = () => {
         style={{ backgroundColor: "#282828", flex: 1 }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-            paddingBottom: 150,
+            paddingBottom: isLandscape ? 110 :150,
             minHeight: isLandscape ? height + 550 : height + 670,
         }}
     >

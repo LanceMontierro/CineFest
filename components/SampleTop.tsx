@@ -114,7 +114,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Top Rated</Text>
+            <Text style={styles.title}>Best of the Best</Text>
             <View style={styles.carouselContainer}>
                 {data.length === 0 ? (
                     <Text style={styles.emptyText}>No Top Rating available.</Text>

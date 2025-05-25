@@ -103,7 +103,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
 
     return (
         <View>
-            <Text style={styles.sectionTitle}>Latest MMFF</Text>
+            <Text style={styles.sectionTitle}>Fresh from the MMFF</Text>
             <View style={styles.carouselContainer}>
                 {data.length === 0 ? (
                     <Text style={styles.emptyMessage}>No Latest MMFF available.</Text>
