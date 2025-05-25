@@ -1,8 +1,10 @@
 export const genre = [
+    { title: "Drama", category: "Drama" },
     { title: "Action", category: "Action" },
     { title: "Romance", category: "Romance" },
     { title: "Adventure", category: "Adventure" },
     { title: "Comedy", category: "Comedy" },
+    { title: "Family", category: "Family" },
     { title: "Crime ", category: "Crime" },
     { title: "Musical ", category: "Musical" },
     { title: "Mystery", category: "Mystery" },
@@ -13,7 +15,7 @@ export const genre = [
     { title: "SciFi", category: "SciFi" },
     { title: "Thriller", category: "Thriller" },
     { title: "Animation", category: "Animation" },
-    { title: "Drama", category: "Drama" },
+    { title: "Sports", category: "Sports" },
 ];
 
 export const awards = [
