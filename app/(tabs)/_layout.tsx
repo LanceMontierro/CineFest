@@ -29,7 +29,7 @@ function TabIcon({ focused, icon, title }: any) {
     }
 
     return (
-        <View style={styles.unfocusedTab}>
+        <View style={[styles.unfocusedTab, isLandscape ? styles.unfocusedTabL : styles.unfocusedTabP]} >
             <Image source={icon} style={styles.icon} />
         </View>
     );
@@ -113,6 +113,7 @@ export default function TabsLayout() {
 }
 
 const styles = StyleSheet.create({
+
     focusedTab: {
         backgroundColor: "#535353",
         flexDirection: "row",
@@ -121,11 +122,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 20,
         overflow: "hidden",
+    },unfocusedTabL:{
+        marginTop: 13,
+    },
+    unfocusedTabP:{
     },
     focusedLandscape: {
         minWidth: 135,
-        minHeight: 85,
-        marginTop: 24,
+        minHeight: 50,
+        marginTop: 13.5,
     },
     focusedPortrait: {
         minWidth: 100,
