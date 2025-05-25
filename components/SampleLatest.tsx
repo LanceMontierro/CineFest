@@ -71,7 +71,7 @@ const MovieCard = ({
                     <Image
                         source={{ uri: item.poster }}
                         style={{
-                            width: isLandscape ? cardWidth * 1.1 : cardWidth * 1.5,
+                            width: isLandscape ? cardWidth * 1.4 : cardWidth * 1.5,
                             height: cardWidth * 2,
                             borderRadius: 14,
                             borderWidth: 2,
@@ -96,7 +96,10 @@ const MovieCard = ({
 export default function TrendingMovies({ data }: TrendingMoviesProps) {
     const { height } = useWindowDimensions();
     const isLandscape = width > height;
-    const cardWidth =  isLandscape ? width * 0.5 :width * 0.45;
+    const cardWidth =  isLandscape ? width * 0.9 : width * 0.45;
+    const cardHeight =  isLandscape ? height * 0.7 : cardWidth * 1.4;
+
+    const carouselWidth = isLandscape ? width * 1.8 : width * 1.18;
 
     return (
         <View>
@@ -107,15 +110,15 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
                 ) : (
                     <Carousel
                         loop
-                        width={width * 1.15}
-                        height={cardWidth * 2.1}
+                        width={carouselWidth}
+                        height={cardHeight * 1.54}
                         autoPlay={false}
                         data={data}
                         scrollAnimationDuration={800}
                         mode="parallax"
                         modeConfig={{
-                            parallaxScrollingScale: 0.9,
-                            parallaxScrollingOffset: cardWidth * 1.2,
+                            parallaxScrollingScale: isLandscape ?  0.5 : 0.9,
+                            parallaxScrollingOffset: isLandscape ? cardWidth * 1.2 : cardWidth * 1.2,
                         }}
                         renderItem={({ item, index }) => (
                             <MovieCard item={item} cardWidth={cardWidth} index={index} />

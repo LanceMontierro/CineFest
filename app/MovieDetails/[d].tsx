@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     bookmarkLandscape: { left: 20, right: 'auto', width: 64, height: 64 },
-    bookmarkButton: { width: 30, height: 30 },
+    bookmarkButton: {marginRight:8, width: 30, height: 30 },
     bookmarkIcon: { width: 40, height: 40 },
     gradient: { position: 'absolute', bottom: 0 },
     title: { color: '#FAFAFA', textAlign: 'center', fontSize: 24, fontWeight: 'bold', paddingHorizontal: 20 },
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     },
     backButtonLandscape: {
         marginHorizontal: 150,
-        marginBottom: 20,
+        marginBottom: 45,
     },
     backIcon: { width: 20, height: 20, marginRight: 8, transform: [{ rotate: "180deg" }] },
     backText: { color: '#fff', fontWeight: '600', fontSize: 16 },
