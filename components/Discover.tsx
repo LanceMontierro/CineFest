@@ -12,6 +12,7 @@ import {
 import { useRouter } from "expo-router";
 import { useAppContext } from "@/app/context/appContext";
 import GenreF from "@/components/GenreF";
+import YearF from "@/components/YearF";
 
 type Movie = {
     title: string;
@@ -108,8 +109,8 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
 
     return (
         <View style={styles.wrapper}>
-            <Text style={styles.sectionTitle}>Discover by genre</Text>
-            <GenreF />
+            <Text style={styles.sectionTitle}>Dive into the Years</Text>
+            <YearF />
             <View style={styles.carouselWrapper}>
                 {moviesToShow.length === 0 ? (
                     <Text style={styles.emptyText}>No movies found</Text>
