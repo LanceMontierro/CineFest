@@ -63,12 +63,13 @@ const Index = () => {
     const styles = StyleSheet.create({
         landscapeImage: {
             width: 48,
-            height: 40,
+            marginTop: 28,
+            height: 42,
             marginHorizontal: 'auto',
         },
         portraitImage: {
             width: 48,
-            height: 40,
+            height: 42,
             marginTop: 64,
             marginBottom: 20,
             marginHorizontal: 'auto',

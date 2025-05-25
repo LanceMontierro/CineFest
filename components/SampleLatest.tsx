@@ -94,9 +94,9 @@ const MovieCard = ({
 };
 
 export default function TrendingMovies({ data }: TrendingMoviesProps) {
-    const cardWidth = width * 0.45;
     const { height } = useWindowDimensions();
     const isLandscape = width > height;
+    const cardWidth =  isLandscape ? width * 0.5 :width * 0.45;
 
     return (
         <View>

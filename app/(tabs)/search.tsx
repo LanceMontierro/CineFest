@@ -126,8 +126,7 @@ const Search = () => {
 
         <ScrollView
             style={styles.scrollView}
-            horizontal
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={{
               minHeight: Math.max(
                   height,
@@ -185,13 +184,7 @@ const Search = () => {
                           <View style={styles.movieCard}>
                             <Image
                                 source={{ uri: movie.poster || images.blank }}
-                                style={{
-                                  width: width * 0.43,
-                                  height: height * 0.3,
-                                  borderRadius: 10,
-                                  borderWidth: 2,
-                                  borderColor: "#000000",
-                                }}
+                                style={styles.movieImage}
                             />
                             <Text style={styles.movieDetails}>
                               {movie.title && movie.title.length > 30
@@ -230,7 +223,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 48,
-    height: 40,
+    height: 42,
   },
 
   starIcon: { width: 16, height: 16, marginLeft: 4 },
@@ -269,7 +262,7 @@ const styles = StyleSheet.create({
   noResultsText: {
     color: "#ffffff",
     fontSize: 18,
-    marginLeft:105,
+  textAlign: "center",
     marginTop: 10,
   },
   moviesContainerLandscape: {
@@ -284,11 +277,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   movieCard: {
+    width: Dimensions.get("window").width / 2 - 30,
     alignItems: "center",
     marginBottom: 16,
-    marginRight: 10,
   },
   movieImage: {
+    width: "100%",
+    aspectRatio: 2 / 3, // consistent height ratio
     borderRadius: 10,
     borderWidth: 2,
     borderColor: "#000000",
