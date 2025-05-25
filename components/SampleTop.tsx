@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import { useAppContext } from "@/app/context/appContext";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { images } from "@/constansts/images";
+import {icons} from "@/constansts/icons";
 
 type Movie = {
     title: string;
@@ -170,13 +171,13 @@ const styles = StyleSheet.create({
     },
     movieTitle: {
         color: '#ffffff',
-        fontSize: 14,
+        fontSize: 12,
         textAlign: 'center',
         marginTop: 4,
     },
     movieRating: {
         color: '#ffffff',
-        fontSize: 12,
+        fontSize: 10,
         textAlign: 'center',
     },
 });

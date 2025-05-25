@@ -16,6 +16,7 @@ import SampleRecent from "@/components/SampleRecent";
 import React, { useState } from "react";
 import SampleTop from "@/components/SampleTop";
 import SampleLatest from "@/components/SampleLatest";
+import Discover from "@/components/Discover";
 import {images, } from "@/constansts/images";
 import SearchBar2 from "@/components/SearchBar2";
 import {icons} from "@/constansts/icons";
@@ -36,7 +37,6 @@ const IMAGES = [
 const Index = () => {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
-
   const router = useRouter();
 
   const { user, movies, latestMovies, topRatedMovies, recentOpenMovies } =
@@ -81,7 +81,7 @@ const Index = () => {
         style={{ backgroundColor: "#282828", flex: 1 }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-            paddingBottom: 40,
+            paddingBottom: 150,
             minHeight: isLandscape ? height + 550 : height + 670,
         }}
     >
@@ -107,6 +107,7 @@ const Index = () => {
 
           <SampleLatest data={latestMovies} />
           <SampleTop data={topRatedMovies} />
+          <Discover data={movies} />
           <SampleRecent data={recentOpenMovies} />
 
       </View>
