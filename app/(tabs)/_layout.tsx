@@ -6,6 +6,7 @@ import {
     View,
     useWindowDimensions,
     StyleSheet,
+    Platform,
 } from "react-native";
 import { icons } from "@/constansts/icons";
 import { BlurView } from "expo-blur";
@@ -14,22 +15,18 @@ function TabIcon({ focused, icon, title }: any) {
     const { width, height } = useWindowDimensions();
     const isLandscape = width > height;
 
-    if (focused) {
-        return (
-            <ImageBackground
-                style={[
-                    styles.focusedTab,
-                    isLandscape ? styles.focusedLandscape : styles.focusedPortrait,
-                ]}
-            >
-                <Image source={icon} style={styles.icon} />
-                <Text style={styles.focusedText}>{title}</Text>
-            </ImageBackground>
-        );
-    }
-
-    return (
-        <View style={[styles.unfocusedTab, isLandscape ? styles.unfocusedTabL : styles.unfocusedTabP]} >
+    return focused ? (
+        <ImageBackground
+            style={[
+                styles.focusedTab,
+                isLandscape ? styles.focusedLandscape : styles.focusedPortrait,
+            ]}
+        >
+            <Image source={icon} style={styles.icon} />
+            <Text style={styles.focusedText}>{title}</Text>
+        </ImageBackground>
+    ) : (
+        <View style={ isLandscape? styles.unfocusedTabLandscape :styles.unfocusedTab}>
             <Image source={icon} style={styles.icon} />
         </View>
     );
@@ -44,21 +41,17 @@ export default function TabsLayout() {
             screenOptions={{
                 tabBarShowLabel: false,
                 tabBarItemStyle: {
-                    width: isLandscape ? "50%" : "100%",
-                    height: isLandscape ? "80%" : "100%",
+                    flex: 1,
                     justifyContent: "center",
                     alignItems: "center",
                 },
                 tabBarStyle: {
+                    position: "absolute",
                     backgroundColor: "transparent",
                     borderRadius: 20,
-                    marginHorizontal: 20,
-                    bottom: isLandscape ? 25 : 10,
-                    marginLeft: isLandscape ? 150 : 20,
-                    marginRight: isLandscape ? 150 : 20,
-                    marginBottom: isLandscape ? 10 : 60,
+                    marginHorizontal: isLandscape ? width * 0.15 : 20,
+                    marginBottom: isLandscape ? 30 : 60,
                     height: isLandscape ? 60 : 52,
-                    position: "absolute",
                     borderWidth: 1,
                     borderColor: "#8a8a8a",
                     overflow: "hidden",
@@ -71,7 +64,7 @@ export default function TabsLayout() {
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: "index",
+                    title: "Home",
                     headerShown: false,
                     tabBarIcon: ({ focused }) => (
                         <TabIcon focused={focused} icon={icons.home} title="Home" />
@@ -113,33 +106,32 @@ export default function TabsLayout() {
 }
 
 const styles = StyleSheet.create({
-
     focusedTab: {
         backgroundColor: "#535353",
-        flexDirection: "row",
-        flex: 1,
-        justifyContent: "center",
+        borderRadius: 15,
+        padding: 10,
         alignItems: "center",
-        borderRadius: 20,
-        overflow: "hidden",
-    },unfocusedTabL:{
-        marginTop: 13,
+        justifyContent: "center",
+        marginTop:16,
+        width: 20,
+        height: 40,
     },
-    unfocusedTabP:{
+
+    unfocusedTabLandscape: {
+        marginTop: 20,
     },
+
     focusedLandscape: {
-        minWidth: 135,
-        minHeight: 50,
-        marginTop: 13.5,
+        minWidth: 120,
+        marginTop: 20,
     },
     focusedPortrait: {
-        minWidth: 100,
-        minHeight: 55,
-        marginTop: 16,
+        minWidth: 67,
     },
     icon: {
-        width: 24,
-        height: 24,
+        width: 20,
+        height: 20,
+        resizeMode: "contain",
     },
     focusedText: {
         color: "#D9D9D9",
@@ -150,7 +142,7 @@ const styles = StyleSheet.create({
     unfocusedTab: {
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 17,
+        marginTop: 10,
         width: "100%",
         height: "100%",
     },
