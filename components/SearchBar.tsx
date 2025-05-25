@@ -56,16 +56,6 @@ const SearchBar = ({
                     />
                 </TouchableOpacity>
             )}
-
-            {onFilter2Press && (
-                <TouchableOpacity onPress={onFilter2Press}>
-                    <Image
-                        source={icons.Filter}
-                        style={styles.filterIcon}
-                        resizeMode="contain"
-                    />
-                </TouchableOpacity>
-            )}
         </View>
     );
 };

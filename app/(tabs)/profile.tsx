@@ -413,7 +413,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  // Drawer styles
   drawer: {
     position: 'absolute',
     left: 0,

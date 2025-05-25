@@ -78,7 +78,6 @@ const Search = () => {
   };
 
   const [showFilters, setShowFilters] = useState(false);
-  const [showFilters2, setShowFilters2] = useState(false);
 
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
@@ -104,18 +103,13 @@ const Search = () => {
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               onFilterPress={() => setShowFilters(!showFilters)}
-              onFilter2Press={() => setShowFilters2(!showFilters2)}
           />
-          {(showFilters || showFilters2 || moviesToShow !== movies) && (
+          {(showFilters || moviesToShow !== movies) && (
               <View style={styles.filtersContainer}>
                 {showFilters && (
                     <>
                       <GenreF />
                       <Awards />
-                    </>
-                )}
-                {showFilters2 && (
-                    <>
                       <YearF />
                       <RatingsF />
                     </>
