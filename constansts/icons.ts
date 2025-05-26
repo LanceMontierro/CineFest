@@ -21,12 +21,14 @@ import Bookmark2 from "@/assets/icons/Bookmark2.png";
 import Left from "@/assets/icons/Left.png";
 import down from "@/assets/icons/down.png";
 import logo2 from "@/assets/icons/logo2.png";
+import lgo3 from "@/assets/icons/lgo3.png";
 
 
 export const icons = {
   home,
   Filter,
   down,
+  lgo3,
   logo2,
   Left,
   Bookmark1,

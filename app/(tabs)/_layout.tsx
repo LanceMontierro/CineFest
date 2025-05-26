@@ -44,6 +44,7 @@ export default function TabsLayout() {
                     flex: 1,
                     justifyContent: "center",
                     alignItems: "center",
+                    marginTop: isLandscape ? 10 : 0,
                 },
                 tabBarStyle: {
                     position: "absolute",
@@ -118,12 +119,12 @@ const styles = StyleSheet.create({
     },
 
     unfocusedTabLandscape: {
-        marginTop: 20,
+        marginTop: 4,
     },
 
     focusedLandscape: {
         minWidth: 120,
-        marginTop: 20,
+        marginTop: 7,
     },
     focusedPortrait: {
         minWidth: 67,

@@ -21,9 +21,9 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/images/logo2.png",
+        foregroundImage: "./assets/images/lgo3.png",
         imageWidth: 90,
-        width: 90,
+        width: 80,
         backgroundColor: "#000000",
       },
       package: "com.waitlangparr.CineFest",

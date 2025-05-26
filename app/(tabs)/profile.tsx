@@ -139,7 +139,7 @@ const Profile = () => {
 
         <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ minHeight: isLandscape ? height * 2.1 : 0 }}
+            contentContainerStyle={{ minHeight: isLandscape ? height * 2.2 : 0 }}
         >
           <View style={styles.centered}>
             <View style={[styles.profileBox, { borderWidth: 2, borderColor: '#000000' }]}>
@@ -157,7 +157,7 @@ const Profile = () => {
               <ScrollView
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{
-                    minHeight: isLandscape ? height * 2.6 : '124%',
+                    minHeight: isLandscape ? height * 2.6 : 0,
                   }}
               >
 
