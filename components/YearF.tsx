@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { router, useLocalSearchParams } from "expo-router";
 import {
   Text,
   ScrollView,
@@ -11,27 +9,14 @@ import { useAppContext } from "@/app/context/appContext";
 import { awards, year } from "@/constansts/filter";
 
 const Filters = () => {
-  const params = useLocalSearchParams<{ filter?: string }>();
-  const initialFilter = params.filter || "";
-  const [selectedCategories, setSelectedCategories] =
-    useState<string>(initialFilter);
-  const { activeFilter, setActiveFilter, toggleAwards } = useAppContext();
-
-  useEffect(() => {
-    router.setParams({
-      filter: selectedCategories,
-    });
-
-    setActiveFilter((prev: any) => ({
-      ...prev,
-      year: selectedCategories,
-    }));
-  }, [selectedCategories]);
+  const { activeFilter, setActiveFilter } = useAppContext();
 
   const handleCategoryPress = (category: string) => {
-    setSelectedCategories((prev) => (prev === category ? "" : category));
+    setActiveFilter((prev: any) => ({
+      ...prev,
+      year: prev.year === category ? null : category,
+    }));
   };
-
   return (
     <ScrollView
       horizontal
@@ -39,7 +24,7 @@ const Filters = () => {
       contentContainerStyle={styles.scrollContainer}
     >
       {year.map((item, index) => {
-        const isSelected = selectedCategories === item.category;
+        const isSelected = activeFilter.year === item.category;
         return (
           <TouchableOpacity
             onPress={() => handleCategoryPress(item.category)}

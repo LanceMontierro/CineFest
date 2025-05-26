@@ -62,36 +62,6 @@ const ContextApi = ({ children }) => {
     });
   }
 
-  const toggleGenre = (selected) => {
-    if (activeFilter.genre.includes(selected)) {
-      setActiveFilter({
-        ...activeFilter,
-        genre: activeFilter.genre.filter((g) => g !== selected),
-      });
-    } else {
-      setActiveFilter({
-        ...activeFilter,
-        genre: [...activeFilter.genre, selected],
-      });
-    }
-  };
-
-  const toggleAwards = (selected) => {
-    if (activeFilter.awards.includes(selected)) {
-      setActiveFilter({
-        ...activeFilter,
-        awards: activeFilter.awards.filter((a) => a !== selected),
-      });
-    } else {
-      setActiveFilter({
-        ...activeFilter,
-        awards: [...activeFilter.awards, selected],
-      });
-    }
-  };
-
-  console.log();
-
   const latestMovies = movies
     .filter((movie) => !!movie.releaseDate)
     .sort(
@@ -414,8 +384,7 @@ const ContextApi = ({ children }) => {
         setUserAcc,
         isSignedIn,
         user,
-        toggleGenre,
-        toggleAwards,
+
         handleSignOut,
         saveUser,
         createMovie,
