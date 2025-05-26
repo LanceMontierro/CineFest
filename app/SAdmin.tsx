@@ -27,7 +27,13 @@ const SAdmin = () => {
     handleSignOut: () => void;
   };
 
-  const { createMovie, deleteMovie, latestMovies } = useAppContext();
+  const {
+    createMovie,
+    deleteMovie,
+    latestMovies,
+    fetchMovieDetails,
+    setMovies,
+  } = useAppContext();
 
   type Movie = {
     _id: string;
@@ -63,6 +69,8 @@ const SAdmin = () => {
       link,
       cast,
     });
+    const updatedMovies = await fetchMovieDetails();
+    setMovies(updatedMovies);
     setTitle("");
     setGenre("");
     setDescription("");

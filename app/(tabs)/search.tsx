@@ -20,7 +20,7 @@ import YearF from "@/components/YearF";
 import RatingsF from "@/components/RatingsF";
 
 const Search = () => {
-  const { movies, applyFilters, activeFilter  } = useAppContext();
+  const { movies, applyFilters, activeFilter } = useAppContext();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredMovies, setFilteredMovies] = useState<any[]>([]);
 
@@ -31,7 +31,7 @@ const Search = () => {
       setFilteredMovies(movies.slice(0, 0));
     } else {
       const filtered = movies.filter((movie: any) =>
-          movie.title?.toLowerCase().includes(searchQuery.toLowerCase())
+        movie.title?.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredMovies(filtered);
     }
@@ -55,8 +55,8 @@ const Search = () => {
   };
 
   const moviesToShow = isAnyFilterActive(activeFilter)
-      ? applyFilters(movies)
-      : movies;
+    ? applyFilters(movies)
+    : movies;
 
   const handlePress = (movie: any) => {
     router.push({
@@ -83,123 +83,132 @@ const Search = () => {
   const isLandscape = width > height;
 
   return (
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <Image
+        source={images.upperhome}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      />
+
+      <View style={styles.logoContainer}>
         <Image
-            source={images.upperhome}
-            style={styles.backgroundImage}
-            resizeMode="cover"
+          source={icons.splashicon}
+          style={[
+            styles.logo,
+            isLandscape ? styles.logoLandscape : styles.logoPortrait,
+          ]}
         />
+      </View>
 
-        <View style={styles.logoContainer}>
-          <Image
-              source={icons.splashicon}
-              style={[styles.logo, isLandscape ? styles.logoLandscape : styles.logoPortrait]}
-          />
-        </View>
-
-        <View style={isLandscape ? styles.searchBarLandscape : styles.searchBarPortrait}>
-          <SearchBar
-              placeholder="Search MMFF movies"
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              onFilterPress={() => setShowFilters(!showFilters)}
-          />
-          {(showFilters || moviesToShow !== movies) && (
-              <View style={styles.filtersContainer}>
-                {showFilters && (
-                    <>
-                      <GenreF />
-                      <Awards />
-                      <YearF />
-                      <RatingsF />
-                    </>
-                )}
-              </View>
-          )}
-        </View>
-
-        <ScrollView
-            style={styles.scrollView}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{
-              minHeight: Math.max(
-                  height,
-                  isLandscape
-                      ? moviesToShow.length
-                      : moviesToShow.length * 155
-              ),
-              paddingBottom: isLandscape ? 120 :15,
-            }}
-        >
-          <View
-              style={
-                isLandscape
-                    ? styles.moviesContainerLandscape
-                    : styles.moviesContainer
-              }
-          >
-            {isAnyFilterActive(activeFilter) ? (
-                moviesToShow.length > 0 ? (
-                    moviesToShow.map((movie: any, index: any) => (
-                        <TouchableWithoutFeedback
-                            key={index}
-                            onPress={() => handlePress(movie)}
-                        >
-                          <View style={isLandscape
-                              ? styles.movieCardLandscape
-                              : styles.movieCard}>
-                            <Image
-                                source={{ uri: movie.poster || images.blank }}
-                                style={{
-                                  width: width * 0.43,
-                                  height: height * 0.3,
-                                  borderRadius: 10,
-                                  borderWidth: 2,
-                                  borderColor: "#000000",
-                                }}
-                            />
-                            <Text style={styles.movieDetails}>
-                              {movie.title && movie.title.length > 10
-                                  ? movie.title.slice(0, 10) + "..."
-                                  : movie.title || "No Title"}{" "}
-                              | {new Date(movie.releaseDate).getFullYear()}
-                            </Text>
-                          </View>
-                        </TouchableWithoutFeedback>
-                    ))
-                ) : (
-                    <Text style={styles.noResultsText}>No filtered movies found.</Text>
-                )
-            ) : searchQuery.trim().length > 0 ? (
-                filteredMovies.length > 0 ? (
-                    filteredMovies.map((movie: any, index: any) => (
-                        <TouchableWithoutFeedback
-                            key={index}
-                            onPress={() => handlePress(movie)}
-                        >
-                          <View style={styles.movieCard}>
-                            <Image
-                                source={{ uri: movie.poster || images.blank }}
-                                style={styles.movieImage}
-                            />
-                            <Text style={styles.movieDetails}>
-                              {movie.title && movie.title.length > 30
-                                  ? movie.title.slice(0, 20) + "..."
-                                  : movie.title || "No Title"}{" "}
-                              | {new Date(movie.releaseDate).getFullYear()}
-                            </Text>
-                          </View>
-                        </TouchableWithoutFeedback>
-                    ))
-                ) : (
-                    <Text style={styles.noResultsText}>No movies found.</Text>
-                )
-            ) : (
-                <Text></Text>
+      <View
+        style={
+          isLandscape ? styles.searchBarLandscape : styles.searchBarPortrait
+        }
+      >
+        <SearchBar
+          placeholder="Search MMFF movies"
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          onFilterPress={() => setShowFilters(!showFilters)}
+        />
+        {(showFilters || moviesToShow !== movies) && (
+          <View style={styles.filtersContainer}>
+            {showFilters && (
+              <>
+                <GenreF />
+                <Awards />
+                <YearF />
+                <RatingsF />
+              </>
             )}
           </View>
-        </ScrollView>
+        )}
       </View>
+
+      <ScrollView
+        style={styles.scrollView}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          minHeight: Math.max(
+            height,
+            isLandscape ? moviesToShow.length : moviesToShow.length * 155
+          ),
+          paddingBottom: isLandscape ? 120 : 15,
+        }}
+      >
+        <View
+          style={
+            isLandscape
+              ? styles.moviesContainerLandscape
+              : styles.moviesContainer
+          }
+        >
+          {isAnyFilterActive(activeFilter) ? (
+            moviesToShow.length > 0 ? (
+              moviesToShow.map((movie: any, index: any) => (
+                <TouchableWithoutFeedback
+                  key={index}
+                  onPress={() => handlePress(movie)}
+                >
+                  <View
+                    style={
+                      isLandscape ? styles.movieCardLandscape : styles.movieCard
+                    }
+                  >
+                    <Image
+                      source={{ uri: movie.poster || images.blank }}
+                      style={{
+                        width: width * 0.43,
+                        height: height * 0.3,
+                        borderRadius: 10,
+                        borderWidth: 2,
+                        borderColor: "#000000",
+                      }}
+                    />
+                    <Text style={styles.movieDetails}>
+                      {movie.title && movie.title.length > 10
+                        ? movie.title.slice(0, 10) + "..."
+                        : movie.title || "No Title"}{" "}
+                      | {new Date(movie.releaseDate).getFullYear()}
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              ))
+            ) : (
+              <Text style={styles.noResultsText}>
+                No filtered movies found.
+              </Text>
+            )
+          ) : searchQuery.trim().length > 0 ? (
+            filteredMovies.length > 0 ? (
+              filteredMovies.map((movie: any, index: any) => (
+                <TouchableWithoutFeedback
+                  key={index}
+                  onPress={() => handlePress(movie)}
+                >
+                  <View style={styles.movieCard}>
+                    <Image
+                      source={{ uri: movie.poster || images.blank }}
+                      style={styles.movieImage}
+                    />
+                    <Text style={styles.movieDetails}>
+                      {movie.title && movie.title.length > 30
+                        ? movie.title.slice(0, 20) + "..."
+                        : movie.title || "No Title"}{" "}
+                      | {new Date(movie.releaseDate).getFullYear()}
+                    </Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              ))
+            ) : (
+              <Text style={styles.noResultsText}>No movies found.</Text>
+            )
+          ) : (
+            <Text></Text>
+          )}
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -247,7 +256,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     marginTop: 16,
-
   },
   resultText: {
     color: "#ffffff",
@@ -258,7 +266,7 @@ const styles = StyleSheet.create({
   noResultsText: {
     color: "#ffffff",
     fontSize: 18,
-  textAlign: "center",
+    textAlign: "center",
     marginTop: 10,
   },
   moviesContainerLandscape: {
@@ -268,10 +276,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     alignItems: "center",
   },
-  movieCardLandscape:{
+  movieCardLandscape: {
     justifyContent: "center",
     alignItems: "center",
-    marginRight:10,
+    marginRight: 10,
   },
   moviesContainer: {
     flexDirection: "row",
@@ -304,6 +312,5 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 });
-
 
 export default Search;

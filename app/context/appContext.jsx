@@ -125,6 +125,7 @@ const ContextApi = ({ children }) => {
       return Array.isArray(data)
         ? data.map(
             ({
+              _id,
               title,
               poster,
               description,
@@ -135,6 +136,7 @@ const ContextApi = ({ children }) => {
               genre,
               rating,
             }) => ({
+              _id,
               title,
               poster,
               cast,

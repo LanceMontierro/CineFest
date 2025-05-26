@@ -44,7 +44,7 @@ export const createMovie = async (req, res) => {
       cast,
     });
     await newMovie.save();
-    return res.status(200).json({ message: "Movie created successfully" });
+    return res.status(200).json(newMovie);
   } catch (error) {
     console.error("Error creating movie:", error);
     return res.status(500).json({ message: "Internal server error" });
