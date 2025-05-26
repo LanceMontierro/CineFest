@@ -78,6 +78,7 @@ const Search = () => {
   };
 
   const [showFilters, setShowFilters] = useState(false);
+  const [showFilters2, setShowFilters2] = useState(false);
 
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
@@ -110,16 +111,21 @@ const Search = () => {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           onFilterPress={() => setShowFilters(!showFilters)}
+          onFilter2Press={() => setShowFilters2(!showFilters2)}
         />
         {(showFilters || moviesToShow !== movies) && (
           <View style={styles.filtersContainer}>
             {showFilters && (
-              <>
-                <GenreF />
-                <Awards />
-                <YearF />
-                <RatingsF />
-              </>
+                <>
+                  <GenreF />
+                  <Awards />
+                </>
+            )}
+            {showFilters2 && (
+                <>
+                  <YearF />
+                  <RatingsF />
+                </>
             )}
           </View>
         )}
@@ -133,7 +139,7 @@ const Search = () => {
             height,
             isLandscape ? moviesToShow.length : moviesToShow.length * 155
           ),
-          paddingBottom: isLandscape ? 120 : 15,
+          paddingBottom: isLandscape ? 120 : 120,
         }}
       >
         <View
@@ -192,8 +198,8 @@ const Search = () => {
                       style={styles.movieImage}
                     />
                     <Text style={styles.movieDetails}>
-                      {movie.title && movie.title.length > 30
-                        ? movie.title.slice(0, 20) + "..."
+                      {movie.title && movie.title.length > 20
+                        ? movie.title.slice(0, 10) + "..."
                         : movie.title || "No Title"}{" "}
                       | {new Date(movie.releaseDate).getFullYear()}
                     </Text>
