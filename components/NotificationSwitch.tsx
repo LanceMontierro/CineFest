@@ -19,7 +19,7 @@ const NotificationSwitch = () => {
         }
     };
 
-    const requestPermissionAndRegister = async () => {
+    const registerForPushNotifications = async () => {
         if (!Device.isDevice) {
             Alert.alert('Notifications', 'Push notifications only work on physical devices.');
             return;
@@ -34,8 +34,7 @@ const NotificationSwitch = () => {
         }
 
         if (finalStatus !== 'granted') {
-            Alert.alert('Permission Denied', 'You must enable notifications in settings to receive them.');
-            setIsEnabled(false);
+            Alert.alert('Permission Denied', 'Notifications are disabled.');
             return;
         }
 
@@ -44,33 +43,41 @@ const NotificationSwitch = () => {
             const token = tokenData.data;
             setExpoPushToken(token);
             console.log('Expo Push Token:', token);
+
+            if (Platform.OS === 'android') {
+                await Notifications.setNotificationChannelAsync('default', {
+                    name: 'default',
+                    importance: Notifications.AndroidImportance.MAX,
+                    vibrationPattern: [0, 250, 250, 250],
+                    lightColor: '#FF231F7C',
+                });
+            }
+
             setIsEnabled(true);
         } catch (error) {
             console.error('Failed to get push token:', error);
             Alert.alert('Error', 'Something went wrong while getting push token.');
         }
+    };
 
-        if (Platform.OS === 'android') {
-            Notifications.setNotificationChannelAsync('default', {
-                name: 'default',
-                importance: Notifications.AndroidImportance.MAX,
-                vibrationPattern: [0, 250, 250, 250],
-                lightColor: '#FF231F7C',
-            });
-        }
+    const disableNotifications = () => {
+        // Simulate disabling notifications
+        setIsEnabled(false);
+        setExpoPushToken(null); // Optionally remove from backend
+        Alert.alert('Notifications Disabled', 'You will no longer receive notifications.');
     };
 
     const handleToggle = async () => {
         if (!isEnabled) {
-            await requestPermissionAndRegister();
+            await registerForPushNotifications();
         } else {
-            setIsEnabled(false);
+            disableNotifications();
         }
     };
 
     return (
         <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
-            <Text style={{ fontSize: 16, marginRight: 10 }}></Text>
+            <Text style={{ fontSize: 16, marginRight: 10 }}>Notifications</Text>
             <Switch
                 value={isEnabled}
                 onValueChange={handleToggle}
