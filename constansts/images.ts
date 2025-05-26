@@ -24,6 +24,7 @@ import upload from "@/assets/images/upload.png";
 import blank from "@/assets/images/blank.png";
 import po1 from "@/assets/images/po1.png";
 import logo2 from "@/assets/images/logo2.png";
+import lgo3 from "@/assets/images/lgo3.png";
 
 
 export const images = {
@@ -33,6 +34,7 @@ export const images = {
   upload,
   logo2,
   poster1,
+  lgo3,
   poster10,
   dev,
   google,
