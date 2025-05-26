@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         color: "#D9D9D9",
         fontSize: 12,
         fontWeight: "600",
-        marginLeft: 8,
+        marginLeft: 3,
     },
     unfocusedTab: {
         justifyContent: "center",
