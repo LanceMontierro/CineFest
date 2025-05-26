@@ -137,10 +137,6 @@ const Profile = () => {
             resizeMode="cover"
         />
 
-        <ScrollView
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ minHeight: isLandscape ? height * 2.2 : 0 }}
-        >
           <View style={styles.centered}>
             <View style={[styles.profileBox, { borderWidth: 2, borderColor: '#000000' }]}>
               <Image source={images.Star1} style={styles.starIcon} />
@@ -153,12 +149,13 @@ const Profile = () => {
               )}
             </View>
 
-            <View style={[styles.accountBox, { borderWidth: 2, borderColor: '#000000' }]}>
+            <View  style={ [isLandscape? styles.accountBoxLandscape :styles.accountBox, { borderWidth: 2, borderColor: '#000000' }]}>
               <ScrollView
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{
-                    minHeight: isLandscape ? height * 2.6 : 0,
+                    minHeight: isLandscape ? height * 2.2 : 0,
                   }}
+
               >
 
                 <Text style={styles.sectionTitle}>Account</Text>
@@ -216,7 +213,6 @@ const Profile = () => {
               </ScrollView>
             </View>
           </View>
-        </ScrollView>
 
         <Modal visible={showDrawer} transparent animationType="none">
           <Pressable style={styles.flex1}>
@@ -553,8 +549,6 @@ const styles = StyleSheet.create({
   confirmButtonText: {
     color: '#D9DFF2',
   },
-
-  // Profile section boxes
   profileBox: {
     backgroundColor: '#2E2E2E',
     marginTop: 96,
@@ -577,6 +571,15 @@ const styles = StyleSheet.create({
     marginTop: 40,
     fontSize: 18,
     color: '#F87171',
+  },
+  accountBoxLandscape:{
+    backgroundColor: '#787878',
+    zIndex: 20,
+    width: 370,
+    height: 400,
+    marginTop: -130,
+    borderRadius: 25,
+    padding: 16,
   },
   accountBox: {
     backgroundColor: '#787878',
