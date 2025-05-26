@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Switch, Alert, Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
+import { useAppContext } from '@/app/context/appContext';
 
 const NotificationSwitch = () => {
     const [isEnabled, setIsEnabled] = useState(false);
-    const [expoPushToken, setExpoPushToken] = useState<string | null>(null);
+    const { setExpoPushToken } = useAppContext();
 
     useEffect(() => {
         checkNotificationStatus();
@@ -43,7 +44,6 @@ const NotificationSwitch = () => {
             const token = tokenData.data;
             setExpoPushToken(token);
             console.log('Expo Push Token:', token);
-
             setIsEnabled(true);
         } catch (error) {
             console.error('Failed to get push token:', error);

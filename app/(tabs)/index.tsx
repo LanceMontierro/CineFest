@@ -62,13 +62,13 @@ const Index = () => {
 
     const styles = StyleSheet.create({
         landscapeImage: {
-            width: 48,
+            width: 68,
             marginTop: 28,
             height: 42,
             marginHorizontal: 'auto',
         },
         portraitImage: {
-            width: 48,
+            width: 68,
             height: 42,
             marginTop: 64,
             marginBottom: 20,
@@ -101,7 +101,7 @@ const Index = () => {
 
             <View className="justify-center items-center">
                 <Image
-                    source={icons.splashicon}
+                    source={icons.logo2}
                     style={isLandscape ? styles.landscapeImage : styles.portraitImage}
                 />
             </View>

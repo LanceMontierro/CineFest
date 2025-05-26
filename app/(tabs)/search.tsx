@@ -92,7 +92,7 @@ const Search = () => {
 
       <View style={styles.logoContainer}>
         <Image
-          source={icons.splashicon}
+          source={icons.logo2}
           style={[
             styles.logo,
             isLandscape ? styles.logoLandscape : styles.logoPortrait,
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 48,
+    width: 68,
     height: 42,
   },
 

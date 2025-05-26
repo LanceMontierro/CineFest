@@ -30,8 +30,8 @@ export default function Animation() {
                 <LottieView
                     ref={animationRef}
                     loop={false}
-                    style={{ width: 200, height: 200 }}
-                    source={require('@/assets/ani/animation2.json')}
+                    style={{ width: 800, height: 900 }}
+                    source={require('@/assets/ani/meepmeep.json')}
                     onAnimationFinish={handleAnimationFinish}
                 />
             </Animated.View>

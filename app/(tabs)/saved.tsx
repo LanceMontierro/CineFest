@@ -89,7 +89,7 @@ const Saved = ({ item }: { item: Movie }) => {
 
             <View style={styles.centerAlign}>
                 <Image
-                    source={icons.splashicon}
+                    source={icons.logo2}
                     style={isLandscape ? styles.logoLandscape : styles.logoPortrait}
                 />
             </View>
@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: "#282828" },
     backgroundImage: { position: "absolute", width: "100%", zIndex: 0 },
     centerAlign: { justifyContent: "center", alignItems: "center" },
-    logoLandscape: { width: 48, height: 42, marginTop: 24, alignSelf: "center" },
-    logoPortrait: { width: 48, height: 42, marginTop: 64, marginBottom: 20, alignSelf: "center" },
+    logoLandscape: { width: 68, height: 42, marginTop: 24, alignSelf: "center" },
+    logoPortrait: { width: 68, height: 42, marginTop: 64, marginBottom: 20, alignSelf: "center" },
     headerContainer: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
     headerLandscape: { paddingHorizontal: 144, marginTop: 8 },
     headerPortrait: { paddingHorizontal: 20, marginTop: 20 },

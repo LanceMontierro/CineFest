@@ -21,10 +21,11 @@ const SAdmin = () => {
   const [showForm, setShowForm] = useState(false);
   const [poster, setPoster] = useState<string | null>(null);
 
-  const { user, movies, handleSignOut } = useAppContext() as {
+  const { user, movies, handleSignOut, expoPushToken } = useAppContext() as {
     user: any;
     movies: Movie[];
     handleSignOut: () => void;
+    expoPushToken: string | null;
   };
 
   const {
@@ -57,6 +58,26 @@ const SAdmin = () => {
   const [releaseDate, setReleaseDate] = useState("");
   const [rating, setRating] = useState("");
 
+  const sendPushNotification = async (token: string, title: string) => {
+    const message = {
+      to: token,
+      sound: 'default',
+      title: '🎬 New Movie Uploaded!',
+      body: `Check out "${title}" in MMFF Movies!`,
+      data: { screen: 'MovieDetails' },
+    };
+
+    await fetch('https://exp.host/--/api/v2/push/send', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Accept-encoding': 'gzip, deflate',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    });
+  };
+
   const handleSubmit = async () => {
     await createMovie({
       title,
@@ -81,6 +102,10 @@ const SAdmin = () => {
     setRating("");
     setPoster(null);
     setShowForm(false);
+
+    if (expoPushToken) {
+      await sendPushNotification(expoPushToken, title);
+    }
   };
 
   const [selectedToDelete, setSelectedToDelete] = useState<number | null>(null);
@@ -109,7 +134,7 @@ const SAdmin = () => {
 
   const pickImage = async () => {
     const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
       alert("Permission to access media library is required!");
       return;

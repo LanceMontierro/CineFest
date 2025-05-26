@@ -23,6 +23,7 @@ import dev from "@/assets/images/dev.png";
 import upload from "@/assets/images/upload.png";
 import blank from "@/assets/images/blank.png";
 import po1 from "@/assets/images/po1.png";
+import logo2 from "@/assets/images/logo2.png";
 
 
 export const images = {
@@ -30,6 +31,7 @@ export const images = {
   upperhome,
   po1,
   upload,
+  logo2,
   poster1,
   poster10,
   dev,
