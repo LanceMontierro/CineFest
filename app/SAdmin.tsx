@@ -193,7 +193,7 @@ const SAdmin = () => {
                   )}
                   <View style={styles.titleWrapper}>
                     <Text style={styles.titleText}>
-                      {item.title && item.title.length > 30
+                      {item.title && item.title.length > 20
                         ? item.title.slice(0, 10) + "..."
                         : item.title || "No Title"}{" "}
                       | {new Date(item.releaseDate).getFullYear()}
