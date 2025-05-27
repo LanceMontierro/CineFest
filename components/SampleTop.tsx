@@ -118,7 +118,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
             <Text style={styles.title}>Best of the Best</Text>
             <View style={styles.carouselContainer}>
                 {data.length === 0 ? (
-                    <Text style={styles.emptyText}>No Top Rating available.</Text>
+                    <Text style={styles.emptyText}>Movies loading please wait.</Text>
                 ) : (
                     <FlatList
                         data={data}

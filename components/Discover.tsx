@@ -115,7 +115,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
             <YearF />
             <View style={styles.carouselWrapper}>
                 {moviesToShow.length === 0 ? (
-                    <Text style={styles.emptyText}>No movies found</Text>
+                    <Text style={styles.emptyText}>Movies loading please wait.</Text>
                 ) : (
                     <FlatList
                         data={moviesToShow}

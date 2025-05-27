@@ -106,7 +106,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
             <Text style={styles.sectionTitle}>Fresh from the MMFF</Text>
             <View style={styles.carouselContainer}>
                 {data.length === 0 ? (
-                    <Text style={styles.emptyMessage}>No Latest MMFF available.</Text>
+                    <Text style={styles.emptyMessage}>Movies loading please wait.</Text>
                 ) : (
                     <Carousel
                         loop
