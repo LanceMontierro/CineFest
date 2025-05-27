@@ -14,6 +14,7 @@ import { useAppContext } from "@/app/context/appContext";
 
 type Movie = {
     title: string;
+    cast: string;
     description: string;
     poster: string;
     genre: string;
@@ -39,6 +40,7 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
             params: {
                 d: item.title,
                 title: item.title,
+                cast: item.cast,
                 description: item.description,
                 poster: item.poster,
                 genre: item.genre,

@@ -113,7 +113,7 @@ const Search = () => {
           onFilterPress={() => setShowFilters(!showFilters)}
           onFilter2Press={() => setShowFilters2(!showFilters2)}
         />
-        {(showFilters || moviesToShow !== movies) && (
+        {(showFilters ||showFilters2 || moviesToShow !== movies) && (
           <View style={styles.filtersContainer}>
             {showFilters && (
                 <>

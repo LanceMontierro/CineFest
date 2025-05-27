@@ -13,12 +13,12 @@ import { useRouter } from "expo-router";
 import { useAppContext } from "@/app/context/appContext";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { images } from "@/constansts/images";
-import {icons} from "@/constansts/icons";
 
 type Movie = {
     title: string;
     description: string;
     poster: string;
+    cast: string;
     genre: string;
     releaseDate: string;
     rating: string;
@@ -50,6 +50,7 @@ const MovieCard = ({
             params: {
                 d: item.title,
                 title: item.title,
+                cast: item.cast,
                 description: item.description,
                 poster: item.poster,
                 genre: item.genre,

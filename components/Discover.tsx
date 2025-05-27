@@ -16,6 +16,7 @@ import YearF from "@/components/YearF";
 
 type Movie = {
     title: string;
+    cast: string;
     description: string;
     poster: string;
     genre: string;
@@ -40,6 +41,7 @@ const MovieCard = ({ item, cardWidth }: { item: Movie; cardWidth: number }) => {
             pathname: "/MovieDetails/[d]",
             params: {
                 d: item.title,
+                cast: item.cast,
                 title: item.title,
                 description: item.description,
                 poster: item.poster,
