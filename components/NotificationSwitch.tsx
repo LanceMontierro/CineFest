@@ -1,12 +1,13 @@
+// NotificationSwitch.tsx
 import React, { useState, useEffect } from 'react';
 import { View, Text, Switch, Alert, Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
-import { useAppContext } from '@/app/context/appContext';
+
+export let expoPushToken: string | null = null;
 
 const NotificationSwitch = () => {
     const [isEnabled, setIsEnabled] = useState(false);
-    const { setExpoPushToken } = useAppContext();
 
     useEffect(() => {
         checkNotificationStatus();
@@ -41,9 +42,8 @@ const NotificationSwitch = () => {
 
         try {
             const tokenData = await Notifications.getExpoPushTokenAsync();
-            const token = tokenData.data;
-            setExpoPushToken(token);
-            console.log('Expo Push Token:', token);
+            expoPushToken = tokenData.data;
+            console.log('Expo Push Token:', expoPushToken);
             setIsEnabled(true);
         } catch (error) {
             console.error('Failed to get push token:', error);
@@ -70,7 +70,6 @@ const NotificationSwitch = () => {
 
     return (
         <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
-            <Text style={{ fontSize: 16, marginRight: 10 }}></Text>
             <Switch
                 value={isEnabled}
                 onValueChange={handleToggle}

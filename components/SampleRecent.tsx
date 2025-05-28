@@ -91,7 +91,7 @@ export default function TrendingMovies({ data }: TrendingMoviesProps) {
             <Text style={styles.sectionTitle}>Recently Viewed</Text>
             <View style={styles.carouselWrapper}>
                 {data.length === 0 ? (
-                    <Text style={styles.emptyText}>Movies loading please wait.</Text>
+                    <Text style={styles.emptyText}>No recently viewed</Text>
                 ) : (
                     <FlatList
                         data={data}

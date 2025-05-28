@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Dimensions,
-  StyleSheet,
+  StyleSheet, Alert, Button,
 } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -17,15 +17,48 @@ import { useAppContext } from "@/app/context/appContext";
 import { useRouter } from "expo-router";
 import SearchBar from "@/components/SearchBar";
 
+const sendNotification = async (token:any, movieTitle:any) => {
+  if (!token) {
+    Alert.alert('Error', 'No push token available. Please enable notifications first.');
+    return;
+  }
+
+  const message = {
+    to: token,
+    sound: 'default',
+    title: '🎬 New Movie Uploaded!',
+    body: `Check out "${movieTitle}" now!`,
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+};
+
 const SAdmin = () => {
   const [showForm, setShowForm] = useState(false);
   const [poster, setPoster] = useState<string | null>(null);
+
 
   const { user, movies, handleSignOut, expoPushToken } = useAppContext() as {
     user: any;
     movies: Movie[];
     handleSignOut: () => void;
     expoPushToken: string | null;
+  };
+
+  const handleUpload = async () => {
+
+    const newMovieTitle = 'Avengers: Secret Wars';
+
+    await sendNotification(expoPushToken, newMovieTitle);
+    Alert.alert('Notification sent!');
   };
 
   const {
@@ -153,6 +186,11 @@ const SAdmin = () => {
   };
 
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleBoth = async () => {
+    await Promise.all([handleSubmit(), handleUpload()]);
+  };
+
 
   return (
     <View style={styles.container}>
@@ -304,7 +342,7 @@ const SAdmin = () => {
             />
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={handleSubmit}
+              onPress={handleBoth}
             >
               <Text style={styles.submitButtonText}>Submit</Text>
             </TouchableOpacity>
