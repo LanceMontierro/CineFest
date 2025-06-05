@@ -22,6 +22,7 @@ const SAdmin = () => {
   const [poster, setPoster] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
+
   const { user, movies, handleSignOut, expoPushToken } = useAppContext() as {
     user: any;
     movies: Movie[];
@@ -127,7 +128,7 @@ const SAdmin = () => {
     }
   };
 
-  const filteredMovies = latestMovies.filter((movie: any) =>
+  const filteredMovies = [...movies, ...latestMovies].filter((movie: Movie) =>
       movie.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
