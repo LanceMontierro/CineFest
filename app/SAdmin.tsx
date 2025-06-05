@@ -128,9 +128,24 @@ const SAdmin = () => {
     }
   };
 
-  const filteredMovies = [...movies, ...latestMovies].filter((movie: Movie) =>
-      movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const uniqueMovies = [...movies, ...latestMovies].reduce((acc: Movie[], current: Movie) => {
+    const exists = acc.find(movie => movie._id === current._id);
+    if (!exists) {
+      acc.push(current);
+    }
+    return acc;
+  }, []);
+
+  const filteredMovies = uniqueMovies.filter((movie: Movie) => {
+    const movieYear = new Date(movie.releaseDate).getFullYear();
+    const movieMatchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase());
+
+    if (searchQuery) {
+      return movieMatchesSearch;
+    }
+
+    return movieYear === 2024 || movieYear === 2025;
+  });
 
   return (
       <View style={styles.container}>
