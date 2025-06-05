@@ -123,7 +123,7 @@ const Search = () => {
             )}
             {showFilters2 && (
                 <>
-                  <YearF />
+                  <YearF/>
                   <RatingsF />
                 </>
             )}

@@ -7,7 +7,7 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Dimensions,
-  StyleSheet, Alert, Button,
+  StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -17,48 +17,16 @@ import { useAppContext } from "@/app/context/appContext";
 import { useRouter } from "expo-router";
 import SearchBar from "@/components/SearchBar";
 
-const sendNotification = async (token:any, movieTitle:any) => {
-  if (!token) {
-    Alert.alert('Error', 'No push token available. Please enable notifications first.');
-    return;
-  }
-
-  const message = {
-    to: token,
-    sound: 'default',
-    title: '🎬 New Movie Uploaded!',
-    body: `Check out "${movieTitle}" now!`,
-  };
-
-  await fetch('https://exp.host/--/api/v2/push/send', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Accept-encoding': 'gzip, deflate',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(message),
-  });
-};
-
 const SAdmin = () => {
   const [showForm, setShowForm] = useState(false);
   const [poster, setPoster] = useState<string | null>(null);
-
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { user, movies, handleSignOut, expoPushToken } = useAppContext() as {
     user: any;
     movies: Movie[];
     handleSignOut: () => void;
     expoPushToken: string | null;
-  };
-
-  const handleUpload = async () => {
-
-    const newMovieTitle = 'Avengers: Secret Wars';
-
-    await sendNotification(expoPushToken, newMovieTitle);
-    Alert.alert('Notification sent!');
   };
 
   const {
@@ -91,26 +59,6 @@ const SAdmin = () => {
   const [releaseDate, setReleaseDate] = useState("");
   const [rating, setRating] = useState("");
 
-  const sendPushNotification = async (token: string, title: string) => {
-    const message = {
-      to: token,
-      sound: 'default',
-      title: '🎬 New Movie Uploaded!',
-      body: `Check out "${title}" in MMFF Movies!`,
-      data: { screen: 'MovieDetails' },
-    };
-
-    await fetch('https://exp.host/--/api/v2/push/send', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Accept-encoding': 'gzip, deflate',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(message),
-    });
-  };
-
   const handleSubmit = async () => {
     await createMovie({
       title,
@@ -135,10 +83,6 @@ const SAdmin = () => {
     setRating("");
     setPoster(null);
     setShowForm(false);
-
-    if (expoPushToken) {
-      await sendPushNotification(expoPushToken, title);
-    }
   };
 
   const [selectedToDelete, setSelectedToDelete] = useState<number | null>(null);
@@ -161,8 +105,6 @@ const SAdmin = () => {
         cast: movie.cast,
       },
     });
-
-    console.log(movie.title);
   };
 
   const pickImage = async () => {
@@ -185,171 +127,160 @@ const SAdmin = () => {
     }
   };
 
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleBoth = async () => {
-    await Promise.all([handleSubmit(), handleUpload()]);
-  };
-
+  const filteredMovies = latestMovies.filter((movie: any) =>
+      movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={images.dev}
-        style={styles.backgroundImage}
-        resizeMode="cover"
-      />
+      <View style={styles.container}>
+        <Image source={images.dev} style={styles.backgroundImage} resizeMode="cover" />
 
-      <View style={styles.logoutContainer}>
-        <TouchableOpacity onPress={handleSignOut}>
-          <View style={styles.logoutTextContainer}>
-            <Text style={styles.logoutText}>Log Out</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.searchBarContainer}>
-        <SearchBar
-          placeholder="Search MMFF movies"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-      </View>
-
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>MMFF Movies</Text>
-        <TouchableOpacity onPress={() => setShowForm(!showForm)}>
-          <View style={styles.uploadButton}>
-            <Image source={icons.Sync} style={styles.uploadIcon} />
-            <Text style={styles.uploadText}>Upload Movie</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView
-        style={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ minHeight: height * 1.95, paddingBottom: 15 }}
-      >
-        <Text style={styles.addedText}>Added({latestMovies.length})</Text>
-        <View style={styles.moviesContainer}>
-          {latestMovies.map((item: Movie, index: number) => {
-            const isSelected = selectedToDelete === index;
-
-            return (
-              <TouchableWithoutFeedback
-                key={item._id}
-                onPress={() => handlePress(item)}
-                onLongPress={() => setSelectedToDelete(index)}
-              >
-                <View style={styles.movieItem}>
-                  <Image
-                    source={item.poster ? { uri: item.poster } : images.blank}
-                    style={{
-                      width: width * 0.44,
-                      height: height * 0.3,
-                      borderRadius: 10,
-                    }}
-                  />
-                  {isSelected && (
-                    <TouchableOpacity
-                      style={styles.deleteButton}
-                      onPress={() => {
-                        deleteMovie(item._id);
-                        setSelectedToDelete(null);
-                      }}
-                    >
-                      <Text style={styles.deleteButtonText}>X</Text>
-                    </TouchableOpacity>
-                  )}
-                  <View style={styles.titleWrapper}>
-                    <Text style={styles.titleText}>
-                      {item.title && item.title.length > 20
-                        ? item.title.slice(0, 10) + "..."
-                        : item.title || "No Title"}{" "}
-                      | {new Date(item.releaseDate).getFullYear()}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableWithoutFeedback>
-            );
-          })}
+        <View style={styles.logoutContainer}>
+          <TouchableOpacity onPress={handleSignOut}>
+            <View style={styles.logoutTextContainer}>
+              <Text style={styles.logoutText}>Log Out</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
 
-      {showForm && (
+        <View style={styles.searchBarContainer}>
+          <SearchBar
+              placeholder="Search MMFF movies"
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+          />
+        </View>
+
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>MMFF Movies</Text>
+          <TouchableOpacity onPress={() => setShowForm(!showForm)}>
+            <View style={styles.uploadButton}>
+              <Image source={icons.Sync} style={styles.uploadIcon} />
+              <Text style={styles.uploadText}>Upload Movie</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
         <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ minHeight: "100%", paddingBottom: 15 }}
+            style={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ minHeight: height * 1.95, paddingBottom: 15 }}
         >
-          <View style={styles.formContainer}>
-            <TouchableOpacity onPress={pickImage} style={styles.pickButton}>
-              <Text style={styles.pickButtonText}>
-                {poster ? "Change Poster" : "Upload Poster"}
-              </Text>
-            </TouchableOpacity>
+          <View style={styles.moviesContainer}>
+            {filteredMovies.map((item: Movie, index: number) => {
+              const isSelected = selectedToDelete === index;
 
-            {poster && (
-              <Image
-                source={{ uri: poster }}
-                style={styles.posterImage}
-                resizeMode="cover"
-              />
-            )}
-
-            <TextInput
-              placeholder="Title"
-              placeholderTextColor="#999"
-              style={styles.input}
-              value={title}
-              onChangeText={setTitle}
-            />
-            <TextInput
-              placeholder="Genre"
-              placeholderTextColor="#999"
-              style={styles.input}
-              value={genre}
-              onChangeText={setGenre}
-            />
-            <TextInput
-              placeholder="Description"
-              placeholderTextColor="#999"
-              multiline
-              style={styles.textarea}
-              value={description}
-              onChangeText={setDescription}
-            />
-            <TextInput
-              placeholder="Awards"
-              placeholderTextColor="#999"
-              style={styles.input}
-              value={awards}
-              onChangeText={setAwards}
-            />
-            <TextInput
-              placeholder="Release Date (YYYY-MM-DD)"
-              placeholderTextColor="#999"
-              style={styles.input}
-              value={releaseDate}
-              onChangeText={setReleaseDate}
-            />
-            <TextInput
-              placeholder="Link"
-              placeholderTextColor="#999"
-              style={styles.input}
-              value={link}
-              onChangeText={setLink}
-            />
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={handleBoth}
-            >
-              <Text style={styles.submitButtonText}>Submit</Text>
-            </TouchableOpacity>
+              return (
+                  <TouchableWithoutFeedback
+                      key={item._id}
+                      onPress={() => handlePress(item)}
+                      onLongPress={() => setSelectedToDelete(index)}
+                  >
+                    <View style={styles.movieItem}>
+                      <Image
+                          source={item.poster ? { uri: item.poster } : images.blank}
+                          style={{
+                            width: width * 0.44,
+                            height: height * 0.3,
+                            borderRadius: 10,
+                          }}
+                      />
+                      {isSelected && (
+                          <TouchableOpacity
+                              style={styles.deleteButton}
+                              onPress={() => {
+                                deleteMovie(item._id);
+                                setSelectedToDelete(null);
+                              }}
+                          >
+                            <Text style={styles.deleteButtonText}>X</Text>
+                          </TouchableOpacity>
+                      )}
+                      <View style={styles.titleWrapper}>
+                        <Text style={styles.titleText}>
+                          {item.title.length > 20
+                              ? item.title.slice(0, 10) + "..."
+                              : item.title || "No Title"}{" "}
+                          | {new Date(item.releaseDate).getFullYear()}
+                        </Text>
+                      </View>
+                    </View>
+                  </TouchableWithoutFeedback>
+              );
+            })}
           </View>
         </ScrollView>
-      )}
-    </View>
+
+        {showForm && (
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ minHeight: "100%", paddingBottom: 15 }}
+            >
+              <View style={styles.formContainer}>
+                <TouchableOpacity onPress={pickImage} style={styles.pickButton}>
+                  <Text style={styles.pickButtonText}>
+                    {poster ? "Change Poster" : "Upload Poster"}
+                  </Text>
+                </TouchableOpacity>
+
+                {poster && (
+                    <Image
+                        source={{ uri: poster }}
+                        style={styles.posterImage}
+                        resizeMode="cover"
+                    />
+                )}
+
+                <TextInput
+                    placeholder="Title"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={title}
+                    onChangeText={setTitle}
+                />
+                <TextInput
+                    placeholder="Genre"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={genre}
+                    onChangeText={setGenre}
+                />
+                <TextInput
+                    placeholder="Description"
+                    placeholderTextColor="#999"
+                    multiline
+                    style={styles.textarea}
+                    value={description}
+                    onChangeText={setDescription}
+                />
+                <TextInput
+                    placeholder="Awards"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={awards}
+                    onChangeText={setAwards}
+                />
+                <TextInput
+                    placeholder="Release Date (YYYY-MM-DD)"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={releaseDate}
+                    onChangeText={setReleaseDate}
+                />
+                <TextInput
+                    placeholder="Link"
+                    placeholderTextColor="#999"
+                    style={styles.input}
+                    value={link}
+                    onChangeText={setLink}
+                />
+                <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+                  <Text style={styles.submitButtonText}>Submit</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+        )}
+      </View>
   );
 };
 
