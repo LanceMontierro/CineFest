@@ -5,7 +5,7 @@ export default {
     name: "CineFest",
     slug: "CineFest",
     version: "1.0.0",
-    icon: "./assets/images/lgo3.png",
+    icon: "./assets/images/logo3.png",
     backgroundColor: "#000000",
     scheme: "myapp",
     userInterfaceStyle: "automatic",
@@ -21,7 +21,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/images/lgo3.png",
+        foregroundImage: "./assets/images/logo3.png",
         backgroundColor: "#000000",
       },
       package: "com.waitlangparr.CineFest",
@@ -38,7 +38,7 @@ export default {
       [
         "expo-splash-screen",
         {
-          image: "./assets/images/lgo3.png",
+          image: "./assets/images/logo3.png",
           imageWidth: 200,
           resizeMode: "contain",
           backgroundColor: "#000000",
